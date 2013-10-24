@@ -1,0 +1,5 @@
+# #+HTML: <a href="http://travis-ci.org/bzg/jecode"><img src="https://api.travis-ci.org/bzg/jecode.png"/></a>
+
+* License
+
+[[http://en.wikipedia.org/wiki/Eclipse_Public_License][Eclispe Public License]]
