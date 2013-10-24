@@ -1,17 +1,28 @@
 ![Bastien Guerry](http://bzg.fr/u/bg.jpg)
 
-### Pourquoi est-ce que je code ?
+### Pourquoi codes-tu ?
 
-C'est ma passion.
+C'est une passion.  Coder me détend, me donne la satisfaction de
+résoudre des problèmes et d'agir sur le monde avec d'autres
+développeurs.
 
-### Comment ai-je appris ?
+### Comment as-tu appris ?
 
-Seul.
+J'ai appris seul via Internet.  Je suis un vétéran d'Emacs et j'ai
+d'abord appris l'Emacs Lisp.  Le reste est venu tout seul : HTML, CSS,
+LaTeX, Clojure.
 
-### Quel est mon language préféré ?
+### Quel est ton langage préféré ?
 
-Lisp.
+![Emacs Lisp](https://fr.wikipedia.org/wiki/Emacs_Lisp).  Parce que la
+syntaxe est très simple, et que l'environnement de développement est
+très interactif.  J'apprends en ce moment
+![Clojure](https://fr.wikipedia.org/wiki/Clojure) parce que ce langage
+résout certains problèmes de manière très élégante.
 
-### Pourquoi les autres devraient-ils apprendre ?
+### Pourquoi tout le monde devrait-il apprendre ou être initié ?
 
-Pour pouvoir répondre eux-mêmes à cette question.
+Les concepts qu'on apprend en programmation sont essentiels pour faire
+un usage éclairés des outils informatiques.  Sans ces concepts, les
+usages sont aveugles, et les citoyens de simples consommateurs.
+
