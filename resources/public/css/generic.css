@@ -1,0 +1,81 @@
+@import url(http://fonts.googleapis.com/css?family=Brawler);
+
+body  {
+    font-family: Brawler;
+    font-size: 16pt;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 1.5em;
+    color: #2E2E2E;
+}
+
+.navbar {
+    font-size: 140%;
+    margin: auto;
+    width: 75%;
+    text-align: center;
+}
+
+.navbar li {
+    display:inline;
+    margin: 1em;
+    padding: 12px;
+    border-radius: 10px;
+}
+
+.navbar li:hover {
+    background-color: #B45F04;
+    }
+
+a {
+    text-decoration: none;
+}
+
+.navbar a:hover {
+    color: white;
+    }
+
+.container {
+    text-align: justify;
+    width: 75%; 
+    margin: auto; 
+    margin-top: 3em;
+    font-size:100%;
+    margin-bottom: 3em;
+}
+
+li.active {
+    background-color: #eee;
+}
+
+#twitter-widget-0 {
+    position: fixed; 
+    top: .7em; 
+    left:.7em;
+}
+
+.container img {
+    max-width: 200px;
+    float: right;
+    margin: 1em;
+}
+
+.jumbotron {
+    color: white;
+    padding: 1em;
+    background-color: #088A29;
+    border-radius: 8px;
+    font-size: 120%;
+    line-height: 1.5em;
+    box-shadow: 1px 1px 8px #555;
+}
+
+.jumbotron p {
+    margin:0;
+    padding:.3em;
+}
+
+.jumbotron a {
+    color: white;
+}
+
