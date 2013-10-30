@@ -1,4 +1,4 @@
-#+HTML: <a href="http://travis-ci.org/bzg/jecode"><img src="https://api.travis-ci.org/bzg/jecode.png"/></a>
+# #+HTML: <a href="http://travis-ci.org/bzg/jecode"><img src="https://api.travis-ci.org/bzg/jecode.png"/></a>
 
 * jecode.org
 
@@ -8,7 +8,7 @@ http://jecode.org.
 * Contribuer
 
 Vous pouvez contribuer en ajoutant vos réponses dans le répertoire
-resources/public/md/ -- regardez les autres interviews pour voir la
+=resources/public/md/= -- voyez les autres interviews pour voir la
 liste des questions.
 
 * License
