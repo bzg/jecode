@@ -1,5 +1,38 @@
-# Qu'est-ce que jecode.org ?
+### Qu'est-ce que jecode.org ?
 
 jecode.org rassemble des portraits de programmeurs passionnés, des
 initiatives encourageant l'apprentissage de la programmation, et des
 écoles qui pratiquent l'enseignement de l'informatique.
+
+### Puis-je ajouter mon portrait ?
+
+**Oui**.  Vous pouvez « forker » le dépôt git
+[jecode](https://github.com/bzg/jecode) et nous envoyer des *pull requests*,
+ou simplement nous envoyer un [mail](mailto:bzg@bzg.fr).  Votre
+portrait doit répondre à ces quatre questions:
+
+- Pourquoi codes-tu ?
+- Comment as-tu appris ?
+- Quel est ton langage préféré ?
+- Pourquoi chacun devrait-il apprendre à coder ou être initié ?
+
+### Qui êtes-vous ?
+
+jecode.org a été lancé par [David Roche](codeurs/david.roche), [Martin Quinson](codeurs/martin.quinson) et [Bastien Guerry](codeurs/bastien.guerry) en novembre 2013.
+
+### Pourquoi ?
+
+Nous pensons qu'il est important d'enseigner l'informatique à l'école.
+Pas seulement l'usage des outils informatiques, mais aussi et surtout
+les concepts et les techniques fondamentales de la programmation.
+
+### Quel sont vos buts ?
+
+Notre premier but est de sensibiliser le grand public.
+
+Notre deuxième but est de mettre en relation les acteurs de
+l'éducation nationale, les associations d'initiation à l'informatique
+et les collectivités territoriales, dans l'espoir de stimuler les
+activités scolaire autour de la programmation.
+
+
