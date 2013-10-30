@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <META http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Je code et vous devriez apprendre !</title>
+      <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+      <link type="text/css" rel="stylesheet" href="/css/generic.css" />
+      <title>Jecode.org: l'école doit nous apprendre à coder</title>
     </head>
 
    <script>
@@ -10,42 +11,34 @@
    (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
    m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
    })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
- 
    ga('create', 'UA-2658857-14', 'jecode.org');
    ga('send', 'pageview');
-
   </script>
 
     <body>
-        <!-- navbar -->
-        <div class="navbar navbar-inverse navbar-fixed-top">
-          <div class="container">
-            <!-- <div class="navbar-header"> -->
-            <!--   <a class="navbar-brand" href="{{servlet-context}}/">jecode</a> -->
-            <!-- </div> -->
-            <div class="navbar-collapse collapse ">
-              <ul class="nav navbar-nav">
-                  <li class="{{home-selected}}"><a href="{{servlet-context}}/">jecode.org</a></li>
-                  <li class="{{person-selected}}"><a href="{{servlet-context}}/codeurs">Codeurs</a></li>
-                  <li class="{{about-selected}}"><a href="{{servlet-context}}/apropos">À propos</a></li>
-              </ul>
-            </div>
-          </div>
-        </div>
 
-        <div class="container">
-            {% block content %}
-            {% endblock %}
-        </div>
-        <!-- scripts and styles -->
-        {% style "/css/bootstrap-theme.min.css" %}
-        {% style "/css/bootstrap.min.css" %}
-        {% style "/css/screen.css" %}
-        <script src="//code.jquery.com/jquery-2.0.3.min.js" type="text/javascript"></script>
-        {% script "/js/bootstrap.min.js" %}
-        <script type="text/javascript">
-            var context = "{{servlet-context}}";
-        </script>
+      <a href="https://twitter.com/share"
+	 class="twitter-share-button"
+	 data-lang="fr" data-size="large" data-count="yes"
+	 data-hashtags="jecode">Tweeter</a>
+
+      <script>!function(d,s,id){var
+      js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document,
+      'script', 'twitter-wjs');
+      </script>
+
+      <div class="navbar">
+        <ul class="nav">
+          <li class="{{home-selected}}"><a href="/">jecode.org</a></li>
+          <li class="{{person-selected}}"><a href="/codeurs">Codeurs</a></li>
+          <li class="{{about-selected}}"><a href="/apropos">À propos</a></li>
+        </ul>
+      </div>
+
+      <div class="container">
+        {% block content %}
+        {% endblock %}
+      </div>
     </body>
 </html>
 

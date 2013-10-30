@@ -1,18 +1,11 @@
 {% extends "jecode/views/templates/base.html" %}
 {% block content %}
- <div class="jumbotron">
-    <h1>jecode.org</h1>
-    <p>jecode.org rassemble des portraits de programmeurs passionnés,
+<div class="jumbotron">
+  <p>jecode.org rassemble des portraits de programmeurs passionnés,
     des initiatives encourageant l'apprentissage de la programmation,
     et des écoles qui s'intéressent à l'enseignement de
     l'informatique.</p>
-    <p><a class="btn btn-primary btn-large" href="apropos">En savoir
-    plus &raquo;</a></p>
  </div>
 
- <div class="row-fluid">
-    <div class="span8">
-    {{content|safe}}
-    </div>
- </div>
+{{content|safe}}
 {% endblock %}
