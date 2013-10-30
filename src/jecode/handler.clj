@@ -18,5 +18,3 @@
   (route/not-found "Not found"))
 
 (def app (middleware/app-handler [app-routes]))
-
-(def ring-handler (middleware/war-handler app))
