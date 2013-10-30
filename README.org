@@ -1,11 +1,11 @@
 # #+HTML: <a href="http://travis-ci.org/bzg/jecode"><img src="https://api.travis-ci.org/bzg/jecode.png"/></a>
 
-* jecode.org
+** jecode.org
 
 Ce dépôt =git= contient l'application web qui est derrière le site
 http://jecode.org.
 
-* Ajouter son interview
+** Ajouter son interview
 
 Vous pouvez contribuer en ajoutant vos réponses dans le répertoire
 =resources/public/md/= -- voyez les autres interviews pour la liste
@@ -13,11 +13,11 @@ des quatre questions auxquelles vous devez répondre.
 
 Toutes les interviews sont la propriété de leurs auteurs.
 
-* Contribuer à la plate-forme
+** Contribuer à la plate-forme
 
 Vous pouvez bien sûr nous envoyer des patches ou des pulls requests
 pour améliorer le code lui-même.
 
-* License
+** License
 
 Le code est sous licence [[http://en.wikipedia.org/wiki/Eclipse_Public_License][Eclispe Public License]].
