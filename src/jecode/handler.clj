@@ -15,6 +15,6 @@
   (GET "/codeurs" [] (render-page "person.html" "codeurs"))
   (GET "/codeurs/:person" [person] (render-page "person.html" person))
   (route/resources "/")
-  (route/not-found "Not found"))
+  (route/not-found (render-page "404.html" "404")))
 
 (def app (middleware/app-handler [app-routes]))
