@@ -55,7 +55,9 @@ li.active {
 }
 
 .container img {
+    display: block;
     max-width: 170px;
+    border-radius: 50%;
     float: right;
     margin: 2em;
 }
