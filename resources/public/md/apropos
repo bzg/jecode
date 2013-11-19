@@ -4,6 +4,12 @@ jecode.org rassemble des portraits de programmeurs passionnés, des
 initiatives encourageant l'apprentissage de la programmation, et des
 écoles qui pratiquent l'enseignement de l'informatique.
 
+### Pourquoi ?
+
+Nous pensons qu'il est important d'enseigner l'informatique à l'école.
+Pas seulement l'usage des outils informatiques, mais aussi et surtout
+les concepts et les techniques fondamentales de la programmation.
+
 ### Puis-je ajouter mon portrait ?
 
 **Oui**.  Vous pouvez « forker » le dépôt git
@@ -20,12 +26,6 @@ portrait doit répondre à ces quatre questions:
 
 jecode.org a été lancé par [David Roche](codeurs/david.roche), [Martin Quinson](codeurs/martin.quinson) et [Bastien Guerry](codeurs/bastien.guerry) en novembre 2013.
 
-### Pourquoi ?
-
-Nous pensons qu'il est important d'enseigner l'informatique à l'école.
-Pas seulement l'usage des outils informatiques, mais aussi et surtout
-les concepts et les techniques fondamentales de la programmation.
-
 ### Quel sont vos buts ?
 
 Notre premier but est de sensibiliser le grand public.
@@ -34,5 +34,3 @@ Notre deuxième but est de mettre en relation les acteurs de
 l'éducation nationale, les associations d'initiation à l'informatique
 et les collectivités territoriales, dans l'espoir de stimuler les
 activités scolaire autour de la programmation.
-
-
