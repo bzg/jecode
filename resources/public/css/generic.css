@@ -81,3 +81,9 @@ li.active {
     color: white;
 }
 
+#who {
+    font-style:italic;
+    background-color: #eee;
+    padding: .4em;
+    border-radius: 8px;
+}
