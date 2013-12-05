@@ -20,4 +20,4 @@ pour améliorer le code lui-même.
 
 ** License
 
-Le code est sous licence [[http://en.wikipedia.org/wiki/Eclipse_Public_License][Eclispe Public License]].
+Le code est sous licence [[http://en.wikipedia.org/wiki/Eclipse_Public_License][Eclipse Public License]].
