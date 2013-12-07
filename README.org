@@ -18,6 +18,23 @@ Toutes les interviews sont la propriété de leurs auteurs.
 Vous pouvez bien sûr nous envoyer des patches ou des pulls requests
 pour améliorer le code lui-même.
 
+** À faire
+
+- Refaire la page d'accueil et
+  - y montrer la liste des interview dans un ordre aléatoire
+  - y afficher la photo/nom/description avec un lien vers l'itw
+
+- Faire une page de formulaire pour saisir le nom d'une association
+  d'initiation à la programmation (avec un contact référent)
+
+- Faire une page de formulaire pour saisir le nom d'une école qui est
+  en lien ou souhaite être en lien avec une telle associations (avec
+  contact référent)
+
+- Afficher les informations sur les associations et les écoles
+  - sous forme de listes
+  - sous forme de carte
+
 ** License
 
-Le code est sous licence [[http://en.wikipedia.org/wiki/Eclipse_Public_License][Eclispe Public License]].
+Le code est sous licence [[http://en.wikipedia.org/wiki/Eclipse_Public_License][Eclipse Public License]].
