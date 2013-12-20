@@ -6,11 +6,11 @@
   :immutant {:context-path "/" :nrepl-port 4005}
   :dependencies
   [[org.clojure/clojure "1.5.1"]
-   [lib-noir "0.7.5"]
-   [selmer "0.5.2"]
+   [lib-noir "0.7.8"]
+   [selmer "0.5.4"]
    [compojure "1.1.6"]
    [ring-server "0.3.1"]
-   [markdown-clj "0.9.35"]]
+   [markdown-clj "0.9.36"]]
   :url "http://jecode.org"
   :description "jecode.org"
   :min-lein-version "2.0.0")
