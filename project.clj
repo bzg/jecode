@@ -3,7 +3,7 @@
   :url "http://github.com/bzg/jecode"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
-  :immutant {:context-path "/" :nrepl-port 4005}
+  :immutant {:context-path "/"}
   :dependencies
   [[org.clojure/clojure "1.5.1"]
    [lib-noir "0.7.9"]
