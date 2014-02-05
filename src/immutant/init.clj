@@ -2,4 +2,4 @@
   (:use jecode.handler)
   (:require [immutant.web :as web]))
 
-(web/start #'app)
+(web/start "/jecode" app)
