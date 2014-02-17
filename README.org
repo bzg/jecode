@@ -13,10 +13,20 @@ des quatre questions auxquelles vous devez répondre.
 
 Toutes les interviews sont la propriété de leurs auteurs.
 
-** Contribuer à la plate-forme
+** Contribuer à ce dépôt
 
 Vous pouvez bien sûr nous envoyer des patches ou des pulls requests
 pour améliorer le code lui-même.
+
+** Rejoindre la communauté jecode.org
+
+Vous pouvez rejoindre nos discussions en vous inscrivant à la [[http://listes.jecode.org/cgi-bin/mailman/listinfo/discussion][liste de
+discussion]] et en postant des liens sur le [[http://forum.jecode.org][forum]].  Vous pouvez aussi
+vous plonger dans le [[http://wiki.jecode.org][wiki]], qui nous sert de bloc-notes pour
+centraliser l'information et organiser nos projets.
+
+Le wiki nous sert de bloc-notes pour centraliser l'information sur ce
+sujet et nous organiser pour des tâches à accomplir.
 
 ** À faire
 
