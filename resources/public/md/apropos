@@ -12,10 +12,10 @@ les concepts et les techniques fondamentales de la programmation.
 
 ### Puis-je ajouter mon portrait ?
 
-**Oui**.  Vous pouvez « forker » le dépôt git
-[jecode](https://github.com/bzg/jecode) et nous envoyer des *pull requests*,
-ou simplement nous envoyer un [mail](mailto:bzg@bzg.fr).  Votre
-portrait doit répondre à ces quatre questions:
+**Bien sûr !**.  Il suffit pour cela de « forker » le dépôt git
+[jecode](https://github.com/bzg/jecode) et nous envoyer un *pull
+request*.  Si vous préférez, vous pouvez simplement nous envoyer un
+[mail](mailto:bzg@bzg.fr) en répondant à ces quatre questions:
 
 - Pourquoi codes-tu ?
 - Comment as-tu appris ?
