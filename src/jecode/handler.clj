@@ -2,10 +2,10 @@
   (:require [noir.util.middleware :as middleware]
             [jecode.util :refer :all]
             [noir.session :as session]
+            [net.cgrand.enlive-html :as html]
             [clojurewerkz.scrypt.core :as sc]
             [jecode.db :refer :all]
             [jecode.model :refer :all]
-            [jecode.views.layout :as layout]
             [jecode.views.templates :refer :all]
             [compojure.core :as compojure :refer (GET POST defroutes)]
             (compojure [route :as route])
@@ -14,10 +14,6 @@
                              [credentials :as creds])
             [cemerick.friend.credentials :refer (hash-bcrypt)]
             [shoreleave.middleware.rpc :refer [wrap-rpc]]))
-
-(defn render-page [tpl page]
-  (layout/render
-   tpl {:content (md->html (str "/md/" page))}))
 
 (defn- load-user
   "Load a user from her username."
@@ -47,8 +43,8 @@
                  :credential-fn (partial scrypt-credential-fn load-user))]}))
 
 (defroutes app-routes 
-  (GET "/" [] (render-page "home.html" "accueil"))
-  (GET "/apropos" [] (render-page "about.html" "apropos"))
+  (GET "/" [] (main-tpl {:container "" :md "/md/accueil"}))
+  (GET "/apropos" [] (main-tpl {:container "" :md "/md/apropos"}))
   (GET "/carte" [] (map-page))
   (GET "/proposer" [] (new-initiative))
   (POST "/proposer" {params :params}
@@ -64,9 +60,9 @@
   (GET "/activer/:authid" [authid]
        (do (activate-user authid)
            (main-tpl {:container "Utilisateur actif !"})))
-  (GET "/codeurs" [] (render-page "person.html" "codeurs"))
-  (GET "/codeurs/:person" [person] (render-page "person.html" person))
+  (GET "/codeurs" [] (main-tpl {:container "" :md "/md/codeurs"}))
+  (GET "/codeurs/:person" [person] (main-tpl {:container "" :md (str "/md/" person)}))
   (route/resources "/")
-  (route/not-found (render-page "404.html" "404")))
+  (route/not-found (main-tpl {:container "" :md "/md/404"})))
 
 (def app (middleware/app-handler [(wrap-friend (wrap-rpc app-routes))]))

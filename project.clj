@@ -7,12 +7,10 @@
   :dependencies
   [[org.clojure/clojure "1.5.1"]
    [lib-noir "0.8.0"]
-   [selmer "0.5.9"]
    [domina "1.0.2"]
    [compojure "1.1.6"]
    [clojurewerkz/scrypt "1.1.0"]
    [ring-server "0.3.1"]
-   ;; [org.clojure/clojurescript "0.0-2156"]
    [org.clojure/clojurescript "0.0-1859"]
    [net.drib/blade "0.1.0"]
    [com.cemerick/friend "0.2.0" :exclusions [org.clojure/core.cache]]
