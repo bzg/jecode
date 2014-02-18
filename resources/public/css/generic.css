@@ -28,6 +28,7 @@ body {
     margin:1em;
     top: 0px;
     right: 0px;
+    font-size: 12pt;
 }
 
 #login, #register {
@@ -55,4 +56,8 @@ button {
 .jumbotron {
     margin:1em;
     border-radius:10px;
+}
+
+h2 {
+    margin-bottom: .7em;
 }
