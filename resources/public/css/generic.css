@@ -10,11 +10,10 @@ body {
     color: #2E2E2E;
 }
 
-#map { 
-    position:absolute; 
-    top:80px; 
-    height: 555px;
-    width:70%; 
+#map {
+    position:relative;
+    height: 500px;
+    min-width:100%;
 }
 
 #twitter {
@@ -24,23 +23,29 @@ body {
     top:0px;
 }
 
-.container2 {
-    font-size: 14pt;
+#log {
+    position:fixed;
+    margin:1em;
+    top: 0px;
+    right: 0px;
 }
 
-form {
+#login, #register {
     text-align:center;
     padding-top:1em;
     margin:auto;
     width:50%;
 }
 
-button {
-    margin:1em;
+#submit-initiative {
+    padding-top:1em;
 }
 
-.container2 img {
-    display: block;
+button {
+    margin:.4em;
+}
+
+#container2 img {
     max-width: 170px;
     border-radius: 50%;
     float: right;
@@ -51,4 +56,3 @@ button {
     margin:1em;
     border-radius:10px;
 }
-

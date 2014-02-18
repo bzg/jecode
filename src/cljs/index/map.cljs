@@ -15,14 +15,16 @@
      (get-initiatives) [res]
      (.addLayers
       markers
-      (map #(let [{:keys [name url lat lon logo pid isadmin]} %
-                  join (when isadmin "Admin")
+      (map #(let [{:keys [name url lat lon desc pid isadmin]} %
+                  join (when isadmin "(Inscrit par vous.)")
                   icon ((get-in L [:mapbox :marker :icon])
                         {:marker-symbol ""
                          :marker-color "0044FF"})
                   marker (-> L (.marker (L/LatLng. lat lon) {:icon icon}))]
               (.bindPopup marker (str "<a target=\"new\" href=\"" url "\">"
-                                      name "</a><br/>" join))
+                                      name "</a><br/>"
+                                      desc "<br/>"
+                                      join))
               marker)
            res)))
     (.addLayer mymap markers)))

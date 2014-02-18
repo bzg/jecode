@@ -7,6 +7,7 @@
             [jecode.db :refer :all]
             [jecode.model :refer :all]
             [jecode.views.templates :refer :all]
+            [ring.util.response :as resp]
             [compojure.core :as compojure :refer (GET POST defroutes)]
             (compojure [route :as route])
             [cemerick.friend :as friend]
@@ -43,26 +44,28 @@
                  :credential-fn (partial scrypt-credential-fn load-user))]}))
 
 (defroutes app-routes 
-  (GET "/" [] (main-tpl {:container "" :md "/md/accueil"}))
-  (GET "/apropos" [] (main-tpl {:container "" :md "/md/apropos"}))
-  (GET "/carte" [] (map-page))
-  (GET "/proposer" [] (new-initiative))
+  (GET "/" [] (main-tpl {:a "accueil" :jumbo "/md/description" :md "/md/accueil"}))
+  (GET "/apropos" [] (main-tpl {:a "apropos" :md "/md/apropos"}))
+  (GET "/carte" [] (main-tpl {:a "carte" :map "show" :md "/md/carte"}))
+  (GET "/proposer" []
+       (friend/authorize
+        #{::users}
+        (main-tpl {:a "carte" :container (new-init-snp) :map "new"})))
   (POST "/proposer" {params :params}
         (do (create-new-initiative params)
-            (main-tpl {:container "Initiative ajoutée, merci !"})))
-  (GET "/login" req (login req))
-  (GET "/logout" req (logout req))
-  (GET "/inscription" [] (register))
-  (GET "/test" req (pr-str req))
+            (main-tpl {:a "carte" :container "Initiative ajoutée, merci !"})))
+  (GET "/login" [] (main-tpl {:a "accueil" :container (login-snp)}))
+  (GET "/logout" req (friend/logout* (resp/redirect (str (:context req) "/"))))
+  (GET "/inscription" [] (main-tpl {:a "accueil" :container (register-snp)}))
   (POST "/inscription" {params :params}
         (do (create-new-user params)
-            (main-tpl {:container "Merci!"})))
+            (main-tpl {:a "accueil" :container "Merci!"})))
   (GET "/activer/:authid" [authid]
        (do (activate-user authid)
-           (main-tpl {:container "Utilisateur actif !"})))
-  (GET "/codeurs" [] (main-tpl {:container "" :md "/md/codeurs"}))
-  (GET "/codeurs/:person" [person] (main-tpl {:container "" :md (str "/md/" person)}))
+           (main-tpl {:a "accueil" :container "Utilisateur actif !"})))
+  (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/codeurs"}))
+  (GET "/codeurs/:person" [person] (main-tpl {:a "codeurs" :md (str "/md/" person)}))
   (route/resources "/")
-  (route/not-found (main-tpl {:container "" :md "/md/404"})))
+  (route/not-found "404"))
 
 (def app (middleware/app-handler [(wrap-friend (wrap-rpc app-routes))]))

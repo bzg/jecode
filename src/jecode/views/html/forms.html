@@ -10,16 +10,18 @@
   <div class="input-group">
     <input class="form-control" type="text" id="email" name="email" value="" placeholder="Email" />
     <input class="form-control" type="password" id="password" name="password" placeholder="Mot de passe" />
-    <button type="submit" class="btn btn-info">Inscription</button>
+    <button type="submit" class="btn btn-danger">Inscription</button>
   </div>
 </form>
 
 <form id="submit-initiative" action="/proposer" method="post">
   <div class="input-group">
     <input class="form-control" type="text" name="pname" placeholder="Nom de l'initiative" />
-    <input class="form-control" type="text" name="purl" placeholder="Site web" />
+    <input class="form-control" type="text" name="purl" placeholder="URL du site web" />
+    <input class="form-control" type="text" name="desc" placeholder="Description sommaire" />
     <input class="form-control" type="hidden" id="lat" name="lat" placeholder="Latitude" />
     <input class="form-control" type="hidden" id="lon" name="lon" placeholder="Longitude" />
+    <br/>
     <p>Situez votre projet en cliquant sur la carte.</p>
     <button type="submit" class="btn btn-info">Ajouter</button>
   </div>

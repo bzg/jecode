@@ -1,7 +1,7 @@
 (ns jecode.views.templates
   (:require [net.cgrand.enlive-html :as html]
-            [jecode.util :refer :all]
-            ))
+            [noir.session :as session]
+            [jecode.util :refer :all]))
 
 ;;; * Utility functions
 
@@ -9,25 +9,6 @@
   "Maybe content."
   ([expr] `(if-let [x# ~expr] (html/content x#) identity))
   ([expr & exprs] `(maybe-content (or ~expr ~@exprs))))
-
-;;; * Template
-
-(html/deftemplate ^{:doc "Main index template"}
-  main-tpl "jecode/views/html/base.html"
-  [{:keys [container md]}]
-  [:#container2] (if md
-                  (html/html-content (md->html md))
-                  (maybe-content container)))
-
-(html/deftemplate ^{:doc "Main index template"}
-  map-tpl "jecode/views/html/map.html"
-  [{:keys [container]}]
-  [:#container2] (maybe-content container))
-
-(html/deftemplate ^{:doc "Main index template"}
-  init-tpl "jecode/views/html/init.html"
-  [{:keys [container]}]
-  [:#container2] (maybe-content container))
 
 ;;; * Generic snippets
 
@@ -40,19 +21,33 @@
 (html/defsnippet ^{:doc "Snippet for the register form."}
   new-init-snp "jecode/views/html/forms.html" [:#submit-initiative] [])
 
-;;; * Views
+;;; * Template
 
-(defn login-page []
-  (main-tpl {:container (login-snp)}))
-
-(defn register-page []
-  (main-tpl {:container (register-snp)}))
-
-(defn newinit-page []
-  (init-tpl {:container (new-init-snp)}))
-
-(defn map-page []
-  (map-tpl {:container "Map"}))
+(html/deftemplate ^{:doc "Main index template"}
+  main-tpl "jecode/views/html/base.html"
+  [{:keys [container md jumbo map a]}]
+  [:#container2] (if md (html/html-content
+                         (md->html jumbo) (md->html md))
+                     (maybe-content container))
+  [:#accueil] (html/set-attr :class (if (= a "accueil") "active"))
+  [:#codeurs] (html/set-attr :class (if (= a "codeurs") "active"))
+  [:#carte] (html/set-attr :class (if (= a "carte") "active"))
+  [:#apropos] (html/set-attr :class (if (= a "apropos") "active"))
+  [:#map] (cond (= map "show") (html/set-attr :style "width:70%")
+                (= map "new") (html/set-attr :style "max-height:300px;")
+                :else (html/set-attr :style "display:none"))
+  [:#log :a#login] (if (session/get :username)
+                  (html/do-> (html/set-attr :href "/logout")
+                             (maybe-content "Déconnexion"))
+                  (html/do-> (html/set-attr :href "/login")
+                             (maybe-content "Connexion")))
+  [:#log :a#signin] (if (session/get :username)
+                      (html/set-attr :style "display:none")
+                      (maybe-content "Inscription"))
+  [:#mapjs] (html/html-content
+             (cond (= map "show") "<script src=\"/js/index.js\" type=\"text/javascript\"></script>"
+                   (= map "new") "<script src=\"/js/newinit.js\" type=\"text/javascript\"></script>"
+                   :else "")))
 
 ;;; * Local variables
 

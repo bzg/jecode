@@ -6,30 +6,11 @@
    [jecode.views.templates :refer :all]
    [taoensso.carmine :as car]
    [clojurewerkz.scrypt.core :as sc]
-   [ring.util.response :as resp]
    [postal.core :as postal]
    [cemerick.friend :as friend]
    (cemerick.friend [workflows :as workflows]
                     [credentials :as creds])
    [shoreleave.middleware.rpc :refer [defremote wrap-rpc]]))
-
-(defn login
-  "Display the login page."
-  [req]
-  (login-page))
-
-(defn logout [req]
-  (friend/logout* (resp/redirect (str (:context req) "/"))))
-
-(defn register
-  "Register a new user account."
-  []
-  (register-page))
-
-(defn new-initiative
-  "Register a new initiative."
-  []
-  (newinit-page))
 
 (defn send-activation-email [email activation-link]
   (postal/send-message
@@ -43,8 +24,7 @@
 
 (defn activate-user [authid]
   (let [guid (wcar* (car/get (str "auth:" authid)))]
-    (wcar* (car/hset (str "uid:" guid) "active" 1))
-    "Votre compte est activé, merci !"))
+    (wcar* (car/hset (str "uid:" guid) "active" 1))))
 
 (defn create-new-user
   "Create a new user."
@@ -65,17 +45,16 @@
 
 (defn create-new-initiative
   "Create a new initiative."
-  [{:keys [pname purl lat lon]}]
+  [{:keys [pname purl desc lat lon]}]
   (wcar* (car/incr "global:pid"))
   (let [pid (wcar* (car/get "global:pid"))
         uname (session/get :username)
         uid (get-username-uid uname)]
     (wcar* (car/hmset
             (str "pid:" pid)
-            "name" pname "url" purl
+            "name" pname "url" purl "desc" desc
             "lat" lat "lon" lon "updated" (java.util.Date.)))
     (wcar* (car/rpush "timeline" pid))
     (wcar* (car/set (str "pid:" pid ":auid") uid))
-    (wcar* (car/sadd (str "uid:" uid ":apid") pid))
-    "Nouveau projet ajouté"))
+    (wcar* (car/sadd (str "uid:" uid ":apid") pid))))
 
