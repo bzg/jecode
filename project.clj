@@ -11,7 +11,7 @@
    [compojure "1.1.6"]
    [clojurewerkz/scrypt "1.1.0"]
    [ring-server "0.3.1"]
-   [org.clojure/clojurescript "0.0-1859"]
+   [org.clojure/clojurescript "0.0-2156"]
    [net.drib/blade "0.1.0"]
    [com.cemerick/friend "0.2.0" :exclusions [org.clojure/core.cache]]
    [com.taoensso/carmine "2.4.6"]
