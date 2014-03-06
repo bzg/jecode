@@ -9,6 +9,7 @@
             [jecode.views.templates :refer :all]
             [ring.util.response :as resp]
             [compojure.core :as compojure :refer (GET POST defroutes)]
+            [org.httpkit.server :refer :all]
             (compojure [route :as route])
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
@@ -69,3 +70,6 @@
   (route/not-found "404"))
 
 (def app (middleware/app-handler [(wrap-friend (wrap-rpc app-routes))]))
+
+(defn -main [& args]
+  (run-server #'app {:port 8080}))
