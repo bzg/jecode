@@ -1,7 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Brawler);
 
 body {
-    width:70%;
+    width:67%;
     margin:1em auto 3em auto;
     font-family: Brawler;
     font-size: 15pt;
@@ -16,11 +16,20 @@ body {
     min-width:100%;
 }
 
-#twitter {
+img.logo {
     position:fixed;
-    margin:1em;
+    margin:.2em;
     left:0px;
     top:0px;
+    width: 15%;
+}
+
+
+.twitter-share-button {
+    position: fixed;
+    bottom: 1em;
+    left: 1em;
+    background-color: white;
 }
 
 #log {
