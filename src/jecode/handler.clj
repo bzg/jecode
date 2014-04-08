@@ -1,5 +1,7 @@
 (ns jecode.handler
   (:require [noir.util.middleware :as middleware]
+            [hiccup.page :as h]
+            [hiccup.element :as e]
             [jecode.util :refer :all]
             [noir.session :as session]
             [net.cgrand.enlive-html :as html]
@@ -33,7 +35,7 @@
       (when (sc/verify password (get creds password-key))
         (dissoc creds password-key)))))
 
-(defn wrap-friend [handler]
+(defn- wrap-friend [handler]
   "Wrap friend authentication around handler."
   (friend/authenticate
    handler
@@ -43,6 +45,17 @@
                  :login-uri "/login"
                  :default-landing-uri "/carte"
                  :credential-fn (partial scrypt-credential-fn load-user))]}))
+
+(defn- four-oh-four []
+  (h/html5
+   [:head
+    [:title "jecode.org -- page non trouvée"]
+    (h/include-css "/css/generic.css")]
+   [:body
+    (e/image {:class "logo"} "/pic/jecode_petit.png")
+    [:p "Page non trouvée :/"]
+    [:p "Retour à la "
+     (e/link-to "http://jecode.org" "page d'accueil")]]))
 
 (defroutes app-routes 
   (GET "/" [] (main-tpl {:a "accueil" :jumbo "/md/description" :md "/md/accueil"}))
@@ -67,7 +80,9 @@
   (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/codeurs"}))
   (GET "/codeurs/:person" [person] (main-tpl {:a "codeurs" :md (str "/md/" person)}))
   (route/resources "/")
-  (route/not-found "404"))
+  (route/not-found (four-oh-four)))
+
+   ;; (md->html "/md/404")))
 
 (def app (middleware/app-handler [(wrap-friend (wrap-rpc app-routes))]))
 
