@@ -9,8 +9,7 @@
    [postal.core :as postal]
    [cemerick.friend :as friend]
    (cemerick.friend [workflows :as workflows]
-                    [credentials :as creds])
-   [shoreleave.middleware.rpc :refer [defremote wrap-rpc]]))
+                    [credentials :as creds])))
 
 (defn send-activation-email [email activation-link]
   (postal/send-message
