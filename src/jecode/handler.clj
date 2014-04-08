@@ -82,8 +82,6 @@
   (route/resources "/")
   (route/not-found (four-oh-four)))
 
-   ;; (md->html "/md/404")))
-
 (def app (middleware/app-handler [(wrap-friend (wrap-rpc app-routes))]))
 
 (defn -main [& args]
