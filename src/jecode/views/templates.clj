@@ -44,10 +44,11 @@
   [:#log :a#signin] (if (session/get :username)
                       (html/set-attr :style "display:none")
                       (maybe-content "Inscription"))
-  [:#mapjs] (html/html-content
-             (cond (= map "show") "<script src=\"/js/index.js\" type=\"text/javascript\"></script>"
-                   (= map "new") "<script src=\"/js/newinit.js\" type=\"text/javascript\"></script>"
-                   :else "")))
+  [:#mapjs]
+  (html/html-content
+   (cond (= map "show") "<script src=\"/js/index.js\" type=\"text/javascript\"></script>"
+         (= map "new") "<script src=\"/js/newinit.js\" type=\"text/javascript\"></script>"
+         :else "")))
 
 ;;; * Local variables
 
