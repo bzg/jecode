@@ -77,8 +77,8 @@
   (GET "/activer/:authid" [authid]
        (do (activate-user authid)
            (main-tpl {:a "accueil" :container "Utilisateur actif !"})))
-  (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/codeurs"}))
-  (GET "/codeurs/:person" [person] (main-tpl {:a "codeurs" :md (str "/md/" person)}))
+  (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/liste_codeurs"}))
+  (GET "/codeurs/:person" [person] (main-tpl {:a "codeurs" :md (str "/md/codeurs/" person)}))
   (route/resources "/")
   (route/not-found (four-oh-four)))
 
