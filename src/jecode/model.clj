@@ -2,7 +2,7 @@
   (:require
    [taoensso.carmine :as car]
    [noir.session :as session]
-   [shoreleave.middleware.rpc :refer [defremote wrap-rpc]]))
+   [shoreleave.middleware.rpc :refer [defremote]]))
 
 (def server1-conn
   {:pool {} :spec {:uri "redis://localhost:6379/"}})
