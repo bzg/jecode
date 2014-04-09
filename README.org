@@ -7,16 +7,22 @@ http://jecode.org.
 
 ** Ajouter son interview
 
-Vous pouvez contribuer en ajoutant vos réponses dans le répertoire
-=resources/public/md/= -- voyez les autres interviews pour la liste
-des quatre questions auxquelles vous devez répondre.
+Vous pouvez contribuer en ajoutant vos réponses dans un fichier du
+type =prenom.nom= à l'intérieur du répertoire
+=resources/public/md/codeurs/= -- voyez les autres interviews pour la
+liste des quatre questions auxquelles vous devez répondre.
 
-Toutes les interviews sont la propriété de leurs auteurs.
+N'oubliez pas de lister votre nom dans le fichier
+=resources/public/md/liste_codeurs=.
+
+Toutes les interviews sont la propriété de leurs auteurs et peuvent
+être modifiées ou supprimées à tout moment.
 
 ** Contribuer à ce dépôt
 
-Vous pouvez bien sûr nous envoyer des patches ou des pulls requests
-pour améliorer le code lui-même.
+Vous pouvez bien sûr nous envoyer des /patches/ ou des /pulls
+requests/ pour améliorer le code lui-même -- en particulier pour
+tout ce qui touche au /frontend/.
 
 ** Rejoindre la communauté jecode.org
 

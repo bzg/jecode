@@ -14,7 +14,7 @@
   </div>
 </form>
 
-<form id="submit-initiative" action="/proposer" method="post">
+<form id="submit-initiative" action="/initiatives/nouvelle" method="post">
   <div class="input-group">
     <input class="form-control" type="text" name="pname" placeholder="Nom de l'initiative" />
     <input class="form-control" type="text" name="purl" placeholder="URL du site web" />
@@ -23,6 +23,19 @@
     <input class="form-control" type="hidden" id="lon" name="lon" placeholder="Longitude" />
     <br/>
     <p>Situez votre projet en cliquant sur la carte.</p>
+    <button type="submit" class="btn btn-info">Ajouter</button>
+  </div>
+</form>
+
+<form id="submit-event" action="/evenements/nouveau" method="post">
+  <div class="input-group">
+    <input class="form-control" type="text" name="pname" placeholder="Nom de l'événement" />
+    <input class="form-control" type="text" name="purl" placeholder="URL de l'événement" />
+    <input class="form-control" type="text" name="desc" placeholder="Description sommaire" />
+    <input class="form-control" type="hidden" id="lat" name="lat" placeholder="Latitude" />
+    <input class="form-control" type="hidden" id="lon" name="lon" placeholder="Longitude" />
+    <br/>
+    <p>Situez votre événement en cliquant sur la carte.</p>
     <button type="submit" class="btn btn-info">Ajouter</button>
   </div>
 </form>

@@ -1,4 +1,4 @@
-(ns jecode.map
+(ns jecode.showevents
   (:require [mrhyde.extend-js]
             [blade :refer [L]]
             [shoreleave.remotes.http-rpc :refer [remote-callback]])
@@ -9,10 +9,10 @@
 (def mymap (-> L .-mapbox (.map "map" "examples.map-9ijuk24y")
                (.setView [45 3.215] 6)))
 
-(defn- add-initiatives []
+(defn- add-events []
   (let [markers (L/MarkerClusterGroup.)]
     (macros/rpc
-     (get-initiatives) [res]
+     (get-events) [res]
      (.addLayers
       markers
       (map #(let [{:keys [name url lat lon desc pid isadmin]} %
@@ -29,4 +29,4 @@
            res)))
     (.addLayer mymap markers)))
 
-(set! (.-onload js/window) add-initiatives)
+(set! (.-onload js/window) add-events)

@@ -21,6 +21,9 @@
 (html/defsnippet ^{:doc "Snippet for the register form."}
   new-init-snp "jecode/views/html/forms.html" [:#submit-initiative] [])
 
+(html/defsnippet ^{:doc "Snippet for the register form."}
+  new-event-snp "jecode/views/html/forms.html" [:#submit-event] [])
+
 ;;; * Template
 
 (html/deftemplate ^{:doc "Main index template"}
@@ -31,10 +34,13 @@
                      (maybe-content container))
   [:#accueil] (html/set-attr :class (if (= a "accueil") "active"))
   [:#codeurs] (html/set-attr :class (if (= a "codeurs") "active"))
-  [:#carte] (html/set-attr :class (if (= a "carte") "active"))
+  [:#initiatives] (html/set-attr :class (if (= a "initiatives") "active"))
+  [:#evenements] (html/set-attr :class (if (= a "evenements") "active"))
   [:#apropos] (html/set-attr :class (if (= a "apropos") "active"))
-  [:#map] (cond (= map "show") (html/set-attr :style "width:70%")
-                (= map "new") (html/set-attr :style "max-height:300px;")
+  [:#map] (cond (or (= map "showinits") (= map "showevents"))
+                (html/set-attr :style "width:70%")
+                (or (= map "newinit") (= map "newevent"))
+                (html/set-attr :style "max-height:500px;")
                 :else (html/set-attr :style "display:none"))
   [:#log :a#login] (if (session/get :username)
                   (html/do-> (html/set-attr :href "/logout")
@@ -46,8 +52,10 @@
                       (maybe-content "Inscription"))
   [:#mapjs]
   (html/html-content
-   (cond (= map "show") "<script src=\"/js/index.js\" type=\"text/javascript\"></script>"
-         (= map "new") "<script src=\"/js/newinit.js\" type=\"text/javascript\"></script>"
+   (cond (= map "showinits") "<script src=\"/js/showinits.js\" type=\"text/javascript\"></script>"
+         (= map "newinit") "<script src=\"/js/newinit.js\" type=\"text/javascript\"></script>"
+         (= map "showevents") "<script src=\"/js/showevents.js\" type=\"text/javascript\"></script>"
+         (= map "newevent") "<script src=\"/js/newevent.js\" type=\"text/javascript\"></script>"
          :else "")))
 
 ;;; * Local variables

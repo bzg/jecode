@@ -30,13 +30,24 @@
   :plugins
   [[lein-cljsbuild "0.3.2"]]
   :cljsbuild {:builds
-              [{:source-paths ["src/cljs/index"]
+              [{:source-paths ["src/cljs/showinit"]
                 :compiler
-                {:output-to "resources/public/js/index.js"
+                {:output-to "resources/public/js/showinits.js"
+                 :optimizations :whitespace
+                 :pretty-print false}}
+               {:source-paths ["src/cljs/showevent"]
+                :compiler
+                {:output-to "resources/public/js/showevents.js"
                  :optimizations :whitespace
                  :pretty-print false}}
                {:source-paths ["src/cljs/newinit"]
                 :compiler
                 {:output-to "resources/public/js/newinit.js"
                  :optimizations :whitespace
-                 :pretty-print false}}]})
+                 :pretty-print false}}
+               {:source-paths ["src/cljs/newevent"]
+                :compiler
+                {:output-to "resources/public/js/newevent.js"
+                 :optimizations :whitespace
+                 :pretty-print false}}
+               ]})

@@ -41,6 +41,12 @@
   (= (wcar* (car/get (str "pid:" pid ":auid")))
      (get-username-uid username)))
 
+(defn username-admin-of-eid?
+  "True is username is the admin of event eid."
+  [username eid]
+  (= (wcar* (car/get (str "eid:" eid ":auid")))
+     (get-username-uid username)))
+
 ;; (defn username-member-of-pid?
 ;;   "True is username is a member of project pid."
 ;;   [username pid]
@@ -61,3 +67,15 @@ Each initiative is represented as a hash-map."
           :isadmin (username-admin-of-pid?
                     (session/get :username) %))
        (wcar* (car/lrange "timeline" 0 -1))))
+
+(defremote get-events
+  "Return the list of events.
+Each event is represented as a hash-map."
+  []
+  (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str "eid:" %))))
+          :eid %
+          ;; :ismember (username-member-of-pid?
+          ;;            (session/get :username) %)
+          :isadmin (username-admin-of-eid?
+                    (session/get :username) %))
+       (wcar* (car/lrange "timeline_events" 0 -1))))

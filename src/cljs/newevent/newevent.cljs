@@ -1,4 +1,4 @@
-(ns jecode.map
+(ns jecode.newevent
   (:require [mrhyde.extend-js]
             [blade :refer [L]]
             [domina :as dom]))

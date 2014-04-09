@@ -57,3 +57,18 @@
     (wcar* (car/set (str "pid:" pid ":auid") uid))
     (wcar* (car/sadd (str "uid:" uid ":apid") pid))))
 
+(defn create-new-event
+  "Create a new event."
+  [{:keys [ename eurl desc lat lon]}]
+  (wcar* (car/incr "global:eid"))
+  (let [eid (wcar* (car/get "global:eid"))
+        uname (session/get :username)
+        uid (get-username-uid uname)]
+    (wcar* (car/hmset
+            (str "eid:" eid)
+            "name" ename "url" eurl "desc" desc
+            "lat" lat "lon" lon "updated" (java.util.Date.)))
+    (wcar* (car/rpush "timeline_events" eid))
+    (wcar* (car/set (str "eid:" eid ":auid") uid))
+    (wcar* (car/sadd (str "uid:" uid ":aeid") eid))))
+

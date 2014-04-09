@@ -43,7 +43,7 @@
     :workflows [(workflows/interactive-form
                  :allow-anon? true
                  :login-uri "/login"
-                 :default-landing-uri "/carte"
+                 :default-landing-uri "/initiatives"
                  :credential-fn (partial scrypt-credential-fn load-user))]}))
 
 (defn- four-oh-four []
@@ -57,17 +57,31 @@
     [:p "Retour à la "
      (e/link-to "http://jecode.org" "page d'accueil")]]))
 
-(defroutes app-routes 
+(defroutes app-routes
+  ;; Generic
   (GET "/" [] (main-tpl {:a "accueil" :jumbo "/md/description" :md "/md/accueil"}))
   (GET "/apropos" [] (main-tpl {:a "apropos" :md "/md/apropos"}))
-  (GET "/carte" [] (main-tpl {:a "carte" :map "show" :md "/md/carte"}))
-  (GET "/proposer" []
+  (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/liste_codeurs"}))
+  (GET "/codeurs/:person" [person] (main-tpl {:a "codeurs" :md (str "/md/codeurs/" person)}))
+  ;; Initiatives
+  (GET "/initiatives" [] (main-tpl {:a "initiatives" :map "showinits" :md "/md/initiatives"}))
+  (GET "/initiatives/nouvelle" []
        (friend/authorize
         #{::users}
-        (main-tpl {:a "carte" :container (new-init-snp) :map "new"})))
-  (POST "/proposer" {params :params}
+        (main-tpl {:a "initiatives" :container (new-init-snp) :map "newinit"})))
+  (POST "/initiatives/nouvelle" {params :params}
         (do (create-new-initiative params)
-            (main-tpl {:a "carte" :container "Initiative ajoutée, merci !"})))
+            (main-tpl {:a "initiatives" :container "Initiative ajoutée, merci !"})))
+  ;; Événements
+  (GET "/evenements" [] (main-tpl {:a "evenements" :map "showevents" :md "/md/evenements"}))
+  (GET "/evenements/nouveau" []
+       (friend/authorize
+        #{::users}
+        (main-tpl {:a "evenements" :container (new-event-snp) :map "newevent"})))
+  (POST "/evenements/nouveau" {params :params}
+        (do (create-new-event params)
+            (main-tpl {:a "evenements" :container "Événement ajoutée, merci !"})))
+  ;; Login
   (GET "/login" [] (main-tpl {:a "accueil" :container (login-snp)}))
   (GET "/logout" req (friend/logout* (resp/redirect (str (:context req) "/"))))
   (GET "/inscription" [] (main-tpl {:a "accueil" :container (register-snp)}))
@@ -77,8 +91,7 @@
   (GET "/activer/:authid" [authid]
        (do (activate-user authid)
            (main-tpl {:a "accueil" :container "Utilisateur actif !"})))
-  (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/liste_codeurs"}))
-  (GET "/codeurs/:person" [person] (main-tpl {:a "codeurs" :md (str "/md/codeurs/" person)}))
+  ;; Others
   (route/resources "/")
   (route/not-found (four-oh-four)))
 
