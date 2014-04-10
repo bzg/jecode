@@ -62,28 +62,37 @@
   (GET "/" [] (main-tpl {:a "accueil" :jumbo "/md/description" :md "/md/accueil"}))
   (GET "/apropos" [] (main-tpl {:a "apropos" :md "/md/apropos"}))
   (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/liste_codeurs"}))
-  (GET "/codeurs/:person" [person] (main-tpl {:a "codeurs" :md (str "/md/codeurs/" person)}))
+  (GET "/codeurs/:person" [person]
+       (main-tpl {:a "codeurs" :md (str "/md/codeurs/" person)}))
+  
   ;; Initiatives
   (GET "/initiatives" [] (main-tpl {:a "initiatives" :md "/md/initiatives"}))
-  (GET "/initiatives/map" [] (main-tpl {:a "initiatives" :map "showinits" :md "/md/initiatives"}))
+  (GET "/initiatives/map" []
+       (main-tpl {:a "initiatives" :map "showinits" :md "/md/initiatives_map"}))
   (GET "/initiatives/nouvelle" []
        (friend/authorize
         #{::users}
         (main-tpl {:a "initiatives" :container (new-init-snp) :map "newinit"})))
   (POST "/initiatives/nouvelle" {params :params}
         (do (create-new-initiative params)
-            (main-tpl {:a "initiatives" :container "Initiative ajoutée, merci !"})))
+            (main-tpl {:a "initiatives"
+                       :container "Votre initiative a été ajoutée, merci !"})))
+  
   ;; Événements
-  (GET "/evenements" [] (main-tpl {:a "evenements" :md "/md/evenements"}))
+  (GET "/evenements" []
+       (main-tpl {:a "evenements" :md "/md/evenements"}))
   (GET "/evenements/rss" [] (events-rss))
-  (GET "/evenements/map" [] (main-tpl {:a "evenements" :map "showevents" :md "/md/evenements"}))
+  (GET "/evenements/map" []
+       (main-tpl {:a "evenements" :map "showevents" :md "/md/evenements_map"}))
   (GET "/evenements/nouveau" []
        (friend/authorize
         #{::users}
         (main-tpl {:a "evenements" :container (new-event-snp) :map "newevent"})))
   (POST "/evenements/nouveau" {params :params}
         (do (create-new-event params)
-            (main-tpl {:a "evenements" :container "Événement ajoutée, merci !"})))
+            (main-tpl {:a "evenements"
+                       :container "Votre événement a été ajouté, merci !"})))
+
   ;; Login
   (GET "/login" [] (main-tpl {:a "accueil" :container (login-snp)}))
   (GET "/logout" req (friend/logout* (resp/redirect (str (:context req) "/"))))
