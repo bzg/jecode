@@ -12,10 +12,10 @@
 (defn- add-events []
   (let [markers (L/MarkerClusterGroup.)]
     (macros/rpc
-     (get-events) [res]
+     (get-events-for-map) [res]
      (.addLayers
       markers
-      (map #(let [{:keys [name url lat lon desc pid isadmin]} %
+      (map #(let [{:keys [name url lat lon desc pid date orga location isadmin]} %
                   join (when isadmin "(Inscrit par vous.)")
                   icon ((get-in L [:mapbox :marker :icon])
                         {:marker-symbol ""
@@ -23,7 +23,10 @@
                   marker (-> L (.marker (L/LatLng. lat lon) {:icon icon}))]
               (.bindPopup marker (str "<a target=\"new\" href=\"" url "\">"
                                       name "</a><br/>"
+                                      orga "<br/>"
                                       desc "<br/>"
+                                      location "<br/>"
+                                      date "<br/>"
                                       join))
               marker)
            res)))

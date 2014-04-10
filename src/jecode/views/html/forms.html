@@ -18,7 +18,11 @@
   <div class="input-group">
     <input class="form-control" type="text" name="pname" placeholder="Nom de l'initiative" />
     <input class="form-control" type="text" name="purl" placeholder="URL du site web" />
-    <input class="form-control" type="text" name="desc" placeholder="Description sommaire" />
+    <input class="form-control" type="text" name="logourl" placeholder="URL du logo" />
+    <input class="form-control" type="text" name="contact" placeholder="Email contact" />
+    <input class="form-control" type="text" name="twitter" placeholder="Compte twitter" />
+    <input class="form-control" type="text" name="plocation" placeholder="Lieu" />
+    <input class="form-control" type="text" name="pdesc" placeholder="Description" />
     <input class="form-control" type="hidden" id="lat" name="lat" placeholder="Latitude" />
     <input class="form-control" type="hidden" id="lon" name="lon" placeholder="Longitude" />
     <br/>
@@ -29,9 +33,12 @@
 
 <form id="submit-event" action="/evenements/nouveau" method="post">
   <div class="input-group">
-    <input class="form-control" type="text" name="pname" placeholder="Nom de l'événement" />
-    <input class="form-control" type="text" name="purl" placeholder="URL de l'événement" />
-    <input class="form-control" type="text" name="desc" placeholder="Description sommaire" />
+    <input class="form-control" type="text" name="eorga" placeholder="Organisateur" />
+    <input class="form-control" type="text" name="ename" placeholder="Nom de l'événement" />
+    <input class="form-control" type="text" name="eurl" placeholder="URL de l'événement" />
+    <input class="form-control" type="text" name="edate" placeholder="Date de l'événement" />
+    <input class="form-control" type="text" name="elocation" placeholder="Lieu" />
+    <input class="form-control" type="text" name="edesc" placeholder="Description sommaire" />
     <input class="form-control" type="hidden" id="lat" name="lat" placeholder="Latitude" />
     <input class="form-control" type="hidden" id="lon" name="lon" placeholder="Longitude" />
     <br/>

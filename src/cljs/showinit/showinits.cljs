@@ -12,17 +12,22 @@
 (defn- add-initiatives []
   (let [markers (L/MarkerClusterGroup.)]
     (macros/rpc
-     (get-initiatives) [res]
+     (get-initiatives-for-map) [res]
      (.addLayers
       markers
-      (map #(let [{:keys [name url lat lon desc pid isadmin]} %
-                  join (when isadmin "(Inscrit par vous.)")
-                  icon ((get-in L [:mapbox :marker :icon])
-                        {:marker-symbol ""
-                         :marker-color "0044FF"})
-                  marker (-> L (.marker (L/LatLng. lat lon) {:icon icon}))]
+      (map #(let [{:keys [name url logourl desc location
+                          contact twitter lat lon pid isadmin]} %
+                          join (when isadmin "(Inscrit par vous.)")
+                          icon ((get-in L [:mapbox :marker :icon])
+                                {:marker-symbol ""
+                                 :marker-color "0044FF"})
+                          marker (-> L (.marker (L/LatLng. lat lon) {:icon icon}))]
               (.bindPopup marker (str "<a target=\"new\" href=\"" url "\">"
                                       name "</a><br/>"
+                                      "<img src=\"" logourl "\">"
+                                      location "<br/>"
+                                      contact "</br>"
+                                      twitter "</br>"
                                       desc "<br/>"
                                       join))
               marker)
