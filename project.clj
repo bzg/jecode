@@ -1,5 +1,5 @@
 (defproject
-  jecode "0.0.2"
+  jecode "0.0.3"
   :url "http://github.com/bzg/jecode"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
@@ -14,7 +14,7 @@
    [org.clojure/clojurescript "0.0-2202"]
    [net.drib/blade "0.1.0"]
    [com.cemerick/friend "0.2.0" :exclusions [org.clojure/core.cache]]
-   [com.taoensso/carmine "2.6.0"]
+   [com.taoensso/carmine "2.4.6"]
    [shoreleave/shoreleave-remote-ring "0.3.0"]
    [shoreleave/shoreleave-remote "0.3.0"]
    [com.draines/postal "1.11.1"]
