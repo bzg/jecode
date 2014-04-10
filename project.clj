@@ -20,7 +20,7 @@
    [com.draines/postal "1.11.1"]
    [digest "1.4.4"]
    [enlive "1.1.5"]
-   ;; [clj-rss "0.1.5"]
+   [clj-rss "0.1.5"]
    [clj-http "0.9.1"]
    [cheshire "5.3.1"]
    [markdown-clj "0.9.41"]]

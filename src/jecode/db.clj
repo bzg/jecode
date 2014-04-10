@@ -66,7 +66,7 @@
 
 (defn create-new-event
   "Create a new event."
-  [{:keys [eorga ename eurl edate elocation edesc lat lon]}]
+  [{:keys [eorga ename econtact eurl edate elocation edesc lat lon]}]
   (wcar* (car/incr "global:eid"))
   (let [eid (wcar* (car/get "global:eid"))
         uname (session/get :username)
@@ -74,6 +74,7 @@
     (wcar* (car/hmset
             (str "eid:" eid)
             "orga" eorga
+            "contact" econtact
             "name" ename
             "url" eurl
             "desc" edesc

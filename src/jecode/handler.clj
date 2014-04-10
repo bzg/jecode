@@ -64,7 +64,8 @@
   (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/liste_codeurs"}))
   (GET "/codeurs/:person" [person] (main-tpl {:a "codeurs" :md (str "/md/codeurs/" person)}))
   ;; Initiatives
-  (GET "/initiatives" [] (main-tpl {:a "initiatives" :map "showinits" :md "/md/initiatives"}))
+  (GET "/initiatives" [] (main-tpl {:a "initiatives" :md "/md/initiatives"}))
+  (GET "/initiatives/map" [] (main-tpl {:a "initiatives" :map "showinits" :md "/md/initiatives"}))
   (GET "/initiatives/nouvelle" []
        (friend/authorize
         #{::users}
@@ -73,7 +74,9 @@
         (do (create-new-initiative params)
             (main-tpl {:a "initiatives" :container "Initiative ajoutée, merci !"})))
   ;; Événements
-  (GET "/evenements" [] (main-tpl {:a "evenements" :map "showevents" :md "/md/evenements"}))
+  (GET "/evenements" [] (main-tpl {:a "evenements" :md "/md/evenements"}))
+  (GET "/evenements/rss" [] (events-rss))
+  (GET "/evenements/map" [] (main-tpl {:a "evenements" :map "showevents" :md "/md/evenements"}))
   (GET "/evenements/nouveau" []
        (friend/authorize
         #{::users}
