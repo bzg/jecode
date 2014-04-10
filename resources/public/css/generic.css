@@ -74,6 +74,7 @@ form {
 #container2 img.picto {
     max-width: 170px;
     float: right;
+    border-radius: 0%;
     margin: 2em;
 }
 
