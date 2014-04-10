@@ -90,7 +90,7 @@ Each event is represented as a hash-map."
 (defrecord event-rss-item [title link description])
 
 (defn event-to-rss-item
-  "Given an event with id `eid`, maybe export the event to a rss item."
+  "Given `event`, maybe export it to a rss item."
   [event]
   (let [name (:name event)
         url (:url event)
@@ -107,7 +107,6 @@ Each event is represented as a hash-map."
       (:desc event) url url))))
 
 (defn events-rss []
-  ;; (pr-str (get-events)))
   (apply rss/channel-xml
          {:title "jecode.org"
           :link "http://jecode.org"
