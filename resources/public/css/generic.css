@@ -14,6 +14,7 @@ body {
     position:relative;
     height: 500px;
     min-width:100%;
+    margin: 1em;
 }
 
 img.logo {
@@ -55,7 +56,15 @@ button {
     margin:.4em;
 }
 
-#container2 img.logo {
+#container2 {
+    padding: .5em;
+}
+
+form {
+    margin: .5em;
+}
+
+#container2 img {
     max-width: 170px;
     border-radius: 50%;
     float: right;
