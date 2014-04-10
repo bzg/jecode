@@ -24,7 +24,7 @@
                           marker (-> L (.marker (L/LatLng. lat lon) {:icon icon}))]
               (.bindPopup marker (str "<a target=\"new\" href=\"" url "\">"
                                       name "</a><br/>"
-                                      "<img src=\"" logourl "\">"
+                                      ;; "<img src=\"" logourl "\">"
                                       location "<br/>"
                                       contact "</br>"
                                       twitter "</br>"
