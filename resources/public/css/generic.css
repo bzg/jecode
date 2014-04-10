@@ -55,9 +55,15 @@ button {
     margin:.4em;
 }
 
-#container2 img {
+#container2 img.logo {
     max-width: 170px;
     border-radius: 50%;
+    float: right;
+    margin: 2em;
+}
+
+#container2 img.picto {
+    max-width: 170px;
     float: right;
     margin: 2em;
 }

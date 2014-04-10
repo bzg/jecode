@@ -13,7 +13,6 @@
   (let [markers (L/MarkerClusterGroup.)]
     (macros/rpc
      (get-events-for-map) [res]
-     (js/alert res)
      (.addLayers
       markers
       (map #(let [{:keys [name url lat lon desc pid date
