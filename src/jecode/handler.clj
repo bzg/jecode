@@ -10,6 +10,7 @@
             [jecode.model :refer :all]
             [jecode.views.templates :refer :all]
             [ring.util.response :as resp]
+            [ring.middleware.reload :refer :all]
             [compojure.core :as compojure :refer (GET POST defroutes)]
             [org.httpkit.server :refer :all]
             (compojure [route :as route])
@@ -107,7 +108,9 @@
   (route/resources "/")
   (route/not-found (four-oh-four)))
 
-(def app (middleware/app-handler [(wrap-friend (wrap-rpc app-routes))]))
+(def app (wrap-reload
+          (middleware/app-handler
+           [(wrap-friend (wrap-rpc app-routes))])))
 
 (defn -main [& args]
   (run-server #'app {:port 8080}))
