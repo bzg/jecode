@@ -1,25 +1,25 @@
 ### Qu'est-ce que jecode.org ?
 
-Le site jecode.org rassemble des portraits de programmeurs passionnés,
-des initiatives encourageant l'apprentissage de la programmation, et
-des écoles qui pratiquent l'enseignement de l'informatique.
+Le site jecode.org rassemble des initiatives encourageant l'apprentissage de la programmation pour les *enfants*.  Nous construisons une carte des initiatives et une carte des événements qu'elles organisent, toutes deux accessibles au grand public et aux écoles qui souhaitent s'ouvrir à cet enseignement.
 
 ### Pourquoi ?
 
-Nous pensons qu'il est important d'enseigner l'informatique à l'école.
-Pas seulement l'usage des outils informatiques, mais aussi et surtout
-les concepts et les techniques fondamentales de la programmation.
+Nous pensons qu'il est important que les enfants ne soient pas de simples consommateurs du numérique, mais qu'ils en acquièrent les clefs, hors de l'école et à l'école.  Pas seulement /l'usage/ des outils informatiques, mais aussi et surtout les concepts et les techniques fondamentales de la programmation.
 
-### Puis-je ajouter mon portrait ?
+### Puis-je ajouter une initiative ou un événement ?
 
-Bien sûr !  Il suffit pour cela de « forker » le dépôt git [jecode](https://github.com/bzg/jecode) et nous envoyer un *pull request*.  Si vous préférez, vous pouvez simplement nous envoyer un [mail](mailto:bzg@bzg.fr) en répondant à ces quatre questions:
+Bien sûr !  [Créez un compte](/inscription) et ajoutez une [initiative](/initiatives/nouvelle) ou un [événement](/evenements/nouveau).
+
+### Puis-je ajouter mon témoignage ?
+
+Oui !  Il suffit pour cela de « forker » le dépôt git [jecode](https://github.com/bzg/jecode) et nous envoyer un *pull request*.  Si vous préférez, vous pouvez simplement nous envoyer un [mail](mailto:bzg@bzg.fr) en répondant à ces quatre questions:
 
 - Pourquoi codes-tu ?
 - Comment as-tu appris ?
 - Quel est ton langage préféré ?
 - Pourquoi chacun devrait-il apprendre à programmer ou être initié ?
 
-### Qui êtes-vous ?
+### Qui est derrière jecode.org ?
 
 jecode.org a été lancé par [David Roche](codeurs/david.roche), [Martin Quinson](codeurs/martin.quinson) et [Bastien Guerry](codeurs/bastien.guerry) en novembre 2013.
 
@@ -33,18 +33,17 @@ présenter après votre inscription.
 
 Nous avons mis en place un [forum](http://forum.jecode.org) et un [wiki](http://wiki.jecode.org).  Le forum nous sert à partager et discuter des liens en rapport avec l'enseignement de l'informatique (en français et en anglais).  Le wiki qui nous sert de bloc-notes pour centraliser l'information et organiser nos projets.
 
+La liste de discussion sert aussi à faire émerger des projets entre initiatives participantes.
+
 ### Quels sont vos buts ?
 
 Notre but principal est de diffuser le goût de la programmation ainsi
-que la culture informatique au grand public.
-
-Notre premier objectif est de sensibiliser le grand public à ces
-idées.
+que la culture informatique auprès des enfants et du grand public.
 
 À terme, nous souhaitons mettre en relation les acteurs concernés:
 nous voulons faire se rencontrer (1) des lieux (écoles, MJC,
 bibliothèques), (2) des animateurs et (3) des gens qui veulent
-apprendre à programmer. Nous rêvons de mailler le territoire, voire la
+apprendre à programmer.  Nous rêvons de mailler le territoire, voire la
 planète entière d'initiatives locales interconnectées, dans l'espoir
 de stimuler les activités autour de la programmation.
 
