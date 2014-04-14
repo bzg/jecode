@@ -5,6 +5,7 @@
             [jecode.util :refer :all]
             [noir.session :as session]
             [net.cgrand.enlive-html :as html]
+            [clojure.string :as s]
             [clojurewerkz.scrypt.core :as sc]
             [jecode.db :refer :all]
             [jecode.model :refer :all]
@@ -61,19 +62,29 @@
 (defroutes app-routes
   ;; Generic
   (GET "/" [] (main-tpl {:a "accueil" :jumbo "/md/description" :md "/md/accueil"}))
-  (GET "/apropos" [] (main-tpl {:a "apropos" :md "/md/apropos"}))
-  (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/liste_codeurs"}))
+  (GET "/apropos" [] (main-tpl {:a "apropos" :md "/md/apropos"
+                                :title "jecode.org - Qui sommes-nous et où allons-nous ?"}))
+  (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/liste_codeurs"
+                                :title "jecode.org - Témoignages de codeurs"}))
   (GET "/codeurs/:person" [person]
-       (main-tpl {:a "codeurs" :md (str "/md/codeurs/" person)}))
-  
+       (main-tpl {:a "codeurs"
+                  :md (str "/md/codeurs/" person)
+                  :title (str "jecode.org - le témoignage de "
+                              (s/join " " (map s/capitalize (s/split person #"\."))))}))
+
   ;; Initiatives
-  (GET "/initiatives" [] (main-tpl {:a "initiatives" :md "/md/initiatives"}))
+  (GET "/initiatives" [] (main-tpl {:a "initiatives" :md "/md/initiatives"
+                                    :list-initiatives true
+                                    :title "jecode.org - La liste des initiatives"}))
   (GET "/initiatives/map" []
-       (main-tpl {:a "initiatives" :map "showinits" :md "/md/initiatives_map"}))
+       (main-tpl {:a "initiatives"
+                  :showmap "showinits"
+                  :title "jecode.org - La carte des initiatives"
+                  :md "/md/initiatives_map"}))
   (GET "/initiatives/nouvelle" []
        (friend/authorize
         #{::users}
-        (main-tpl {:a "initiatives" :container (new-init-snp) :map "newinit"})))
+        (main-tpl {:a "initiatives" :container (new-init-snp) :showmap "newinit"})))
   (POST "/initiatives/nouvelle" {params :params}
         (do (create-new-initiative params)
             (main-tpl {:a "initiatives"
@@ -81,14 +92,17 @@
   
   ;; Événements
   (GET "/evenements" []
-       (main-tpl {:a "evenements" :md "/md/evenements"}))
+       (main-tpl {:a "evenements" :md "/md/evenements" :list-events true
+                  :title "jecode.org - La liste des événements"}))
   (GET "/evenements/rss" [] (events-rss))
   (GET "/evenements/map" []
-       (main-tpl {:a "evenements" :map "showevents" :md "/md/evenements_map"}))
+       (main-tpl {:a "evenements" :showmap "showevents"
+                  :md "/md/evenements_map"
+                  :title "jecode.org - La carte des événements"}))
   (GET "/evenements/nouveau" []
        (friend/authorize
         #{::users}
-        (main-tpl {:a "evenements" :container (new-event-snp) :map "newevent"})))
+        (main-tpl {:a "evenements" :container (new-event-snp) :showmap "newevent"})))
   (POST "/evenements/nouveau" {params :params}
         (do (create-new-event params)
             (main-tpl {:a "evenements"
