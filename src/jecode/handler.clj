@@ -69,8 +69,9 @@
   (GET "/codeurs/:person" [person]
        (main-tpl {:a "codeurs"
                   :md (str "/md/codeurs/" person)
-                  :title (str "jecode.org - le témoignage de "
-                              (s/join " " (map s/capitalize (s/split person #"\."))))}))
+                  :title (str "jecode.org - "
+                              (s/join " " (map s/capitalize (s/split person #"\.")))
+                              " nous dit pourquoi il faut apprendre à coder !")}))
 
   ;; Initiatives
   (GET "/initiatives" [] (main-tpl {:a "initiatives" :md "/md/initiatives"
