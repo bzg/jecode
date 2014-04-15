@@ -69,8 +69,6 @@
   (GET "/esr/create" [] (friend/authorize #{::users} (create-indexes)))
   (GET "/esr/add-initiatives" [] (friend/authorize #{::users} (feed-initiatives)))
   (GET "/esr/add-events" [] (friend/authorize #{::users} (feed-events)))
-  (GET "/search/initiatives/:q" [q] (query-initiatives q))
-  (GET "/search/events/:q" [q] (query-events q))
 
   (GET "/apropos" [] (main-tpl {:a "apropos" :md "/md/apropos"
                                 :title "jecode.org - Qui sommes-nous et où allons-nous ?"}))
@@ -88,6 +86,10 @@
                                     :list-initiatives true
                                     :title "jecode.org - La liste des initiatives"}))
   (GET "/initiatives/json" [] (items-json "initiatives"))
+  (GET "/initiatives/search/:q" [q]
+       (main-tpl {:a "initiatives"
+                  :title "jecode.org - Recherche d'initiatives"
+                  :list-results {:initiatives-query q}}))
   (GET "/initiatives/map" []
        (main-tpl {:a "initiatives"
                   :showmap "showinits"
@@ -106,6 +108,11 @@
   (GET "/evenements" []
        (main-tpl {:a "evenements" :md "/md/evenements" :list-events true
                   :title "jecode.org - La liste des événements"}))
+
+  (GET "/evenements/search/:q" [q]
+       (main-tpl {:a "evenements"
+                  :title "jecode.org - Recherche d'événements"
+                  :list-results {:events-query q}}))
   (GET "/evenements/rss" [] (events-rss))
   (GET "/evenements/json" [] (items-json "evenements"))
   (GET "/evenements/map" []

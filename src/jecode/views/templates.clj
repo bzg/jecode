@@ -2,6 +2,7 @@
   (:require [net.cgrand.enlive-html :as html]
             [noir.session :as session]
             [jecode.util :refer :all]
+            [jecode.search :refer :all]
             [jecode.model :refer :all]))
 
 ;;; * Utility functions
@@ -27,6 +28,13 @@
 
 ;;; * Template
 
+(html/defsnippet my-result "jecode/views/html/base.html"
+  [:#list :ul] [arg]
+  [:li :a] (html/do->
+            (html/set-attr :href (:url arg))
+            (html/set-attr :title (:desc arg))
+            (html/content (:name arg))))
+
 (html/defsnippet my-event "jecode/views/html/base.html"
   [:#list :ul] [arg]
   [:li :a] (html/do->
@@ -43,7 +51,8 @@
 
 (html/deftemplate ^{:doc "Main index template"}
   main-tpl "jecode/views/html/base.html"
-  [{:keys [container md jumbo a showmap title list-events list-initiatives]}]
+  [{:keys [container md jumbo a showmap title
+           list-events list-initiatives list-results]}]
   [:head :title] (html/content title)
   [:#container2] (if md (html/html-content
                          (md->html jumbo) (md->html md))
@@ -66,10 +75,22 @@
   [:#log :a#signin] (if (session/get :username)
                       (html/set-attr :style "display:none")
                       (maybe-content "Inscription"))
-  [:#list] (cond list-events
-                 (html/content (map #(my-event %) (get-events-for-map)))
-                 list-initiatives
-                 (html/content (map #(my-initiative %) (get-initiatives-for-map))))
+  [:#list] (cond
+            (:initiatives-query list-results)
+            (html/content
+             (map #(my-result %)
+                  (map :_source (get-in (query-initiatives
+                                         (:initiatives-query list-results)) [:hits :hits]))))
+            (:events-query list-results)
+            (html/content
+             (map #(my-result %)
+                  (map :_source (get-in (query-events
+                                         (:events-query list-results)) [:hits :hits]))))
+            
+            list-events
+            (html/content (map #(my-event %) (get-events-for-map)))
+            list-initiatives
+            (html/content (map #(my-initiative %) (get-initiatives-for-map))))
   [:#mapjs]
   (html/html-content
    (cond (= showmap "showinits") "<script src=\"/js/showinits.js\" type=\"text/javascript\"></script>"

@@ -49,13 +49,11 @@
 
 (defn query-initiatives [req]
   (esr/connect! "http://127.0.0.1:9200")
-  (pr-str
-   (esd/search "initiatives" "initiative" :query (q/query-string :query req))))
+  (esd/search "initiatives" "initiative" :query (q/query-string :query req)))
 
 (defn query-events [req]
   (esr/connect! "http://127.0.0.1:9200")
-  (pr-str
-   (esd/search "events" "event" :query (q/query-string :query req))))
+  (esd/search "events" "event" :query (q/query-string :query req)))
 
 ;; Local Variables:
 ;; eval: (orgstruct-mode 1)
