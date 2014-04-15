@@ -9,6 +9,7 @@
             [clojurewerkz.scrypt.core :as sc]
             [jecode.db :refer :all]
             [jecode.model :refer :all]
+            [jecode.search :refer :all]
             [jecode.views.templates :refer :all]
             [ring.util.response :as resp]
             [ring.middleware.reload :refer :all]
@@ -62,6 +63,13 @@
 (defroutes app-routes
   ;; Generic
   (GET "/" [] (main-tpl {:a "accueil" :jumbo "/md/description" :md "/md/accueil"}))
+
+  ;; Testing ElasticSearch
+  (GET "/esr/create" [] (friend/authorize #{::users} (create-indexes)))
+  (GET "/esr/feed" [] (friend/authorize #{::users} (feed-engine)))
+  (GET "/search/initiatives/:q" [q] (query-initiatives q))
+  (GET "/search/events/:q" [q] (query-events q))
+
   (GET "/apropos" [] (main-tpl {:a "apropos" :md "/md/apropos"
                                 :title "jecode.org - Qui sommes-nous et où allons-nous ?"}))
   (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/liste_codeurs"
@@ -77,6 +85,7 @@
   (GET "/initiatives" [] (main-tpl {:a "initiatives" :md "/md/initiatives"
                                     :list-initiatives true
                                     :title "jecode.org - La liste des initiatives"}))
+  (GET "/initiatives/json" [] (items-json "initiatives"))
   (GET "/initiatives/map" []
        (main-tpl {:a "initiatives"
                   :showmap "showinits"
@@ -96,6 +105,7 @@
        (main-tpl {:a "evenements" :md "/md/evenements" :list-events true
                   :title "jecode.org - La liste des événements"}))
   (GET "/evenements/rss" [] (events-rss))
+  (GET "/evenements/json" [] (items-json "evenements"))
   (GET "/evenements/map" []
        (main-tpl {:a "evenements" :showmap "showevents"
                   :md "/md/evenements_map"
@@ -129,3 +139,8 @@
 
 (defn -main [& args]
   (run-server #'app {:port 8080}))
+
+;; Local Variables:
+;; eval: (orgstruct-mode 1)
+;; orgstruct-heading-prefix-regexp: ";;; "
+;; End:

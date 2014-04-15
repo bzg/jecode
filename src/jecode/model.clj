@@ -2,6 +2,7 @@
   (:require
    [taoensso.carmine :as car]
    [noir.session :as session]
+   [cheshire.core :refer :all :as json]
    [clj-rss.core :as rss]
    [shoreleave.middleware.rpc :refer [defremote]]))
 
@@ -10,6 +11,8 @@
 
 (defmacro wcar* [& body]
   `(car/wcar server1-conn ~@body))
+
+;;; * Core model functions
 
 (defn get-username-uid
   "Given a username, return the user's uid."
@@ -36,11 +39,6 @@
   [uid]
   (wcar* (car/hgetall (str "uid:" uid))))
 
-(defmacro vec-to-kv-hmap [vec]
-  `(into {}
-         (for [v# (apply hash-map ~vec)]
-           [(keyword (key v#)) (val v#)])))
-
 (defn username-admin-of-pid?
   "True is username is the admin of project pid."
   [username pid]
@@ -52,6 +50,13 @@
   [username eid]
   (= (wcar* (car/get (str "eid:" eid ":auid")))
      (get-username-uid username)))
+
+;;; Remotes
+
+(defmacro vec-to-kv-hmap [vec]
+  `(into {}
+         (for [v# (apply hash-map ~vec)]
+           [(keyword (key v#)) (val v#)])))
 
 (defremote get-initiatives
   "Return the list of initiatives.
@@ -87,6 +92,8 @@ Each event is represented as a hash-map."
   (filter #(not (or (empty? (:lat %)) (empty? (:lon %))))
           (get-events)))
 
+;;; * RSS
+
 (defrecord event-rss-item [title link description])
 
 (defn event-to-rss-item
@@ -115,11 +122,21 @@ Each event is represented as a hash-map."
           (filter #(not (empty? %))
                   (map #(event-to-rss-item %) (get-events))))))
 
-;; (defn username-member-of-pid?
-;;   "True is username is a member of project pid."
-;;   [username pid]
-;;   (if (nil? username)
-;;     nil
-;;     (wcar* (car/sismember
-;;             (str "pid:" pid ":muid")
-;;             (get-username-uid username)))))
+;;; * JSON
+
+(defn items-json [type]
+  (json/generate-string
+   {:source (str "jecode.org/" type "/json")
+    :retrieved (java.util.Date.)
+    (condp = type
+      "evenements" :events
+      "initiatives" :initiatives)
+    (condp = type
+      "evenements" (get-events-for-map)
+      "initiatives" (get-initiatives-for-map))}
+   {:date-format "yyyy-MM-dd HH:MM" :pretty true}))
+
+;; Local Variables:
+;; eval: (orgstruct-mode 1)
+;; orgstruct-heading-prefix-regexp: ";;; "
+;; End:

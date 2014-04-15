@@ -5,7 +5,8 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies
   [[org.clojure/clojure "1.5.1"]
-   [lib-noir "0.8.1"]
+
+   [lib-noir "0.8.2"]
    [domina "1.0.2"]
    [hiccup "1.0.5"]
    [compojure "1.1.6"]
@@ -13,7 +14,8 @@
    [http-kit "2.1.18"]
    [org.clojure/clojurescript "0.0-2202"]
    [net.drib/blade "0.1.0"]
-   [com.cemerick/friend "0.2.0" :exclusions [org.clojure/core.cache]]
+   [com.cemerick/friend "0.2.0"
+    :exclusions [org.apache.httpcomponents/httpclient org.clojure/core.cache]]
    [com.taoensso/carmine "2.4.6"]
    [shoreleave/shoreleave-remote-ring "0.3.0"]
    [shoreleave/shoreleave-remote "0.3.0"]
@@ -23,7 +25,8 @@
    [clj-rss "0.1.5"]
    [clj-http "0.9.1"]
    [cheshire "5.3.1"]
-   [markdown-clj "0.9.41"]]
+   [markdown-clj "0.9.43"]
+   [clojurewerkz/elastisch "2.0.0-beta4"]]
   :main jecode.handler
   :description "jecode.org"
   :min-lein-version "2.0.0"

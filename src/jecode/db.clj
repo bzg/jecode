@@ -86,3 +86,7 @@
     (wcar* (car/set (str "eid:" eid ":auid") uid))
     (wcar* (car/sadd (str "uid:" uid ":aeid") eid))))
 
+;; Local Variables:
+;; eval: (orgstruct-mode 1)
+;; orgstruct-heading-prefix-regexp: ";;; "
+;; End:

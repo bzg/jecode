@@ -8,3 +8,8 @@
   (->>
     (io/slurp-resource filename)
     (md/md-to-html-string)))
+
+;; Local Variables:
+;; eval: (orgstruct-mode 1)
+;; orgstruct-heading-prefix-regexp: ";;; "
+;; End:
