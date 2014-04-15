@@ -34,7 +34,8 @@
 
 (defn reset-indexes []
   (do (esr/connect! "http://127.0.0.1:9200")
-      (esi/delete "initiatives")))
+      (esi/delete "initiatives")
+      (esi/delete "events")))
 
 (defn feed-initiatives []
   (do (esr/connect! "http://127.0.0.1:9200")
