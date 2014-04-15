@@ -65,8 +65,10 @@
   (GET "/" [] (main-tpl {:a "accueil" :jumbo "/md/description" :md "/md/accueil"}))
 
   ;; Testing ElasticSearch
+  (GET "/esr/reset" [] (friend/authorize #{::users} (reset-indexes)))
   (GET "/esr/create" [] (friend/authorize #{::users} (create-indexes)))
-  (GET "/esr/feed" [] (friend/authorize #{::users} (feed-engine)))
+  (GET "/esr/add-initiatives" [] (friend/authorize #{::users} (feed-initiatives)))
+  (GET "/esr/add-events" [] (friend/authorize #{::users} (feed-events)))
   (GET "/search/initiatives/:q" [q] (query-initiatives q))
   (GET "/search/events/:q" [q] (query-events q))
 

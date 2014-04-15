@@ -8,37 +8,43 @@
    [clojurewerkz.elastisch.rest.response :as esrsp]))
 
 (defn create-indexes []
-  (esr/connect! "http://127.0.0.1:9200")
-  (let [inits
-        {"initiative"
-         {:properties {:name      {:type "string" :store "yes"}
-                       :desc      {:type "string" :store "yes"}
-                       :location  {:type "string" :store "yes"}
-                       :url       {:type "string"}
-                       :contact   {:type "string" :store "yes"}
-                       :twitter   {:type "string" :store "yes"}
-                       }}}
-        events
-        {"event"
-         {:properties {:name      {:type "string" :store "yes"}
-                       :desc      {:type "string" :store "yes"}
-                       :location  {:type "string" :store "yes"}
-                       :url       {:type "string"}
-                       :contact   {:type "string" :store "yes"}
-                       :orga      {:type "string" :store "yes"}
-                       }}}]
-    ;; Create the indexes
-    (esi/create "initiatives" :mappings inits)
-    (esi/create "events" :mappings events)))
-
-(defn feed-engine []
   (do
-    ;; Feed indexes with initiatives and events
     (esr/connect! "http://127.0.0.1:9200")
-    (for [i (doall (get-initiatives-for-map))]
-      (esd/create "initiatives" "initiative" i))
-    (for [i (doall (get-events-for-map))]
-      (esd/create "events" "event" i))))
+    (let [inits
+          {"initiative"
+           {:properties {:name      {:type "string" :store "yes"}
+                         :desc      {:type "string" :store "yes"}
+                         :location  {:type "string" :store "yes"}
+                         :url       {:type "string"}
+                         :contact   {:type "string" :store "yes"}
+                         :twitter   {:type "string" :store "yes"}
+                         }}}
+          events
+          {"event"
+           {:properties {:name      {:type "string" :store "yes"}
+                         :desc      {:type "string" :store "yes"}
+                         :location  {:type "string" :store "yes"}
+                         :url       {:type "string"}
+                         :contact   {:type "string" :store "yes"}
+                         :orga      {:type "string" :store "yes"}
+                         }}}]
+      ;; Create the indexes
+      (esi/create "initiatives" :mappings inits)
+      (esi/create "events" :mappings events))))
+
+(defn reset-indexes []
+  (do (esr/connect! "http://127.0.0.1:9200")
+      (esi/delete "initiatives")))
+
+(defn feed-initiatives []
+  (do (esr/connect! "http://127.0.0.1:9200")
+      (for [i (doall (get-initiatives-for-map))]
+        (esd/create "initiatives" "initiative" i))))
+
+(defn feed-events []
+  (do (esr/connect! "http://127.0.0.1:9200")
+      (for [i (doall (get-events-for-map))]
+        (esd/create "events" "event" i))))
 
 (defn query-initiatives [req]
   (esr/connect! "http://127.0.0.1:9200")
