@@ -20,8 +20,39 @@
 (html/defsnippet ^{:doc "Snippet for the register form."}
   register-snp "jecode/views/html/forms.html" [:#register] [])
 
-(html/defsnippet ^{:doc "Snippet for the register form."}
+(html/defsnippet ^{:doc "Snippet for the initiative form."}
   new-init-snp "jecode/views/html/forms.html" [:#submit-initiative] [])
+
+(html/defsnippet ^{:doc "Snippet for the register form."}
+  edit-init-snp "jecode/views/html/forms.html" [:#submit-initiative]
+  [[{:keys [name url logourl contact location twitter location desc tags]} pid]]
+  [:#submit-initiative] (html/set-attr :action (format "/initiatives/%s/update" pid))
+  [:#event_title] (html/content "Mise à jour de l'initiative")
+  [:#pname] (html/set-attr :value name)
+  [:#purl] (html/set-attr :value url)
+  [:#logourl] (html/set-attr :value logourl)
+  [:#contact] (html/set-attr :value contact)
+  [:#twitter] (html/set-attr :value twitter)
+  [:#plocation] (html/set-attr :value location)
+  [:#ptags] (html/set-attr :value tags)
+  [:#pdesc] (html/content desc)
+  [:#submit-init-btn] (html/content "Mettre à jour"))
+
+(html/defsnippet ^{:doc "Snippet for the event form."}
+  edit-event-snp "jecode/views/html/forms.html" [:#submit-event]
+  [[{:keys [name url orga contact desc hdate_start hdate_end location tags]} eid]]
+  [:#submit-event] (html/set-attr :action (format "/evenements/%s/update" eid))
+  [:#event_title] (html/content "Mise à jour de l'événement")
+  [:#ename] (html/set-attr :value name)
+  [:#eurl] (html/set-attr :value url)
+  [:#eorga] (html/set-attr :value orga)
+  [:#econtact] (html/set-attr :value contact)
+  [:#edate_start] (html/set-attr :value hdate_start)
+  [:#edate_end] (html/set-attr :value hdate_end)
+  [:#elocation] (html/set-attr :value location)
+  [:#etags] (html/set-attr :value tags)
+  [:#edesc] (html/content desc)
+  [:#submit-event-btn] (html/content "Mettre à jour"))
 
 (html/defsnippet ^{:doc "Snippet for the register form."}
   new-event-snp "jecode/views/html/forms.html" [:#submit-event] [])
@@ -37,17 +68,23 @@
 
 (html/defsnippet my-event "jecode/views/html/base.html"
   [:#list :ul] [arg]
-  [:li :a] (html/do->
+  [:li :a.item] (html/do->
             (html/set-attr :href (:url arg))
             (html/set-attr :title (:desc arg))
-            (html/content (:name arg))))
+            (html/content (:name arg)))
+  [:li :a.edit] (html/do->
+                 (html/content (if (:isadmin arg) " (éditer)"))
+                 (html/set-attr :href (str "/evenements/" (:eid arg) "/edit"))))
 
 (html/defsnippet my-initiative "jecode/views/html/base.html"
   [:#list :ul] [arg]
-  [:li :a] (html/do->
-            (html/set-attr :href (:url arg))
-            (html/set-attr :title (:desc arg))
-            (html/content (:name arg))))
+  [:li :a.item] (html/do->
+                 (html/set-attr :href (:url arg))
+                 (html/set-attr :title (:desc arg))
+                 (html/content (:name arg)))
+  [:li :a.edit] (html/do->
+                 (html/content (if (:isadmin arg) " (éditer)"))
+                 (html/set-attr :href (str "/initiatives/" (:pid arg) "/edit"))))
 
 (html/deftemplate ^{:doc "Main index template"}
   main-tpl "jecode/views/html/base.html"

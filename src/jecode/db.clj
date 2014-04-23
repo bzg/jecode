@@ -17,7 +17,7 @@
 
 (def osm-search-format "http://nominatim.openstreetmap.org/search?q=%s&format=json")
 
-(def user-date-re #"(\d+)-(\d+)-(\d+) (\d+):(\d+)")
+(def user-date-re #"(\d+)/(\d+)/(\d+) (\d+):(\d+)")
 
 (defn- get-lat-lon-from-location
   [location]
@@ -41,7 +41,7 @@
   representation."
   [user-date]
   (apply format
-         (concat '("Le %d/%d/%d à %dh%d")
+         (concat '("le %d/%02d/%02d à %02dh%02d")
                  (map #(Integer. %)
                       (rest (re-find user-date-re user-date))))))
 
@@ -95,6 +95,7 @@
             "logourl" logourl
             "contact" contact
             "twitter" twitter
+            "tags" ptags
             "lat" lat "lon" lon
             "updated" (time/format (time/now)))
            (doseq [t (map s/trim (s/split ptags #","))]
@@ -102,6 +103,29 @@
            (car/rpush "timeline" pid)
            (car/set (str "pid:" pid ":auid") uid)
            (car/sadd (str "uid:" uid ":apid") pid))))
+
+(defn update-initiative
+  "Update an initiative."
+  [{:keys [pid pname purl logourl contact twitter plocation pdesc ptags]}]
+  (let [uname (session/get :username)
+        uid (get-username-uid uname)
+        lat (:lat (get-lat-lon-from-location plocation))
+        lon (:lon (get-lat-lon-from-location plocation))]
+    (wcar* (car/del (str "pid:" pid ":tags"))
+           (car/hmset
+            (str "pid:" pid)
+            "name" pname
+            "url" purl
+            "desc" pdesc
+            "location" plocation
+            "logourl" logourl
+            "contact" contact
+            "twitter" twitter
+            "tags" ptags
+            "lat" lat "lon" lon
+            "updated" (time/format (time/now)))
+           (doseq [t (map s/trim (s/split ptags #","))]
+             (car/sadd (str "pid:" pid ":tags") t)))))
 
 (defn create-new-event
   "Create a new event."
@@ -124,6 +148,7 @@
             "date_start" (user-date-to-internal-time edate_start)
             "date_end" (user-date-to-internal-time edate_end)
             "location" elocation
+            "tags" etags
             "lat" lat "lon" lon
             "updated" (time/format (time/now)))
            (doseq [t (map s/trim (s/split etags #","))]
@@ -131,6 +156,33 @@
            (car/rpush "timeline_events" eid)
            (car/set (str "eid:" eid ":auid") uid)
            (car/sadd (str "uid:" uid ":aeid") eid))))
+
+(defn update-event
+  "Update an event."
+  [{:keys [eid eorga ename econtact eurl edate_start
+           edate_end elocation edesc etags]}]
+  (let [uname (session/get :username)
+        uid (get-username-uid uname)
+        lat (:lat (get-lat-lon-from-location elocation))
+        lon (:lon (get-lat-lon-from-location elocation))]
+    (wcar* (car/del (str "eid:" eid ":tags"))
+           (car/hmset
+            (str "eid:" eid)
+            "orga" eorga
+            "contact" econtact
+            "name" ename
+            "url" eurl
+            "desc" edesc
+            "hdate_start" (user-date-to-readable-time edate_start)
+            "hdate_end" (user-date-to-readable-time edate_end)
+            "date_start" (user-date-to-internal-time edate_start)
+            "date_end" (user-date-to-internal-time edate_end)
+            "location" elocation
+            "tags" etags
+            "lat" lat "lon" lon
+            "updated" (time/format (time/now)))
+           (doseq [t (map s/trim (s/split etags #","))]
+             (car/sadd (str "eid:" eid ":tags") t)))))
 
 ;; Local Variables:
 ;; eval: (orgstruct-mode 1)

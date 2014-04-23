@@ -35,10 +35,20 @@
   [eid field]
   (wcar* (car/hget (str "eid:" eid) field)))
 
+(defn get-pid-all
+  "Given a pid and a field (as a string), return the field's value."
+  [pid]
+  (wcar* (car/hgetall (str "pid:" pid))))
+
 (defn get-uid-all
   "Given a uid, return all field:value pairs."
   [uid]
   (wcar* (car/hgetall (str "uid:" uid))))
+
+(defn get-eid-all
+  "Given a eid and a field (as a string), return the field's value."
+  [eid]
+  (wcar* (car/hgetall (str "eid:" eid))))
 
 (defn username-admin-of-pid?
   "True is username is the admin of project pid."

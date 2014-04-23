@@ -82,9 +82,11 @@
                               " nous dit pourquoi il faut apprendre à coder !")}))
 
   ;; Initiatives
-  (GET "/initiatives" [] (main-tpl {:a "initiatives" :md "/md/initiatives"
-                                    :list-initiatives true
-                                    :title "jecode.org - La liste des initiatives"}))
+  (GET "/initiatives" []
+       (main-tpl {:a "initiatives"
+                  :md "/md/initiatives"
+                  :list-initiatives true
+                  :title "jecode.org - La liste des initiatives"}))
   (GET "/initiatives/json" [] (items-json "initiatives"))
   (GET "/initiatives/search/:q" [q]
        (main-tpl {:a "initiatives"
@@ -99,16 +101,25 @@
        (friend/authorize
         #{::users}
         (main-tpl {:a "initiatives" :container (new-init-snp)})))
+  (POST "/initiatives/:pid/update" {params :params}
+        (do (update-initiative params)
+            (main-tpl {:a "initiatives"
+                       :container "Votre initiative a été mise à jour, merci !"})))
+  (GET "/initiatives/:pid/edit" [pid]
+       (friend/authorize
+        #{::users}
+        (main-tpl {:a "initiatives"
+                   :container (edit-init-snp
+                               [(vec-to-kv-hmap (get-pid-all pid)) pid])})))
   (POST "/initiatives/nouvelle" {params :params}
         (do (create-new-initiative params)
             (main-tpl {:a "initiatives"
                        :container "Votre initiative a été ajoutée, merci !"})))
   
-  ;; Événements
+  ;; Events
   (GET "/evenements" []
        (main-tpl {:a "evenements" :md "/md/evenements" :list-events true
                   :title "jecode.org - La liste des événements"}))
-
   (GET "/evenements/search/:q" [q]
        (main-tpl {:a "evenements"
                   :title "jecode.org - Recherche d'événements"
@@ -119,6 +130,17 @@
        (main-tpl {:a "evenements" :showmap "showevents"
                   :md "/md/evenements_map"
                   :title "jecode.org - La carte des événements"}))
+  (POST "/evenements/:eid/update" {params :params}
+        (do (update-event params)
+            (main-tpl {:a "evenements"
+                       :container "Votre événement a été mis à jour, merci !"})))
+  (GET "/evenements/:eid/edit" [eid]
+       (friend/authorize
+        #{::users}
+        (main-tpl {:a "evenements"
+                   :container (edit-event-snp
+                               [(vec-to-kv-hmap
+                                 (get-eid-all eid)) eid])})))
   (GET "/evenements/nouveau" []
        (friend/authorize
         #{::users}
