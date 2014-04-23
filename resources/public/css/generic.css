@@ -33,6 +33,18 @@ img.logo {
     background-color: white;
 }
 
+#bottom_right {
+    position: fixed;
+    font-size: 70%;
+    bottom: 1em;
+    right: 1em;
+}
+
+#bottom_right input {
+    padding:3px;
+    margin: 2px;
+}
+
 #log {
     position:fixed;
     margin:1em;
@@ -60,8 +72,8 @@ button {
     padding: .5em;
 }
 
-form {
-    margin: .5em;
+label {
+    font-size: 80%;
 }
 
 #container2 img {

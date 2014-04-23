@@ -64,8 +64,6 @@
   [:#apropos] (html/set-attr :class (if (= a "apropos") "active"))
   [:#map] (cond (or (= showmap "showinits") (= showmap "showevents"))
                 (html/set-attr :style "width:70%")
-                (or (= showmap "newinit") (= showmap "newevent"))
-                (html/set-attr :style "max-height:500px;")
                 :else (html/set-attr :style "display:none"))
   [:#log :a#login] (if (session/get :username)
                   (html/do-> (html/set-attr :href "/logout")
@@ -94,9 +92,7 @@
   [:#mapjs]
   (html/html-content
    (cond (= showmap "showinits") "<script src=\"/js/showinits.js\" type=\"text/javascript\"></script>"
-         (= showmap "newinit") "<script src=\"/js/newinit.js\" type=\"text/javascript\"></script>"
          (= showmap "showevents") "<script src=\"/js/showevents.js\" type=\"text/javascript\"></script>"
-         (= showmap "newevent") "<script src=\"/js/newevent.js\" type=\"text/javascript\"></script>"
          :else "")))
 
 ;;; * Local variables
