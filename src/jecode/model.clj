@@ -2,6 +2,7 @@
   (:require
    [taoensso.carmine :as car]
    [noir.session :as session]
+   [clojure.string :as s]
    [cheshire.core :refer :all :as json]
    [clj-rss.core :as rss]
    [shoreleave.middleware.rpc :refer [defremote]]))
@@ -66,8 +67,8 @@ Each initiative is represented as a hash-map."
           :pid %
           ;; :ismember (username-member-of-pid?
           ;;            (session/get :username) %)
-                  :isadmin (username-admin-of-pid?
-                            (session/get :username) %))
+          :isadmin (username-admin-of-pid?
+                    (session/get :username) %))
        (wcar* (car/lrange "timeline" 0 -1))))
 
 (defremote get-initiatives-for-map
@@ -107,8 +108,16 @@ Each event is represented as a hash-map."
      (str "Événement: " name)
      url
      (format
-      "<p>%s organise l'événement \"%s\" le %s !</p><p>Lieu : %s</p><p>Contact : %s</p>%s<p><a href=\"%s\">%s</a></p>"
-      (:orga event) name (:date event)
+      (s/join
+       '("<p>%s organise l'événement \"%s\" !</p>"
+         "<p>Début : %s<p>"
+         "<p>  Fin : %s<p>"
+         "<p> Lieu : %s</p>"
+         "<p>Contact : %s</p>%s<p><a href=\"%s\">%s</a></p>"))
+      (:orga event)
+      name
+      (:hdate_start event)
+      (:hdate_end event) 
       (if (not (empty? loc)) loc "non précisé")
       (if (not (empty? contact)) contact "non précisé")
       (:desc event) url url))))
