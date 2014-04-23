@@ -69,9 +69,9 @@
 (html/defsnippet my-event "jecode/views/html/base.html"
   [:#list :ul] [arg]
   [:li :a.item] (html/do->
-            (html/set-attr :href (:url arg))
-            (html/set-attr :title (:desc arg))
-            (html/content (:name arg)))
+                 (html/set-attr :href (:url arg))
+                 (html/set-attr :title (:desc arg))
+                 (html/content (:name arg)))
   [:li :a.edit] (html/do->
                  (html/content (if (:isadmin arg) " (éditer)"))
                  (html/set-attr :href (str "/evenements/" (:eid arg) "/edit"))))
@@ -102,13 +102,17 @@
   [:#map] (cond (or (= showmap "showinits") (= showmap "showevents"))
                 (html/set-attr :style "width:70%")
                 :else (html/set-attr :style "display:none"))
+  [:#log :a#github] (if (empty? (session/get :username))
+                      (html/do-> (html/set-attr :href "/github")
+                                 (maybe-content "Via Github /"))
+                      (html/set-attr :style "display:none;"))
   [:#log :a#login] (if (session/get :username)
-                  (html/do-> (html/set-attr :href "/logout")
-                             (maybe-content "Déconnexion"))
-                  (html/do-> (html/set-attr :href "/login")
-                             (maybe-content "Connexion")))
+                     (html/do-> (html/set-attr :href "/logout")
+                                (maybe-content "Déconnexion"))
+                     (html/do-> (html/set-attr :href "/login")
+                                (maybe-content "Via email /")))
   [:#log :a#signin] (if (session/get :username)
-                      (html/set-attr :style "display:none")
+                      (html/set-attr :style "display:none;")
                       (maybe-content "Inscription"))
   [:#list] (cond
             (:initiatives-query list-results)

@@ -3,6 +3,7 @@
             [hiccup.page :as h]
             [hiccup.element :as e]
             [jecode.util :refer :all]
+            [jecode.github :refer :all]
             [noir.session :as session]
             [net.cgrand.enlive-html :as html]
             [clojure.string :as s]
@@ -12,10 +13,13 @@
             [jecode.search :refer :all]
             [jecode.views.templates :refer :all]
             [ring.util.response :as resp]
+            [ring.util.codec :as codec]
             [ring.middleware.reload :refer :all]
             [compojure.core :as compojure :refer (GET POST defroutes)]
             [org.httpkit.server :refer :all]
             (compojure [route :as route])
+            [friend-oauth2.workflow :as oauth2]
+            [friend-oauth2.util :as oauth2-util]
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
@@ -38,6 +42,57 @@
       (when (sc/verify password (get creds password-key))
         (dissoc creds password-key)))))
 
+(defn credential-fn-gh
+  [token]
+  (let [at (:access-token token)
+        basic-infos (github-user-basic-info at)
+        username (:username basic-infos)]
+    (session/put! :username username)
+    {:identity username
+     :access-token at
+     :roles #{::users}}))
+
+(def ^{:doc "Get the GitHub app configuration from environment variables."
+       :private true}
+  gh-client-config
+  {:client-id (System/getenv "github_client_id")
+   :client-secret (System/getenv "github_client_secret")
+   :callback {:domain (System/getenv "github_client_domain")
+              :path "/github.callback"}})
+
+(def ^{:doc "Default roles for Friend authenticated users."
+       :private true}
+  friend-config-auth
+  {:roles #{:kickhub.core/users}})
+
+(def ^{:doc "Set up the GitHub authentication URI for Friend."
+       :private true}
+  friend-gh-uri-config
+  {:authentication-uri
+   {:url "https://github.com/login/oauth/authorize"
+    :query {:client_id (:client-id gh-client-config)
+            :response_type "code"
+            :redirect_uri
+            (oauth2-util/format-config-uri gh-client-config)
+            :scope "user:email"}}
+   :access-token-uri
+   {:url "https://github.com/login/oauth/access_token"
+    :query {:client_id (:client-id gh-client-config)
+            :client_secret (:client-secret gh-client-config)
+            :grant_type "authorization_code"
+            :redirect_uri
+            (oauth2-util/format-config-uri gh-client-config)
+            :code ""}}})
+
+(defn- access-token-parsefn
+  "Parse the response to get an access-token."
+  [response]
+  (-> response
+      :body
+      codec/form-decode
+      clojure.walk/keywordize-keys
+      :access_token))
+
 (defn- wrap-friend [handler]
   "Wrap friend authentication around handler."
   (friend/authenticate
@@ -47,7 +102,16 @@
                  :allow-anon? true
                  :login-uri "/login"
                  :default-landing-uri "/initiatives"
-                 :credential-fn (partial scrypt-credential-fn load-user))]}))
+                 :credential-fn (partial scrypt-credential-fn load-user))
+                (oauth2/workflow
+                 {:client-config gh-client-config
+                  :uri-config friend-gh-uri-config
+                  :login-uri "/github"
+                  :default-landing-uri "/initiatives"
+                  :credential-fn credential-fn-gh
+                  :access-token-parsefn access-token-parsefn
+                  :config-auth friend-config-auth})
+                ]}))
 
 (defn- four-oh-four []
   (h/html5

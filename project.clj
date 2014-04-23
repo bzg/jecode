@@ -14,6 +14,7 @@
    [http-kit "2.1.18"]
    [org.clojure/clojurescript "0.0-2202"]
    [net.drib/blade "0.1.0"]
+   [friend-oauth2 "0.1.1"]
    [com.cemerick/friend "0.2.0"
     :exclusions [org.apache.httpcomponents/httpclient org.clojure/core.cache]]
    [com.taoensso/carmine "2.4.6"]
