@@ -1,14 +1,14 @@
 (defproject
-  jecode "0.0.3"
+  jecode "0.0.4"
   :url "http://github.com/bzg/jecode"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies
   [[org.clojure/clojure "1.5.1"]
-
    [lib-noir "0.8.2"]
    [domina "1.0.2"]
    [hiccup "1.0.5"]
+   [simple-time "0.1.1"]
    [compojure "1.1.6"]
    [clojurewerkz/scrypt "1.1.0"]
    [http-kit "2.1.18"]
@@ -41,16 +41,6 @@
                {:source-paths ["src/cljs/showevent"]
                 :compiler
                 {:output-to "resources/public/js/showevents.js"
-                 :optimizations :whitespace
-                 :pretty-print false}}
-               {:source-paths ["src/cljs/newinit"]
-                :compiler
-                {:output-to "resources/public/js/newinit.js"
-                 :optimizations :whitespace
-                 :pretty-print false}}
-               {:source-paths ["src/cljs/newevent"]
-                :compiler
-                {:output-to "resources/public/js/newevent.js"
                  :optimizations :whitespace
                  :pretty-print false}}
                ]})
