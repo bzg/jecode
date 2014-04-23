@@ -56,7 +56,7 @@
     (h/include-css "/css/generic.css")]
    [:body
     (e/image {:class "logo"} "/pic/jecode_petit.png")
-    [:p "Page non trouvée :/"]
+    [:p "Page non trouvée :-/"]
     [:p "Retour à la "
      (e/link-to "http://jecode.org" "page d'accueil")]]))
 
@@ -98,7 +98,7 @@
   (GET "/initiatives/nouvelle" []
        (friend/authorize
         #{::users}
-        (main-tpl {:a "initiatives" :container (new-init-snp) :showmap "newinit"})))
+        (main-tpl {:a "initiatives" :container (new-init-snp)})))
   (POST "/initiatives/nouvelle" {params :params}
         (do (create-new-initiative params)
             (main-tpl {:a "initiatives"
@@ -122,7 +122,7 @@
   (GET "/evenements/nouveau" []
        (friend/authorize
         #{::users}
-        (main-tpl {:a "evenements" :container (new-event-snp) :showmap "newevent"})))
+        (main-tpl {:a "evenements" :container (new-event-snp)})))
   (POST "/evenements/nouveau" {params :params}
         (do (create-new-event params)
             (main-tpl {:a "evenements"
