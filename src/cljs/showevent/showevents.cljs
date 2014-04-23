@@ -15,7 +15,7 @@
      (get-events-for-map) [res]
      (.addLayers
       markers
-      (map #(let [{:keys [name url lat lon desc pid date
+      (map #(let [{:keys [name url lat lon desc hdate_start hdate_end
                           orga location contact isadmin]} %
                   join (when isadmin "(Inscrit par vous.)")
                   icon ((get-in L [:mapbox :marker :icon])
@@ -28,7 +28,8 @@
                                       contact "<br/>"
                                       desc "<br/>"
                                       location "<br/>"
-                                      date "<br/>"
+                                      hdate_start "<br/>"
+                                      hdate_end "<br/>"
                                       join))
               marker)
            res)))
