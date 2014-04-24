@@ -81,7 +81,7 @@
 
 (defn create-new-initiative
   "Create a new initiative."
-  [{:keys [pname purl logourl contact twitter plocation pdesc ptags]}]
+  [{:keys [pname purl logourl contact twitter plocation pdesc ptags hide]}]
   (wcar* (car/incr "global:pid"))
   (let [pid (wcar* (car/get "global:pid"))
         uname (session/get :username)
@@ -99,6 +99,7 @@
       "contact" contact
       "twitter" twitter
       "tags" ptags
+      "hide" hide
       "lat" lat "lon" lon
       "updated" (time/format (time/now)))
      (car/rpush "timeline" pid)
@@ -110,7 +111,7 @@
 
 (defn update-initiative
   "Update an initiative."
-  [{:keys [pid pname purl logourl contact twitter plocation pdesc ptags]}]
+  [{:keys [pid pname purl logourl contact twitter plocation pdesc ptags hide]}]
   (let [uname (session/get :username)
         uid (get-username-uid uname)
         lat (:lat (get-lat-lon-from-location plocation))
@@ -126,6 +127,7 @@
             "contact" contact
             "twitter" twitter
             "tags" ptags
+            "hide" hide
             "lat" lat "lon" lon
             "updated" (time/format (time/now))))
     (map #(wcar* (car/sadd (str "pid:" pid ":tags") %))
@@ -142,7 +144,7 @@
 
 (defn create-new-event
   "Create a new event."
-  [{:keys [eorga ename econtact eurl eages edate_start edate_end elocation edesc etags]}]
+  [{:keys [eorga ename econtact eurl eages edate_start edate_end elocation edesc etags hide]}]
   (wcar* (car/incr "global:eid"))
   (let [eid (wcar* (car/get "global:eid"))
         uname (session/get :username)
@@ -164,6 +166,7 @@
       "date_end" (user-date-to-internal-time edate_end)
       "location" elocation
       "tags" etags
+      "hide" hide
       "lat" lat "lon" lon
       "updated" (time/format (time/now)))
      ;; Add each age as an element of eid:1:ages
@@ -181,7 +184,7 @@
 (defn update-event
   "Update an event."
   [{:keys [eid eorga ename econtact eurl eages edate_start
-           edate_end elocation edesc etags]}]
+           edate_end elocation edesc etags hide]}]
   (let [uname (session/get :username)
         uid (get-username-uid uname)
         lat (:lat (get-lat-lon-from-location elocation))
@@ -201,6 +204,7 @@
       "date_end" (user-date-to-internal-time edate_end)
       "location" elocation
       "tags" etags
+      "hide" hide
       "lat" lat "lon" lon
       "updated" (time/format (time/now)))
      (car/del (str "eid:" eid ":tags"))
