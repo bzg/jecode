@@ -51,9 +51,18 @@ img.logo {
     top: 0px;
     right: 0px;
     font-size: 11pt;
+    text-align: right;
 }
 
-#login, #register {
+#log li {
+    list-style-type:none;
+}
+
+#log a {
+    text-decoration: none;
+}
+
+#login_form, #register_form {
     text-align:center;
     padding-top:1em;
     margin:auto;
