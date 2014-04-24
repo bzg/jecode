@@ -34,16 +34,18 @@
   (time/format
    (apply time/datetime
           (map #(Integer. %)
-           (concat (rest (re-find user-date-re user-date)) '(0 0))))))
+               (concat (rest (re-find user-date-re user-date)) '(0 0))))))
 
 (defn- user-date-to-readable-time
   "Convert a date string like \"YYYY-MM-DD HH:MM\" to a readable time
   representation."
   [user-date]
   (apply format
-         (concat '("le %d/%02d/%02d à %02dh%02d")
-                 (map #(Integer. %)
-                      (rest (re-find user-date-re user-date))))))
+         (concat ;; '("le %d/%02d/%02d à %02dh%02d")
+          ;; FIXME: use a better date display?
+          '("%d/%02d/%02d %02d:%02d")
+          (map #(Integer. %)
+               (rest (re-find user-date-re user-date))))))
 
 (defn send-activation-email [email activation-link]
   (postal/send-message
@@ -86,23 +88,25 @@
         uid (get-username-uid uname)
         lat (:lat (get-lat-lon-from-location plocation))
         lon (:lon (get-lat-lon-from-location plocation))]
-    (wcar* (car/hmset
-            (str "pid:" pid)
-            "name" pname
-            "url" purl
-            "desc" pdesc
-            "location" plocation
-            "logourl" logourl
-            "contact" contact
-            "twitter" twitter
-            "tags" ptags
-            "lat" lat "lon" lon
-            "updated" (time/format (time/now)))
-           (doseq [t (map s/trim (s/split ptags #","))]
-             (car/sadd (str "pid:" pid ":tags") t))
-           (car/rpush "timeline" pid)
-           (car/set (str "pid:" pid ":auid") uid)
-           (car/sadd (str "uid:" uid ":apid") pid))))
+    (wcar*
+     (car/hmset
+      (str "pid:" pid)
+      "name" pname
+      "url" purl
+      "desc" pdesc
+      "location" plocation
+      "logourl" logourl
+      "contact" contact
+      "twitter" twitter
+      "tags" ptags
+      "lat" lat "lon" lon
+      "updated" (time/format (time/now)))
+     (car/rpush "timeline" pid)
+     (car/set (str "pid:" pid ":auid") uid)
+     (car/sadd (str "uid:" uid ":apid") pid)
+     (when (not (empty? ptags))
+       (doseq [t (map s/trim (s/split ptags #","))]
+         (wcar* (car/sadd (str "eid:" pid ":tags") t)))))))
 
 (defn update-initiative
   "Update an initiative."
@@ -123,66 +127,91 @@
             "twitter" twitter
             "tags" ptags
             "lat" lat "lon" lon
-            "updated" (time/format (time/now)))
-           (doseq [t (map s/trim (s/split ptags #","))]
-             (car/sadd (str "pid:" pid ":tags") t)))))
+            "updated" (time/format (time/now))))
+    (map #(wcar* (car/sadd (str "pid:" pid ":tags") %))
+         (map s/trim (s/split ptags #",")))))
+
+(defn- get-age-range
+  "Get the age range from string `eages`.
+  First two integers are considered, and reordered if necessary."
+  [eages]
+  (let [re #"(\d+)[^\d]+(\d+)"
+        age_l (map read-string (rest (re-find re eages)))
+        age_r (apply range (sort age_l))]
+    (sort (conj age_r (inc (last age_r))))))
 
 (defn create-new-event
   "Create a new event."
-  [{:keys [eorga ename econtact eurl edate_start edate_end elocation edesc etags]}]
+  [{:keys [eorga ename econtact eurl eages edate_start edate_end elocation edesc etags]}]
   (wcar* (car/incr "global:eid"))
   (let [eid (wcar* (car/get "global:eid"))
         uname (session/get :username)
         uid (get-username-uid uname)
         lat (:lat (get-lat-lon-from-location elocation))
         lon (:lon (get-lat-lon-from-location elocation))]
-    (wcar* (car/hmset
-            (str "eid:" eid)
-            "orga" eorga
-            "contact" econtact
-            "name" ename
-            "url" eurl
-            "desc" edesc
-            "hdate_start" (user-date-to-readable-time edate_start)
-            "hdate_end" (user-date-to-readable-time edate_end)
-            "date_start" (user-date-to-internal-time edate_start)
-            "date_end" (user-date-to-internal-time edate_end)
-            "location" elocation
-            "tags" etags
-            "lat" lat "lon" lon
-            "updated" (time/format (time/now)))
-           (doseq [t (map s/trim (s/split etags #","))]
-             (car/sadd (str "eid:" eid ":tags") t))
-           (car/rpush "timeline_events" eid)
-           (car/set (str "eid:" eid ":auid") uid)
-           (car/sadd (str "uid:" uid ":aeid") eid))))
+    (wcar*
+     (car/hmset
+      (str "eid:" eid)
+      "orga" eorga
+      "ages" eages
+      "contact" econtact
+      "name" ename
+      "url" eurl
+      "desc" edesc
+      "hdate_start" (user-date-to-readable-time edate_start)
+      "hdate_end" (user-date-to-readable-time edate_end)
+      "date_start" (user-date-to-internal-time edate_start)
+      "date_end" (user-date-to-internal-time edate_end)
+      "location" elocation
+      "tags" etags
+      "lat" lat "lon" lon
+      "updated" (time/format (time/now)))
+     ;; Add each age as an element of eid:1:ages
+     (car/rpush "timeline_events" eid)
+     (car/set (str "eid:" eid ":auid") uid)
+     (car/sadd (str "uid:" uid ":aeid") eid)
+     (when (and (not (empty? eages))
+                (re-find #"(\d+)[^\d]+(\d+)" eages))
+       (doseq [a (get-age-range eages)]
+         (car/sadd (str "eid:" eid ":ages") a)))
+     (when (not (empty? etags))
+       (doseq [t (map s/trim (s/split etags #","))]
+         (wcar* (car/sadd (str "eid:" eid ":tags") t)))))))
 
 (defn update-event
   "Update an event."
-  [{:keys [eid eorga ename econtact eurl edate_start
+  [{:keys [eid eorga ename econtact eurl eages edate_start
            edate_end elocation edesc etags]}]
   (let [uname (session/get :username)
         uid (get-username-uid uname)
         lat (:lat (get-lat-lon-from-location elocation))
         lon (:lon (get-lat-lon-from-location elocation))]
-    (wcar* (car/del (str "eid:" eid ":tags"))
-           (car/hmset
-            (str "eid:" eid)
-            "orga" eorga
-            "contact" econtact
-            "name" ename
-            "url" eurl
-            "desc" edesc
-            "hdate_start" (user-date-to-readable-time edate_start)
-            "hdate_end" (user-date-to-readable-time edate_end)
-            "date_start" (user-date-to-internal-time edate_start)
-            "date_end" (user-date-to-internal-time edate_end)
-            "location" elocation
-            "tags" etags
-            "lat" lat "lon" lon
-            "updated" (time/format (time/now)))
-           (doseq [t (map s/trim (s/split etags #","))]
-             (car/sadd (str "eid:" eid ":tags") t)))))
+    (wcar*
+     (car/hmset
+      (str "eid:" eid)
+      "orga" eorga
+      "contact" econtact
+      "name" ename
+      "url" eurl
+      "ages" eages
+      "desc" edesc
+      "hdate_start" (user-date-to-readable-time edate_start)
+      "hdate_end" (user-date-to-readable-time edate_end)
+      "date_start" (user-date-to-internal-time edate_start)
+      "date_end" (user-date-to-internal-time edate_end)
+      "location" elocation
+      "tags" etags
+      "lat" lat "lon" lon
+      "updated" (time/format (time/now)))
+     (car/del (str "eid:" eid ":tags"))
+     (car/del (str "eid:" eid ":ages"))
+     (when (and (not (empty? eages))
+                (re-find #"(\d+)[^\d]+(\d+)" eages))
+       (doseq [a (get-age-range eages)]
+         (car/sadd (str "eid:" eid ":ages") a)))
+     (when (not (empty? etags))
+       (doseq [t (map s/trim (s/split etags #","))]
+         (wcar* (car/sadd (str "eid:" eid ":tags") t)))))))
 
 ;; Local Variables:
 ;; eval: (orgstruct-mode 1)

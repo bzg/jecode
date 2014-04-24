@@ -1,17 +1,23 @@
-<form id="login" action="/login" method="post">
+<form id="login_form" action="/login" method="post" novalidate>
   <div class="input-group">
     <input class="form-control" type="text" id="username" id="username" name="username" value="" placeholder="Email" />
     <input type="password" id="password" name="password" class="form-control" placeholder="Mot de passe" />
     <button type="submit" class="btn btn-info">Connexion</button>
   </div>
+
+  <h3>Si vous n'avez pas de compte, <a href="/inscription">inscrivez-vous</a> d'abord.</h3>
+  
 </form>
 
-<form id="register" action="/inscription" method="post">
+<form id="register_form" action="/inscription" method="post" novalidate>
   <div class="input-group">
     <input class="form-control" type="text" id="email" id="email" name="email" value="" placeholder="Email" />
     <input class="form-control" type="password" id="password" id="password" name="password" placeholder="Mot de passe" />
     <button type="submit" class="btn btn-danger">Inscription</button>
   </div>
+
+  <h3>Si vous avez déjà un compte, <a href="/login">connectez-vous</a> directement.</h3>
+
 </form>
 
 <form id="submit-initiative" class="form-horizontal" role="form"
@@ -33,7 +39,7 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">URL logo</label>
     <div class="col-sm-7">
-      <input class="form-control" type="text" id="logourl" name="logourl" placeholder="URL du logo" />
+      <input class="form-control" type="hidden" id="logourl" name="logourl" placeholder="URL du logo" />
     </div>
   </div>
   <div class="form-group">
@@ -133,6 +139,13 @@
     <div class="col-sm-7">
       <input class="form-control" type="text" id="elocation" name="elocation"
 	     placeholder="Adresse physique complète">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-sm-2 control-label">Âges</label>
+    <div class="col-sm-7">
+      <input class="form-control" type="text" id="eages" name="eages"
+	     placeholder="Tranche d'âges pour cet événement">
     </div>
   </div>
   <div class="form-group">

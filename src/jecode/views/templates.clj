@@ -15,10 +15,10 @@
 ;;; * Generic snippets
 
 (html/defsnippet ^{:doc "Snippet for the login form."}
-  login-snp "jecode/views/html/forms.html" [:#login] [])
+  login-snp "jecode/views/html/forms.html" [:#login_form] [])
 
 (html/defsnippet ^{:doc "Snippet for the register form."}
-  register-snp "jecode/views/html/forms.html" [:#register] [])
+  register-snp "jecode/views/html/forms.html" [:#register_form] [])
 
 (html/defsnippet ^{:doc "Snippet for the initiative form."}
   new-init-snp "jecode/views/html/forms.html" [:#submit-initiative] [])
@@ -88,7 +88,7 @@
 
 (html/deftemplate ^{:doc "Main index template"}
   main-tpl "jecode/views/html/base.html"
-  [{:keys [container md jumbo a showmap title
+  [{:keys [container md jumbo a showmap title formjs
            list-events list-initiatives list-results]}]
   [:head :title] (html/content title)
   [:#container2] (if md (html/html-content
@@ -104,13 +104,13 @@
                 :else (html/set-attr :style "display:none"))
   [:#log :a#github] (if (empty? (session/get :username))
                       (html/do-> (html/set-attr :href "/github")
-                                 (maybe-content "Via Github /"))
+                                 (maybe-content "Connexion Github"))
                       (html/set-attr :style "display:none;"))
-  [:#log :a#login] (if (session/get :username)
+  [:#log :a#connexion] (if (session/get :username)
                      (html/do-> (html/set-attr :href "/logout")
                                 (maybe-content "Déconnexion"))
                      (html/do-> (html/set-attr :href "/login")
-                                (maybe-content "Via email /")))
+                                (maybe-content "Connexion email")))
   [:#log :a#signin] (if (session/get :username)
                       (html/set-attr :style "display:none;")
                       (maybe-content "Inscription"))
@@ -132,9 +132,19 @@
             (html/content (map #(my-initiative %) (get-initiatives-for-map))))
   [:#mapjs]
   (html/html-content
-   (cond (= showmap "showinits") "<script src=\"/js/showinits.js\" type=\"text/javascript\"></script>"
-         (= showmap "showevents") "<script src=\"/js/showevents.js\" type=\"text/javascript\"></script>"
-         :else "")))
+   (cond (= showmap "showinits")
+         "<script src=\"/js/showinits.js\" type=\"text/javascript\"></script>"
+         (= showmap "showevents")
+         "<script src=\"/js/showevents.js\" type=\"text/javascript\"></script>"
+         :else ""))
+  [:#formjs]
+  (html/html-content
+   (cond
+    (= formjs "validate_email")
+    "<script src=\"/js/validate_email.js\" type=\"text/javascript\"></script>"
+    (= formjs "validate_event")
+    "<script src=\"/js/validate_event.js\" type=\"text/javascript\"></script>"
+    :else "")))
 
 ;;; * Local variables
 
