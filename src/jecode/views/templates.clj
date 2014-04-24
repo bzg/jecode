@@ -142,8 +142,8 @@
    (cond
     (= formjs "validate_email")
     "<script src=\"/js/validate_email.js\" type=\"text/javascript\"></script>"
-    (= formjs "validate_event")
-    "<script src=\"/js/validate_event.js\" type=\"text/javascript\"></script>"
+    (= formjs "validate_event_init")
+    "<script src=\"/js/validate_event_init.js\" type=\"text/javascript\"></script>"
     :else "")))
 
 ;;; * Local variables

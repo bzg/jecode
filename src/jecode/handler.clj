@@ -178,7 +178,9 @@
   (GET "/initiatives/nouvelle" []
        (friend/authorize
         #{::users}
-        (main-tpl {:a "initiatives" :container (new-init-snp)})))
+        (main-tpl {:a "initiatives"
+                   :formjs "validate_event_init"
+                   :container (new-init-snp)})))
   (POST "/initiatives/:pid/update" {params :params}
         (do (update-initiative params)
             (main-tpl {:a "initiatives"
@@ -193,7 +195,6 @@
   (POST "/initiatives/nouvelle" {params :params}
         (do (create-new-initiative params)
             (main-tpl {:a "initiatives"
-                       :formjs "validate_event_init"
                        :container "Votre initiative a été ajoutée, merci !"})))
   
   ;; Events
@@ -225,8 +226,9 @@
   (GET "/evenements/nouveau" []
        (friend/authorize
         #{::users}
-        (main-tpl {:a "evenements" :container (new-event-snp)
-                   :formjs "validate_event_init"})))
+        (main-tpl {:a "evenements"
+                   :formjs "validate_event_init"
+                   :container (new-event-snp)})))
   (POST "/evenements/nouveau" {params :params}
         (do (create-new-event params)
             (main-tpl {:a "evenements"
