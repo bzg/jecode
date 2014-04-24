@@ -61,10 +61,10 @@
 
 (html/defsnippet my-result "jecode/views/html/base.html"
   [:#list :ul] [arg]
-  [:li :a] (html/do->
-            (html/set-attr :href (:url arg))
-            (html/set-attr :title (:desc arg))
-            (html/content (:name arg))))
+  [:li :a.item] (html/do->
+                 (html/set-attr :href (:url arg))
+                 (html/set-attr :title (:desc arg))
+                 (html/content (:name arg))))
 
 (html/defsnippet my-event "jecode/views/html/base.html"
   [:#list :ul] [arg]
@@ -127,9 +127,9 @@
                                          (:events-query list-results)) [:hits :hits]))))
             
             list-events
-            (html/content (map #(my-event %) (get-events-for-map)))
+            (html/content (map #(my-event %) (get-events)))
             list-initiatives
-            (html/content (map #(my-initiative %) (get-initiatives-for-map))))
+            (html/content (map #(my-initiative %) (get-initiatives))))
   [:#mapjs]
   (html/html-content
    (cond (= showmap "showinits")
