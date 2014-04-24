@@ -227,9 +227,7 @@
   (POST "/evenements/nouveau" {params :params}
         (do (create-new-event params)
             (main-tpl {:a "evenements"
-                       :container (pr-str params)
-                       ;; "Votre événement a été ajouté, merci !"
-                       })))
+                       :container "Votre événement a été ajouté, merci !"})))
 
   ;; Login
   (GET "/login" []
