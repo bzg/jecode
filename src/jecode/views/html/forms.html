@@ -83,7 +83,7 @@
 
 </form>
 
-<form class="form-horizontal" role="form" 
+<form class="form-horizontal" role="form"
       action="/evenements/nouveau" method="post"
       id="submit-event">
   
@@ -118,7 +118,7 @@
     </div>
     <script type="text/javascript">
       $(function(){
-      jQuery('#edate_start').datetimepicker();
+      jQuery('#edate_start').datetimepicker({dayOfWeekStart:1, lang:'fr'});
       });
     </script>
   </div>
@@ -130,7 +130,7 @@
     </div>
     <script type="text/javascript">
       $(function(){
-      jQuery('#edate_end').datetimepicker();
+      jQuery('#edate_end').datetimepicker({dayOfWeekStart:1, lang:'fr'});
       });
     </script>
   </div>
@@ -173,6 +173,27 @@
   </button>
 
 </form>
+
+<!-- <div id="show-init"> -->
+<!--     <p id="init-nom"><a id="init-url" href=""></a></p> -->
+<!--     <p id="init-contact"></p> -->
+<!--     <p><a id="init-twitter" href=""></a></p> -->
+<!--     <p id="init-adresse"></p> -->
+<!--     <p id="init-tags"></p> -->
+<!--     <p id="init-description"></p> -->
+<!-- </div> -->
+
+<!-- <div id="show-event"> -->
+<!--     <p id="event-nom"><a id="event-url" href=""></a></p> -->
+<!--     <p id="event-orga"></p> -->
+<!--     <p id="event-ages"></p> -->
+<!--     <p id="event-contact"></p> -->
+<!--     <p id="event-adresse"></p> -->
+<!--     <p id="event-debut"></p> -->
+<!--     <p id="event-fin"></p> -->
+<!--     <p id="event-tags"></p> -->
+<!--     <p id="event-description"></p> -->
+<!-- </div> -->
 
 <!-- <div style="" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
 <!--   <div class="modal-dialog"> -->
