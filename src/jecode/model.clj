@@ -75,10 +75,9 @@ Each initiative is represented as a hash-map."
   []
   (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str "pid:" %))))
           :pid %
-          ;; :ismember (username-member-of-pid?
-          ;;            (session/get :username) %)
-          :isadmin (username-admin-of-pid?
-                    (session/get :username) %))
+          :isadmin (or (session/get :admin)
+                       (username-admin-of-pid?
+                        (session/get :username) %)))
        (wcar* (car/lrange "timeline" 0 -1))))
 
 (defremote get-initiatives-for-map
@@ -92,10 +91,9 @@ Each event is represented as a hash-map."
   []
   (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str "eid:" %))))
           :eid %
-          ;; :ismember (username-member-of-pid?
-          ;;            (session/get :username) %)
-          :isadmin (username-admin-of-eid?
-                    (session/get :username) %))
+          :isadmin (or (session/get :admin)
+                       (username-admin-of-eid?
+                        (session/get :username) %)))
        (wcar* (car/lrange "timeline_events" 0 -1))))
 
 (defremote get-events-for-map

@@ -26,13 +26,20 @@
             [cemerick.friend.credentials :refer (hash-bcrypt)]
             [shoreleave.middleware.rpc :refer [wrap-rpc]]))
 
+(derive ::admins ::users)
+
 (defn- load-user
   "Load a user from her username."
   [username]
-  (let [uid (get-username-uid username)
+  (let [admin (System/getenv "jecode_admin")
+        uid (get-username-uid username)
         password (get-uid-field uid "p")]
     (session/put! :username username)
-    {:identity username :password password :roles #{::users}}))
+    ;; FIXME This is adhoc and temporary
+    (if (= username admin) (session/put! :admin "yes"))
+    (session/put! :username username)
+    {:identity username :password password
+     :roles (if (= username admin) #{::admins} #{::users})}))
 
 (defn- scrypt-credential-fn
   "Variant of `bcrypt-credential-fn` using scrypt."
@@ -44,13 +51,16 @@
 
 (defn credential-fn-gh
   [token]
-  (let [at (:access-token token)
+  (let [admin (System/getenv "jecode_admin")
+        at (:access-token token)
         basic-infos (github-user-basic-info at)
-        username (:username basic-infos)]
+        username (:email basic-infos)]
     (session/put! :username username)
+    (if (= username admin) (session/put! :admin "yes"))
     {:identity username
      :access-token at
-     :roles #{::users}}))
+     :roles
+     (if (= username admin) #{::admins} #{::users})}))
 
 (def ^{:doc "Get the GitHub app configuration from environment variables."
        :private true}
@@ -129,15 +139,17 @@
   (GET "/" [] (main-tpl {:a "accueil" :jumbo "/md/description" :md "/md/accueil"}))
 
   ;; Testing ElasticSearch
-  (GET "/esr/reset" [] (friend/authorize #{::users} (reset-indexes)))
-  (GET "/esr/create" [] (friend/authorize #{::users} (create-indexes)))
-  (GET "/esr/add-initiatives" [] (friend/authorize #{::users} (feed-initiatives)))
-  (GET "/esr/add-events" [] (friend/authorize #{::users} (feed-events)))
+  (GET "/esr/reset" [] (friend/authorize #{::admins} (reset-indexes)))
+  (GET "/esr/create" [] (friend/authorize #{::admins} (create-indexes)))
+  (GET "/esr/add-initiatives" [] (friend/authorize #{::admins} (feed-initiatives)))
+  (GET "/esr/add-events" [] (friend/authorize #{::admins} (feed-events)))
 
-  (GET "/apropos" [] (main-tpl {:a "apropos" :md "/md/apropos"
-                                :title "jecode.org - Qui sommes-nous et où allons-nous ?"}))
-  (GET "/codeurs" [] (main-tpl {:a "codeurs" :md "/md/liste_codeurs"
-                                :title "jecode.org - Témoignages de codeurs"}))
+  (GET "/apropos" []
+       (main-tpl {:a "apropos" :md "/md/apropos"
+                  :title "jecode.org - Qui sommes-nous et où allons-nous ?"}))
+  (GET "/codeurs" []
+       (main-tpl {:a "codeurs" :md "/md/liste_codeurs"
+                  :title "jecode.org - Témoignages de codeurs"}))
   (GET "/codeurs/:person" [person]
        (main-tpl {:a "codeurs"
                   :md (str "/md/codeurs/" person)
