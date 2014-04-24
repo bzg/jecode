@@ -5,7 +5,6 @@
             [jecode.util :refer :all]
             [jecode.github :refer :all]
             [noir.session :as session]
-            [net.cgrand.enlive-html :as html]
             [clojure.string :as s]
             [clojurewerkz.scrypt.core :as sc]
             [jecode.db :refer :all]
@@ -34,7 +33,6 @@
   (let [admin (System/getenv "jecode_admin")
         uid (get-username-uid username)
         password (get-uid-field uid "p")]
-    (session/put! :username username)
     ;; FIXME This is adhoc and temporary
     (if (= username admin) (session/put! :admin "yes"))
     (session/put! :username username)
@@ -124,6 +122,8 @@
                 ]}))
 
 (defn- four-oh-four []
+  ;; FIXME: this is the only place where we use hiccup.
+  ;; Let's get rid of it.
   (h/html5
    [:head
     [:title "jecode.org -- page non trouvée"]
@@ -135,6 +135,7 @@
      (e/link-to "http://jecode.org" "page d'accueil")]]))
 
 (defroutes app-routes
+
   ;; Generic
   (GET "/" [] (main-tpl {:a "accueil" :jumbo "/md/description" :md "/md/accueil"}))
 
@@ -144,6 +145,7 @@
   (GET "/esr/add-initiatives" [] (friend/authorize #{::admins} (feed-initiatives)))
   (GET "/esr/add-events" [] (friend/authorize #{::admins} (feed-events)))
 
+  ;; Static pages
   (GET "/apropos" []
        (main-tpl {:a "apropos" :md "/md/apropos"
                   :title "jecode.org - Qui sommes-nous et où allons-nous ?"}))
@@ -220,23 +222,36 @@
   (GET "/evenements/nouveau" []
        (friend/authorize
         #{::users}
-        (main-tpl {:a "evenements" :container (new-event-snp)})))
+        (main-tpl {:a "evenements" :container (new-event-snp)
+                   :formjs "validate_event"})))
   (POST "/evenements/nouveau" {params :params}
         (do (create-new-event params)
             (main-tpl {:a "evenements"
-                       :container "Votre événement a été ajouté, merci !"})))
+                       :container (pr-str params)
+                       ;; "Votre événement a été ajouté, merci !"
+                       })))
 
   ;; Login
-  (GET "/login" [] (main-tpl {:a "accueil" :container (login-snp)}))
+  (GET "/login" []
+       (main-tpl {:a "accueil" :container (login-snp)
+                  :formjs "validate_email"
+                  :title "jecode.org - connexion"}))
   (GET "/logout" req (friend/logout* (resp/redirect (str (:context req) "/"))))
-  (GET "/inscription" [] (main-tpl {:a "accueil" :container (register-snp)}))
+  (GET "/inscription" []
+       (main-tpl {:a "accueil" :container (register-snp)
+                  :formjs "validate_email"
+                  :title "jecode.org - inscription"}))
   (POST "/inscription" {params :params}
         (do (create-new-user params)
-            (main-tpl {:a "accueil" :container "Merci!"})))
+            (main-tpl {:a "accueil"
+                       :container "Merci !  Vous pouvez désormais vous connecter."
+                       :title "jecode.org - vous êtes inscrit !"})))
   (GET "/activer/:authid" [authid]
        (do (activate-user authid)
-           (main-tpl {:a "accueil" :container "Utilisateur actif !"})))
-  ;; Others
+           (main-tpl {:a "accueil" :container "Utilisateur actif !"
+                      :title "jecode.org - utilisateur activé !"})))
+
+  ;; Other routes
   (route/resources "/")
   (route/not-found (four-oh-four)))
 
