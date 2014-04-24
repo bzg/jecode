@@ -1,5 +1,5 @@
 (defproject
-  jecode "0.0.4"
+  jecode "0.0.5"
   :url "http://github.com/bzg/jecode"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
@@ -49,9 +49,9 @@
                 {:output-to "resources/public/js/validate_email.js"
                  :optimizations :whitespace
                  :pretty-print false}}
-               {:source-paths ["src/cljs/validate_event"]
+               {:source-paths ["src/cljs/validate_event_init"]
                 :compiler
-                {:output-to "resources/public/js/validate_event.js"
+                {:output-to "resources/public/js/validate_event_init.js"
                  :optimizations :whitespace
                  :pretty-print false}}
                ]})

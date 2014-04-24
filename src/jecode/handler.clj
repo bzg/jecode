@@ -187,11 +187,13 @@
        (friend/authorize
         #{::users}
         (main-tpl {:a "initiatives"
+                   :formjs "validate_event_init"
                    :container (edit-init-snp
                                [(vec-to-kv-hmap (get-pid-all pid)) pid])})))
   (POST "/initiatives/nouvelle" {params :params}
         (do (create-new-initiative params)
             (main-tpl {:a "initiatives"
+                       :formjs "validate_event_init"
                        :container "Votre initiative a été ajoutée, merci !"})))
   
   ;; Events
@@ -216,6 +218,7 @@
        (friend/authorize
         #{::users}
         (main-tpl {:a "evenements"
+                   :formjs "validate_event_init"
                    :container (edit-event-snp
                                [(vec-to-kv-hmap
                                  (get-eid-all eid)) eid])})))
@@ -223,7 +226,7 @@
        (friend/authorize
         #{::users}
         (main-tpl {:a "evenements" :container (new-event-snp)
-                   :formjs "validate_event"})))
+                   :formjs "validate_event_init"})))
   (POST "/evenements/nouveau" {params :params}
         (do (create-new-event params)
             (main-tpl {:a "evenements"
