@@ -44,4 +44,14 @@
                 {:output-to "resources/public/js/showevents.js"
                  :optimizations :whitespace
                  :pretty-print false}}
+               {:source-paths ["src/cljs/validate_email"]
+                :compiler
+                {:output-to "resources/public/js/validate_email.js"
+                 :optimizations :whitespace
+                 :pretty-print false}}
+               {:source-paths ["src/cljs/validate_event"]
+                :compiler
+                {:output-to "resources/public/js/validate_event.js"
+                 :optimizations :whitespace
+                 :pretty-print false}}
                ]})
