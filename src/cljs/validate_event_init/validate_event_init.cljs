@@ -11,7 +11,7 @@
         url (by-id "eurl")]
     (cond (<= (count (value location)) 10)
           (do (js/alert msg-event-address) false)
-          (not (re-find #"^http://" (value url)))
+          (not (re-find #"^https?://" (value url)))
           (do (js/alert msg-event-url) false)
           :else true)))
 
@@ -20,7 +20,7 @@
         url (by-id "purl")]
     (cond (<= (count (value location)) 10)
           (do (js/alert msg-init-address) false)
-          (not (re-find #"^http://" (value url)))
+          (not (re-find #"^https?://" (value url)))
           (do (js/alert msg-init-url) false)
           :else true)))
 
