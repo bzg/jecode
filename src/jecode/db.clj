@@ -31,21 +31,25 @@
 (defn- user-date-to-internal-time
   [user-date]
   "Convert a date string \"YYYY-MM-DD HH:MM\" to internal time."
-  (time/format
-   (apply time/datetime
-          (map #(Integer. %)
-               (concat (rest (re-find user-date-re user-date)) '(0 0))))))
+  (if (empty? user-date)
+    ""
+    (time/format
+     (apply time/datetime
+            (map #(Integer. %)
+                 (concat (rest (re-find user-date-re user-date)) '(0 0)))))))
 
 (defn- user-date-to-readable-time
   "Convert a date string like \"YYYY-MM-DD HH:MM\" to a readable time
   representation."
   [user-date]
-  (apply format
-         (concat ;; '("le %d/%02d/%02d à %02dh%02d")
-          ;; FIXME: use a better date display?
-          '("%d/%02d/%02d %02d:%02d")
-          (map #(Integer. %)
-               (rest (re-find user-date-re user-date))))))
+  (if (empty? user-date)
+    ""
+    (apply format
+           (concat ;; '("le %d/%02d/%02d à %02dh%02d")
+            ;; FIXME: use a better date display?
+            '("%d/%02d/%02d %02d:%02d")
+            (map #(Integer. %)
+                 (rest (re-find user-date-re user-date)))))))
 
 (defn send-activation-email [email activation-link]
   (postal/send-message
