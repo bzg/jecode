@@ -73,14 +73,16 @@
   "Return the list of initiatives.
 Each initiative is represented as a hash-map."
   []
-  (filter
-   #(not (= (:hide %) "hide"))
-   (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str "pid:" %))))
-           :pid %
-           :isadmin (or (session/get :admin)
-                        (username-admin-of-pid?
-                         (session/get :username) %)))
-        (wcar* (car/lrange "timeline" 0 -1)))))
+  (sort-by
+   :name
+   (filter
+    #(not (= (:hide %) "hide"))
+    (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str "pid:" %))))
+            :pid %
+            :isadmin (or (session/get :admin)
+                         (username-admin-of-pid?
+                          (session/get :username) %)))
+         (wcar* (car/lrange "timeline" 0 -1))))))
 
 (defremote get-initiatives-for-map
   []
@@ -91,14 +93,16 @@ Each initiative is represented as a hash-map."
   "Return the list of events.
 Each event is represented as a hash-map."
   []
-  (filter
-   #(not (= (:hide %) "hide"))
-   (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str "eid:" %))))
-           :eid %
-           :isadmin (or (session/get :admin)
-                        (username-admin-of-eid?
-                         (session/get :username) %)))
-        (wcar* (car/lrange "timeline_events" 0 -1)))))
+  (sort-by
+   :name
+   (filter
+    #(not (= (:hide %) "hide"))
+    (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str "eid:" %))))
+            :eid %
+            :isadmin (or (session/get :admin)
+                         (username-admin-of-eid?
+                          (session/get :username) %)))
+         (wcar* (car/lrange "timeline_events" 0 -1))))))
 
 (defremote get-events-for-map
   []

@@ -51,6 +51,15 @@
             (map #(Integer. %)
                  (rest (re-find user-date-re user-date)))))))
 
+(defn send-admin-warning [email]
+  (postal/send-message
+   ^{:host "localhost"
+     :port 25}
+   {:from "jecode.org <contact@jecode.org>"
+    :to email
+    :subject (format "Nouvel utilisateur: %s" email)
+    :body (format "Nouvel utilisateur: %s" email)}))
+
 (defn send-activation-email [email activation-link]
   (postal/send-message
    ^{:host "localhost"
@@ -81,6 +90,7 @@
            (car/set (str "auth:" authid) guid)
            (car/set (str "user:" email ":uid") guid)
            (car/rpush "users" guid))
+    (send-admin-warning email)
     (send-activation-email email (str "http://jecode.org/activer/" authid))))
 
 (defn create-new-initiative
