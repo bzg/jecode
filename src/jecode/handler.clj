@@ -166,7 +166,6 @@
                   :list-initiatives true
                   :title "jecode.org - La liste des initiatives"}))
   (GET "/initiatives/json" [] (items-json "initiatives"))
-  (GET "/initiatives/:tag/json" [tag] (items-json "initiatives" tag))
   (GET "/initiatives/search/:q" [q]
        (main-tpl {:a "initiatives"
                   :title "jecode.org - Recherche d'initiatives"
@@ -208,7 +207,6 @@
                   :list-results {:events-query q}}))
   (GET "/evenements/rss" [] (events-rss))
   (GET "/evenements/json" [] (items-json "evenements"))
-  (GET "/evenements/:tag/json" [tag] (items-json "evenements" tag))
   (GET "/evenements/map" []
        (main-tpl {:a "evenements" :showmap "showevents"
                   :md "/md/evenements_map"
