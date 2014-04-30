@@ -12,7 +12,7 @@
 (defn- add-events []
   (let [markers (L/MarkerClusterGroup.)]
     (macros/rpc
-     (get-events-for-map) [res]
+     (get-for-map "evenements") [res]
      (.addLayers
       markers
       (map #(let [{:keys [name url lat lon desc hdate_start hdate_end

@@ -12,7 +12,7 @@
 (defn- add-initiatives []
   (let [markers (L/MarkerClusterGroup.)]
     (macros/rpc
-     (get-initiatives-for-map) [res]
+     (get-for-map "initiatives") [res]
      (.addLayers
       markers
       (map #(let [{:keys [name url logourl desc location
