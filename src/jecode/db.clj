@@ -56,7 +56,7 @@
    ^{:host "localhost"
      :port 25}
    {:from "jecode.org <contact@jecode.org>"
-    :to email
+    :to "Bastien <bastien.guerry@free.fr>"
     :subject (format "Nouvel utilisateur: %s" email)
     :body (format "Nouvel utilisateur: %s" email)}))
 
