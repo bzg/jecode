@@ -134,8 +134,8 @@ Each event is represented as a hash-map."
       name
       (:hdate_start event)
       (:hdate_end event) 
-      (if (not (empty? loc)) loc "non précisé")
-      (if (not (empty? contact)) contact "non précisé")
+      (if (seq loc) loc "non précisé")
+      (if (seq contact) contact "non précisé")
       (:desc event) url url))))
 
 (defn events-rss []
@@ -144,8 +144,7 @@ Each event is represented as a hash-map."
           :link "http://jecode.org"
           :description "jecode.org: apprenons à programmer ensemble !"}
          (reverse
-          (filter #(not (empty? %))
-                  (map #(event-to-rss-item %) (get-events))))))
+          (filter #(seq %) (map #(event-to-rss-item %) (get-events))))))
 
 ;;; * JSON
 

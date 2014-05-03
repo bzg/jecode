@@ -18,7 +18,7 @@
    [friend-oauth2 "0.1.1"]
    [com.cemerick/friend "0.2.0"
     :exclusions [org.apache.httpcomponents/httpclient org.clojure/core.cache]]
-   [com.taoensso/carmine "2.4.6"]
+   [com.taoensso/carmine "2.6.2"]
    [shoreleave/shoreleave-remote-ring "0.3.0"]
    [shoreleave/shoreleave-remote "0.3.0"]
    [com.draines/postal "1.11.1"]

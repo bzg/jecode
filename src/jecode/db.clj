@@ -119,7 +119,7 @@
      (car/rpush "timeline" pid)
      (car/set (str "pid:" pid ":auid") uid)
      (car/sadd (str "uid:" uid ":apid") pid)
-     (when (not (empty? ptags))
+     (when (seq ptags)
        (doseq [t (map s/trim (s/split ptags #","))]
          (wcar* (car/sadd (str "eid:" pid ":tags") t)))))))
 
@@ -187,11 +187,10 @@
      (car/rpush "timeline_events" eid)
      (car/set (str "eid:" eid ":auid") uid)
      (car/sadd (str "uid:" uid ":aeid") eid)
-     (when (and (not (empty? eages))
-                (re-find #"(\d+)[^\d]+(\d+)" eages))
+     (when (and (seq eages) (re-find #"(\d+)[^\d]+(\d+)" eages))
        (doseq [a (get-age-range eages)]
          (car/sadd (str "eid:" eid ":ages") a)))
-     (when (not (empty? etags))
+     (when (seq etags)
        (doseq [t (map s/trim (s/split etags #","))]
          (wcar* (car/sadd (str "eid:" eid ":tags") t)))))))
 
@@ -223,11 +222,10 @@
       "updated" (time/format (time/now)))
      (car/del (str "eid:" eid ":tags"))
      (car/del (str "eid:" eid ":ages"))
-     (when (and (not (empty? eages))
-                (re-find #"(\d+)[^\d]+(\d+)" eages))
+     (when (and (seq eages) (re-find #"(\d+)[^\d]+(\d+)" eages))
        (doseq [a (get-age-range eages)]
          (car/sadd (str "eid:" eid ":ages") a)))
-     (when (not (empty? etags))
+     (when (seq etags)
        (doseq [t (map s/trim (s/split etags #","))]
          (wcar* (car/sadd (str "eid:" eid ":tags") t)))))))
 
