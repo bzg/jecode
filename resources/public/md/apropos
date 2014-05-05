@@ -1,18 +1,31 @@
 ### Qu'est-ce que jecode.org ?
 
-Le site jecode.org rassemble des initiatives encourageant l'apprentissage de la programmation pour les *enfants*.  Nous construisons une carte des initiatives et une carte des événements qu'elles organisent, toutes deux accessibles au grand public et aux écoles qui souhaitent s'ouvrir à cet enseignement.
+Le site jecode.org rassemble des initiatives encourageant
+l'apprentissage de la programmation pour les *enfants*.  Nous
+construisons une carte des initiatives et une carte des événements
+qu'elles organisent, toutes deux accessibles au grand public et aux
+écoles qui souhaitent s'ouvrir à cet enseignement.
 
 ### Pourquoi ?
 
-Nous pensons qu'il est important que les enfants ne soient pas de simples consommateurs du numérique, mais qu'ils en acquièrent les clefs, hors de l'école et à l'école.  Pas seulement _l'usage_ des outils informatiques, mais aussi et surtout les concepts et les techniques fondamentales de la programmation.
+Nous pensons qu'il est important que les enfants ne soient pas de
+simples consommateurs du numérique, mais qu'ils en acquièrent les
+clefs, hors de l'école et à l'école.  Pas seulement _l'usage_ des
+outils informatiques, mais aussi et surtout les concepts et les
+techniques fondamentales de la programmation.
 
 ### Puis-je ajouter une initiative ou un événement ?
 
-Bien sûr !  [Créez un compte](/inscription) et ajoutez une [initiative](/initiatives/nouvelle) ou un [événement](/evenements/nouveau).
+Bien sûr !  [Créez un compte](/inscription) et ajoutez une
+[initiative](/initiatives/nouvelle) ou un
+[événement](/evenements/nouveau).
 
 ### Puis-je ajouter mon témoignage ?
 
-Oui !  Il suffit pour cela de « forker » le dépôt git [jecode](https://github.com/bzg/jecode) et nous envoyer un *pull request*.  Si vous préférez, vous pouvez simplement nous envoyer un [mail](mailto:bzg@bzg.fr) en répondant à ces quatre questions:
+Oui !  Il suffit pour cela de « forker » le dépôt git
+[jecode](https://github.com/bzg/jecode) et nous envoyer un *pull
+request*.  Si vous préférez, vous pouvez simplement nous envoyer un
+[mail](mailto:bzg@bzg.fr) en répondant à ces quatre questions:
 
 - Pourquoi codes-tu ?
 - Comment as-tu appris ?
@@ -21,19 +34,30 @@ Oui !  Il suffit pour cela de « forker » le dépôt git [jecode](https://githu
 
 ### Qui est derrière jecode.org ?
 
-jecode.org a été lancé par [David Roche](codeurs/david.roche), [Martin Quinson](codeurs/martin.quinson) et [Bastien Guerry](codeurs/bastien.guerry) en novembre 2013.
+jecode.org a été lancé par [David Roche](codeurs/david.roche), [Martin
+Quinson](codeurs/martin.quinson) et [Bastien
+Guerry](codeurs/bastien.guerry) en novembre 2013.
 
 ### Comment rejoindre la communauté jecode.org ?
 
-Nous échangeons régulièrement sur cette [liste de discussion](http://listes.jecode.org/cgi-bin/mailman/listinfo/discussion) ouverte à
-tous et dont les [archives](http://listes.jecode.org/pipermail/discussion/) sont publiques.  N'hésitez pas à vous inscrire et à vous
-présenter après votre inscription.
+Nous échangeons régulièrement sur cette [liste de
+discussion](http://listes.jecode.org/cgi-bin/mailman/listinfo/discussion)
+ouverte à tous et dont les
+[archives](http://listes.jecode.org/pipermail/discussion/) sont
+publiques.  N'hésitez pas à vous inscrire et à vous présenter après
+votre inscription.
 
 ### Comment contribuer concrètement ?
 
-Nous avons mis en place un [forum](http://forum.jecode.org) et un [wiki](http://wiki.jecode.org).  Le forum nous sert à partager et discuter des liens en rapport avec l'enseignement de l'informatique (en français et en anglais).  Le wiki qui nous sert de bloc-notes pour centraliser l'information et organiser nos projets.
+Nous avons mis en place une [liste de liens
+commentables](http://news.jecode.org) et un
+[wiki](http://wiki.jecode.org).  Le forum nous sert à partager et
+discuter des liens en rapport avec l'enseignement de l'informatique
+(en français et en anglais).  Le wiki qui nous sert de bloc-notes pour
+centraliser l'information et organiser nos projets.
 
-La liste de discussion sert aussi à faire émerger des projets entre initiatives participantes.
+La liste de discussion sert aussi à faire émerger des projets entre
+initiatives participantes.
 
 ### Quels sont vos buts ?
 
