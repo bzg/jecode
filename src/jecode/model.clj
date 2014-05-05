@@ -63,7 +63,7 @@
          (for [v# (apply hash-map ~vec)]
            [(keyword (key v#)) (val v#)])))
 
-(defremote get-db-items
+(defn get-db-items
   "Return the list of database items.
 When `type` is initiatives, return initiatives.
 Otherwise return events.
@@ -86,14 +86,14 @@ Each item is represented as a hash-map."
      (filter #(re-find (re-pattern (s/join "|" tags)) (:tags %))
              items))))
 
-(defremote get-initiatives
+(defn get-initiatives
   "Return the list of initiatives.
 Filter the list by tags, if any.
 Each initiative is represented as a hash-map."
   [& tags]
   (apply get-db-items "initiatives" tags))
 
-(defremote get-events
+(defn get-events
   "Return the list of events.
 Filter the list by tags, if any.
 Each event is represented as a hash-map."
@@ -101,7 +101,7 @@ Each event is represented as a hash-map."
   (apply get-db-items "evenements" tags))
 
 (defremote get-for-map [type & tags]
-  (filter #(not (or (empty? (:lat %)) (empty? (:lon %))))
+  (filter #(or (seq (:lat %)) (seq (:lon %)))
           (if (= type "initiatives")
             (apply get-initiatives tags)
             (apply get-events tags))))
@@ -117,23 +117,23 @@ Each event is represented as a hash-map."
         url (:url event)
         loc (:location event)
         contact (:contact event)]
-    (-> event-rss-item
-        (str "Événement: " name)
-        url
-        (format
-         (s/join
-          '("<p>%s organise l'événement \"%s\" !</p>"
-            "<p>Début : %s<p>"
-            "<p>  Fin : %s<p>"
-            "<p> Lieu : %s</p>"
-            "<p>Contact : %s</p>%s<p><a href=\"%s\">%s</a></p>"))
-         (:orga event)
-         name
-         (:hdate_start event)
-         (:hdate_end event)
-         (if (seq loc) loc "non précisé")
-         (if (seq contact) contact "non précisé")
-         (:desc event) url url))))
+    (->event-rss-item
+     (str "Événement: " name)
+     url
+     (format
+      (s/join
+       '("<p>%s organise l'événement \"%s\" !</p>"
+         "<p>Début : %s<p>"
+         "<p>  Fin : %s<p>"
+         "<p> Lieu : %s</p>"
+         "<p>Contact : %s</p>%s<p><a href=\"%s\">%s</a></p>"))
+      (:orga event)
+      name
+      (:hdate_start event)
+      (:hdate_end event)
+      (if (seq loc) loc "non précisé")
+      (if (seq contact) contact "non précisé")
+      (:desc event) url url))))
 
 (defn events-rss []
   (apply rss/channel-xml
