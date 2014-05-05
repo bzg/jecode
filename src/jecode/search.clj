@@ -39,12 +39,12 @@
 
 (defn feed-initiatives []
   (do (esr/connect! "http://127.0.0.1:9200")
-      (for [i (doall (get-for-map "initiatives"))]
+      (for [i (doall (get-initiatives-for-map))]
         (esd/create "initiatives" "initiative" i))))
 
 (defn feed-events []
   (do (esr/connect! "http://127.0.0.1:9200")
-      (for [i (doall (get-for-map "evenements"))]
+      (for [i (doall (get-events-for-map))]
         (esd/create "events" "event" i))))
 
 (defn query-initiatives [req]

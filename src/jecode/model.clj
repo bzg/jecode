@@ -50,10 +50,16 @@
   [eid]
   (wcar* (car/hgetall (str "eid:" eid))))
 
-(defn username-admin-of-id?
+(defn username-admin-of-pid?
   "True is username is the admin of project pid."
-  [username id type]
-  (= (wcar* (car/get (str (if (= type "initiatives") "pid:" "eid:") id ":auid")))
+  [username pid]
+  (= (wcar* (car/get (str "pid:" pid ":auid")))
+     (get-username-uid username)))
+
+(defn username-admin-of-eid?
+  "True is username is the admin of event eid."
+  [username eid]
+  (= (wcar* (car/get (str "eid:" eid ":auid")))
      (get-username-uid username)))
 
 ;;; Remotes
@@ -63,48 +69,45 @@
          (for [v# (apply hash-map ~vec)]
            [(keyword (key v#)) (val v#)])))
 
-(defremote get-db-items
-  "Return the list of database items.
-When `type` is initiatives, return initiatives.
-Otherwise return events.
-Each item is represented as a hash-map."
-  [type & tags]
-  (let [id (if (= type "initiatives") "pid:" "eid:")
-        idk (if (= type "initiatives") :pid :eid)
-        tl (if (= type "initiatives")
-             "timeline" "timeline_events")
-        items (filter
-               #(not (= (:hide %) "hide"))
-               (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str id %))))
-                       idk %
-                       :isadmin (or (session/get :admin)
-                                    (username-admin-of-id?
-                                     (session/get :username) % type)))
-                    (wcar* (car/lrange tl 0 -1))))]
-    (sort-by
-     :name
-     (filter #(re-find (re-pattern (s/join "|" tags)) (:tags %))
-             items))))
-
 (defremote get-initiatives
   "Return the list of initiatives.
-Filter the list by tags, if any.
 Each initiative is represented as a hash-map."
-  [& tags]
-  (apply get-db-items "initiatives" tags))
+  []
+  (sort-by
+   :name
+   (filter
+    #(not (= (:hide %) "hide"))
+    (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str "pid:" %))))
+            :pid %
+            :isadmin (or (session/get :admin)
+                         (username-admin-of-pid?
+                          (session/get :username) %)))
+         (wcar* (car/lrange "timeline" 0 -1))))))
+
+(defremote get-initiatives-for-map
+  []
+  (filter #(not (or (empty? (:lat %)) (empty? (:lon %))))
+          (get-initiatives)))
 
 (defremote get-events
   "Return the list of events.
-Filter the list by tags, if any.
 Each event is represented as a hash-map."
-  [& tags]
-  (apply get-db-items "evenements" tags))
+  []
+  (sort-by
+   :name
+   (filter
+    #(not (= (:hide %) "hide"))
+    (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str "eid:" %))))
+            :eid %
+            :isadmin (or (session/get :admin)
+                         (username-admin-of-eid?
+                          (session/get :username) %)))
+         (wcar* (car/lrange "timeline_events" 0 -1))))))
 
-(defremote get-for-map [type & tags]
+(defremote get-events-for-map
+  []
   (filter #(not (or (empty? (:lat %)) (empty? (:lon %))))
-          (if (= type "initiatives")
-            (apply get-initiatives tags)
-            (apply get-events tags))))
+          (get-events)))
 
 ;;; * RSS
 
@@ -117,23 +120,23 @@ Each event is represented as a hash-map."
         url (:url event)
         loc (:location event)
         contact (:contact event)]
-    (-> event-rss-item
-        (str "Événement: " name)
-        url
-        (format
-         (s/join
-          '("<p>%s organise l'événement \"%s\" !</p>"
-            "<p>Début : %s<p>"
-            "<p>  Fin : %s<p>"
-            "<p> Lieu : %s</p>"
-            "<p>Contact : %s</p>%s<p><a href=\"%s\">%s</a></p>"))
-         (:orga event)
-         name
-         (:hdate_start event)
-         (:hdate_end event)
-         (if (seq loc) loc "non précisé")
-         (if (seq contact) contact "non précisé")
-         (:desc event) url url))))
+    (->event-rss-item
+     (str "Événement: " name)
+     url
+     (format
+      (s/join
+       '("<p>%s organise l'événement \"%s\" !</p>"
+         "<p>Début : %s<p>"
+         "<p>  Fin : %s<p>"
+         "<p> Lieu : %s</p>"
+         "<p>Contact : %s</p>%s<p><a href=\"%s\">%s</a></p>"))
+      (:orga event)
+      name
+      (:hdate_start event)
+      (:hdate_end event) 
+      (if (seq loc) loc "non précisé")
+      (if (seq contact) contact "non précisé")
+      (:desc event) url url))))
 
 (defn events-rss []
   (apply rss/channel-xml
@@ -145,7 +148,7 @@ Each event is represented as a hash-map."
 
 ;;; * JSON
 
-(defn items-json [type & tag]
+(defn items-json [type]
   (json/generate-string
    {:source (str "jecode.org/" type "/json")
     :retrieved (java.util.Date.)
@@ -153,8 +156,8 @@ Each event is represented as a hash-map."
       "evenements" :events
       "initiatives" :initiatives)
     (condp = type
-      "evenements" (apply get-for-map "evenements" tag)
-      "initiatives" (apply get-for-map "initiatives" tag))}
+      "evenements" (get-events-for-map)
+      "initiatives" (get-initiatives-for-map))}
    {:date-format "yyyy-MM-dd HH:MM" :pretty true}))
 
 ;; Local Variables:
