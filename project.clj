@@ -2,7 +2,8 @@
   jecode "0.0.5"
   :url "http://github.com/bzg/jecode"
   :license {:name "Eclipse Public License"
-            :url "http://www.eclipse.org/legal/epl-v10.html"}
+            :url "http://www.eclipse.org/legal/epl-v10.html"
+            :repo "https://github.com/bzg/jecode"}
   :dependencies
   [[org.clojure/clojure "1.5.1"]
    [lib-noir "0.8.2"]
@@ -10,7 +11,7 @@
    [hiccup "1.0.5"]
    [simple-time "0.1.1"]
    [compojure "1.1.6"]
-   [prismatic/schema "0.2.1"]
+   [prismatic/schema "0.2.2"]
    [clojurewerkz/scrypt "1.1.0"]
    [http-kit "2.1.18"]
    [org.clojure/clojurescript "0.0-2202"]
