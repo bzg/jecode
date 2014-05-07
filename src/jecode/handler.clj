@@ -22,7 +22,6 @@
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
-            [cemerick.friend.credentials :refer (hash-bcrypt)]
             [shoreleave.middleware.rpc :refer [wrap-rpc]]))
 
 (derive ::admins ::users)
