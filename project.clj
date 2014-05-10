@@ -5,12 +5,12 @@
             :url "http://www.eclipse.org/legal/epl-v10.html"
             :repo "https://github.com/bzg/jecode"}
   :dependencies
-  [[org.clojure/clojure "1.5.1"]
+  [[org.clojure/clojure "1.6.0"]
    [lib-noir "0.8.2"]
    [domina "1.0.2"]
    [hiccup "1.0.5"]
    [simple-time "0.1.1"]
-   [compojure "1.1.6"]
+   [compojure "1.1.7"]
    [prismatic/schema "0.2.2"]
    [clojurewerkz/scrypt "1.1.0"]
    [http-kit "2.1.18"]
@@ -25,7 +25,7 @@
    [com.draines/postal "1.11.1"]
    [digest "1.4.4"]
    [enlive "1.1.5"]
-   [clj-rss "0.1.6"]
+   [clj-rss "0.1.7"]
    [clj-http "0.9.1"]
    [cheshire "5.3.1"]
    [markdown-clj "0.9.43"]
