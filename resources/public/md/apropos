@@ -23,8 +23,8 @@ Bien sûr !  [Créez un compte](/inscription) et ajoutez une
 ### Puis-je ajouter mon témoignage ?
 
 Oui !  Il suffit pour cela de « forker » le dépôt git
-[jecode](https://github.com/bzg/jecode) et nous envoyer un *pull
-request*.  Si vous préférez, vous pouvez simplement nous envoyer un
+[jecode](https://github.com/bzg/jecode) et nous envoyer un 
+*pull request*.  Si vous préférez, vous pouvez simplement nous envoyer un
 [mail](mailto:bzg@bzg.fr) en répondant à ces quatre questions:
 
 - Pourquoi codes-tu ?
@@ -34,14 +34,14 @@ request*.  Si vous préférez, vous pouvez simplement nous envoyer un
 
 ### Qui est derrière jecode.org ?
 
-jecode.org a été lancé par [David Roche](codeurs/david.roche), [Martin
-Quinson](codeurs/martin.quinson) et [Bastien
-Guerry](codeurs/bastien.guerry) en novembre 2013.
+jecode.org a été lancé par [David Roche](codeurs/david.roche), 
+[Martin Quinson](codeurs/martin.quinson) et 
+[Bastien Guerry](codeurs/bastien.guerry) en novembre 2013.
 
 ### Comment rejoindre la communauté jecode.org ?
 
-Nous échangeons régulièrement sur cette [liste de
-discussion](http://listes.jecode.org/cgi-bin/mailman/listinfo/discussion)
+Nous échangeons régulièrement sur cette 
+[liste de discussion](http://listes.jecode.org/cgi-bin/mailman/listinfo/discussion)
 ouverte à tous et dont les
 [archives](http://listes.jecode.org/pipermail/discussion/) sont
 publiques.  N'hésitez pas à vous inscrire et à vous présenter après
@@ -49,8 +49,8 @@ votre inscription.
 
 ### Comment contribuer concrètement ?
 
-Nous avons mis en place une [liste de liens
-commentables](http://news.jecode.org) et un
+Nous avons mis en place une 
+[liste de liens commentables](http://news.jecode.org/) et un
 [wiki](http://wiki.jecode.org).  Le forum nous sert à partager et
 discuter des liens en rapport avec l'enseignement de l'informatique
 (en français et en anglais).  Le wiki qui nous sert de bloc-notes pour
