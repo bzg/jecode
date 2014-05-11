@@ -11,8 +11,8 @@ qu'elles organisent, toutes deux accessibles au grand public et aux
 Nous pensons qu'il est important que les enfants ne soient pas de
 simples consommateurs du numérique, mais qu'ils en acquièrent les
 clefs, hors de l'école et à l'école.  Pas seulement _l'usage_ des
-outils informatiques, mais aussi et surtout les concepts et les
-techniques fondamentales de la programmation.
+outils informatiques, mais aussi et surtout les concepts fondamentaux
+de l'informatique et les techniques élémentaires de la programmation.
 
 ### Puis-je ajouter une initiative ou un événement ?
 
@@ -70,4 +70,10 @@ bibliothèques), (2) des animateurs et (3) des gens qui veulent
 apprendre à programmer.  Nous rêvons de mailler le territoire, voire la
 planète entière d'initiatives locales interconnectées, dans l'espoir
 de stimuler les activités autour de la programmation.
+
+### Quelle est la licence pour les contenus de ce site ?
+
+Le code du site est disponible sous licence [EPL](http://fr.wikipedia.org/wiki/Eclipse_Public_License).
+
+Les contenus écrits du site (cette page, les présentations des initiatives, etc.) sont sous licence [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
 
