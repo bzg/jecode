@@ -6,7 +6,7 @@
 
 (blade/bootstrap)
 
-(def mymap (-> L .-mapbox (.map "map" "examples.map-9ijuk24y")
+(def mymap (-> L .-mapbox (.map "map" "bzg.i8bb9pdk")
                (.setView [45 3.215] 6)))
 
 (defn- add-initiatives []
