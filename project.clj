@@ -1,23 +1,23 @@
 (defproject
-  jecode "0.0.5"
+  jecode "0.0.6"
   :url "http://github.com/bzg/jecode"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"
             :repo "https://github.com/bzg/jecode"}
   :dependencies
   [[org.clojure/clojure "1.6.0"]
-   [lib-noir "0.8.2"]
+   [lib-noir "0.8.3"]
    [domina "1.0.2"]
    [hiccup "1.0.5"]
    [simple-time "0.1.1"]
-   [compojure "1.1.7"]
-   [prismatic/schema "0.2.2"]
-   [clojurewerkz/scrypt "1.1.0"]
+   [compojure "1.1.8"]
+   [prismatic/schema "0.2.3"]
+   [clojurewerkz/scrypt "1.2.0"]
    [http-kit "2.1.18"]
-   [org.clojure/clojurescript "0.0-2202"]
+   [org.clojure/clojurescript "0.0-2234"]
    [net.drib/blade "0.1.0"]
    [friend-oauth2 "0.1.1"]
-   [com.cemerick/friend "0.2.0"
+   [com.cemerick/friend "0.2.1"
     :exclusions [org.apache.httpcomponents/httpclient org.clojure/core.cache]]
    [com.taoensso/carmine "2.6.2"]
    [shoreleave/shoreleave-remote-ring "0.3.0"]
@@ -25,10 +25,10 @@
    [com.draines/postal "1.11.1"]
    [digest "1.4.4"]
    [enlive "1.1.5"]
-   [clj-rss "0.1.7"]
-   [clj-http "0.9.1"]
+   [clj-rss "0.1.8"]
+   [clj-http "0.9.2"]
    [cheshire "5.3.1"]
-   [markdown-clj "0.9.43"]
+   [markdown-clj "0.9.44"]
    [clojurewerkz/elastisch "2.0.0-beta4"]]
   :main jecode.handler
   :description "jecode.org"
