@@ -86,7 +86,7 @@
                  (html/content (if (:isadmin arg) " (éditer)"))
                  (html/set-attr :href (str "/initiatives/" (:pid arg) "/edit"))))
 
-(html/deftemplate ^{:doc "Separate map template"}
+(html/deftemplate ^{:doc "Standalone map template"}
   map-tpl "jecode/views/html/map.html"
   [{:keys [showmap title]}]
   [:head :title] (html/content title)
