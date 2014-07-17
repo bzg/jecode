@@ -211,11 +211,11 @@
                   :md "/md/evenements_map"
                   :title "jecode.org - La carte des événements"}))
   (GET "/events" []
-       (main-tpl {:showmap "showevents"
-                  :title "jecode.org - La carte des événements"}))
+       (map-tpl {:showmap "showevents"
+                 :title "jecode.org - La carte des événements"}))
   (GET "/inits" []
-       (main-tpl {:showmap "showinits"
-                  :title "jecode.org - La carte des initiatives"}))
+       (map-tpl {:showmap "showinits"
+                 :title "jecode.org - La carte des initiatives"}))
   (POST "/evenements/:eid/update" {params :params}
         (do (update-event params)
             (main-tpl {:a "evenements"
