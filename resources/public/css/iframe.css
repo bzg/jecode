@@ -1,12 +1,12 @@
 body {
-    width:100%;
-    margin:.3em;
+    margin:0;
+    padding:0;
 }
 
 #map {
-    position:relative;
-    height: 500px;
-    min-width:100%;
-    margin: .3em;
+    position:absolute;
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
 }
-
