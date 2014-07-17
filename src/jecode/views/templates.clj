@@ -91,7 +91,7 @@
   [{:keys [showmap title]}]
   [:head :title] (html/content title)
   [:#map] (cond (or (= showmap "showinits") (= showmap "showevents"))
-                (html/set-attr :style "width:70%")
+                (html/set-attr :style "width:100%")
                 :else (html/set-attr :style "display:none"))
   [:#mapjs]
   (html/html-content
