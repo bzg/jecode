@@ -86,6 +86,21 @@
                  (html/content (if (:isadmin arg) " (éditer)"))
                  (html/set-attr :href (str "/initiatives/" (:pid arg) "/edit"))))
 
+(html/deftemplate ^{:doc "Separate map template"}
+  map-tpl "jecode/views/html/map.html"
+  [{:keys [showmap title]}]
+  [:head :title] (html/content title)
+  [:#map] (cond (or (= showmap "showinits") (= showmap "showevents"))
+                (html/set-attr :style "width:70%")
+                :else (html/set-attr :style "display:none"))
+  [:#mapjs]
+  (html/html-content
+   (cond (= showmap "showinits")
+         "<script src=\"/js/showinits.js\" type=\"text/javascript\"></script>"
+         (= showmap "showevents")
+         "<script src=\"/js/showevents.js\" type=\"text/javascript\"></script>"
+         :else "")))
+
 (html/deftemplate ^{:doc "Main index template"}
   main-tpl "jecode/views/html/base.html"
   [{:keys [container md jumbo a showmap title formjs
