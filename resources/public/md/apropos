@@ -47,7 +47,26 @@ ouverte à tous et dont les
 publiques.  N'hésitez pas à vous inscrire et à vous présenter après
 votre inscription.
 
-### Comment contribuer concrètement ?
+### Que peut m'apporter jecode.org ?
+
+Si vous êtes un parent intéressé par des ateliers de programmation
+pour vos enfants, nous vous aidons à trouver ces ateliers.
+
+Si vous êtes une mairie intéressée pour des contacts avec des
+structures qui proposent des ateliers, nous vous aider à les trouver.
+
+Si vous êtes une structure qui propose des ateliers, nous leur donnons
+de la visibilité et nous vous permettons d'échanger avec tous les
+acteurs en France.
+
+Si vous avez un besoin technique particulier (site Web, liste de
+discussion, espace dédié sur un forum), nous vous proposons de vous
+aider sur ces points.
+
+Et surtout : notre [liste de discussion](http://listes.jecode.org/cgi-bin/mailman/listinfo/discussion)
+vous fera rencontrer des profils atypiques et passionnants !
+
+### Comment contribuer concrètement à jecode.org ?
 
 Nous avons mis en place une 
 [liste de liens commentables](http://news.jecode.org/) et un
@@ -56,8 +75,7 @@ discuter des liens en rapport avec l'enseignement de l'informatique
 (en français et en anglais).  Le wiki qui nous sert de bloc-notes pour
 centraliser l'information et organiser nos projets.
 
-La liste de discussion sert aussi à faire émerger des projets entre
-initiatives participantes.
+La [liste de discussion](http://listes.jecode.org/cgi-bin/mailman/listinfo/discussion) sert aussi à faire émerger des projets entre initiatives participantes.
 
 ### Quels sont vos buts ?
 
@@ -67,8 +85,8 @@ que la culture informatique auprès des enfants et du grand public.
 À terme, nous souhaitons mettre en relation les acteurs concernés:
 nous voulons faire se rencontrer (1) des lieux (écoles, MJC,
 bibliothèques), (2) des animateurs et (3) des gens qui veulent
-apprendre à programmer.  Nous rêvons de mailler le territoire, voire la
-planète entière d'initiatives locales interconnectées, dans l'espoir
+apprendre à programmer.  Nous rêvons de mailler le territoire, voire
+la planète entière d'initiatives locales interconnectées, dans l'espoir
 de stimuler les activités autour de la programmation.
 
 ### Quelle est la licence pour les contenus de ce site ?
@@ -76,4 +94,3 @@ de stimuler les activités autour de la programmation.
 Le code du site est disponible sous licence [EPL](http://fr.wikipedia.org/wiki/Eclipse_Public_License).
 
 Les contenus écrits du site (cette page, les présentations des initiatives, etc.) sont sous licence [Creative Commons BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/).
-
