@@ -136,7 +136,9 @@
 (defroutes app-routes
 
   ;; Generic
-  (GET "/" [] (main-tpl {:a "accueil" :jumbo "/md/description" :md "/md/accueil"}))
+  (GET "/" [] (main-tpl
+               {:a "accueil" :jumbo "/md/description" :md "/md/accueil"
+                :title "jecode.org - l'initiation à la programmation : qui, où, pourquoi, comment ?"}))
 
   ;; Testing ElasticSearch
   (GET "/esr/reset" [] (friend/authorize #{::admins} (reset-indexes)))
