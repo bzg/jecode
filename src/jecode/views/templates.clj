@@ -132,19 +132,19 @@
   [:#list] (cond
             (:initiatives-query list-results)
             (html/content
-             (map #(my-result %)
+             (map my-result
                   (map :_source (get-in (query-initiatives
                                          (:initiatives-query list-results)) [:hits :hits]))))
             (:events-query list-results)
             (html/content
-             (map #(my-result %)
+             (map my-result
                   (map :_source (get-in (query-events
                                          (:events-query list-results)) [:hits :hits]))))
             
             list-events
-            (html/content (map #(my-event %) (get-events)))
+            (html/content (map my-event (get-events)))
             list-initiatives
-            (html/content (map #(my-initiative %) (get-initiatives))))
+            (html/content (map my-initiative (get-initiatives))))
   [:#mapjs]
   (html/html-content
    (cond (= showmap "showinits")

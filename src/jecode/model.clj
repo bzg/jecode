@@ -74,7 +74,7 @@ Each item is represented as a hash-map."
         tl (if (= type "initiatives")
              "timeline" "timeline_events")
         items (filter
-               #(not (= (:hide %) "hide"))
+               #(not= (:hide %) "hide")
                (map #(assoc (vec-to-kv-hmap (wcar* (car/hgetall (str id %))))
                        idk %
                        :isadmin (or (session/get :admin)
@@ -141,7 +141,7 @@ Each event is represented as a hash-map."
           :link "http://jecode.org"
           :description "jecode.org: apprenons à programmer ensemble !"}
          (reverse
-          (filter #(seq %) (map #(event-to-rss-item %) (get-events))))))
+          (remove empty? (map event-to-rss-item (get-events))))))
 
 ;;; * JSON
 

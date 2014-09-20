@@ -5,9 +5,8 @@
 (defn md->html
   "reads a markdown file from public/md and returns a HTML string"
   [filename]
-  (->>
-    (io/slurp-resource filename)
-    (md/md-to-html-string)))
+  (md/md-to-html-string
+   (io/slurp-resource filename)))
 
 ;; Local Variables:
 ;; eval: (orgstruct-mode 1)
