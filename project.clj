@@ -1,5 +1,5 @@
 (defproject
-  jecode "0.0.7"
+  jecode "0.0.8"
   :url "http://github.com/bzg/jecode"
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"
@@ -10,7 +10,7 @@
    [domina "1.0.2"]
    [hiccup "1.0.5"]
    [simple-time "0.1.1"]
-   [compojure "1.1.9"]
+   [compojure "1.2.0"]
    [prismatic/schema "0.2.6"]
    [clojurewerkz/scrypt "1.2.0"]
    [http-kit "2.1.19"]
@@ -19,7 +19,7 @@
    [friend-oauth2 "0.1.1"]
    [com.cemerick/friend "0.2.1"
     :exclusions [org.apache.httpcomponents/httpclient org.clojure/core.cache]]
-   [com.taoensso/carmine "2.7.0"]
+   [com.taoensso/carmine "2.7.0" :exclusions [org.clojure/clojure]]
    [shoreleave/shoreleave-remote-ring "0.3.0"]
    [shoreleave/shoreleave-remote "0.3.0"]
    [com.draines/postal "1.11.1"]
