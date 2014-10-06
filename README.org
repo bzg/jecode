@@ -1,5 +1,7 @@
 # #+HTML: <a href="http://travis-ci.org/bzg/jecode"><img src="https://api.travis-ci.org/bzg/jecode.png"/></a>
 
+[![Gittip](http://img.shields.io/gittip/bzg.svg)](https://www.gittip.com/bzg/)
+
 ** jecode.org
 
 Ce dépôt =git= contient l'application web qui est derrière le site
