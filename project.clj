@@ -6,20 +6,20 @@
             :repo "https://github.com/bzg/jecode"}
   :dependencies
   [[org.clojure/clojure "1.6.0"]
-   [lib-noir "0.8.8"]
+   [lib-noir "0.9.3"]
    [domina "1.0.2"]
    [hiccup "1.0.5"]
    [simple-time "0.1.1"]
    [compojure "1.2.0"]
-   [prismatic/schema "0.2.6"]
+   [prismatic/schema "0.3.1"]
    [clojurewerkz/scrypt "1.2.0"]
    [http-kit "2.1.19"]
-   [org.clojure/clojurescript "0.0-2322"]
+   [org.clojure/clojurescript "0.0-2371"]
    [net.drib/blade "0.1.0"]
    [friend-oauth2 "0.1.1"]
    [com.cemerick/friend "0.2.1"
     :exclusions [org.apache.httpcomponents/httpclient org.clojure/core.cache]]
-   [com.taoensso/carmine "2.7.0" :exclusions [org.clojure/clojure]]
+   [com.taoensso/carmine "2.7.1" :exclusions [org.clojure/clojure]]
    [shoreleave/shoreleave-remote-ring "0.3.0"]
    [shoreleave/shoreleave-remote "0.3.0"]
    [com.draines/postal "1.11.1"]
@@ -28,7 +28,7 @@
    [clj-rss "0.1.9"]
    [clj-http "1.0.0"]
    [cheshire "5.3.1"]
-   [markdown-clj "0.9.47"]
+   [markdown-clj "0.9.54"]
    [clojurewerkz/elastisch "2.0.0-beta4"]]
   :main jecode.handler
   :description "jecode.org"
