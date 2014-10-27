@@ -14,6 +14,7 @@
             [ring.util.response :as resp]
             [ring.util.codec :as codec]
             [ring.middleware.reload :refer :all]
+            [ring.middleware.defaults :refer [site-defaults]]
             [compojure.core :as compojure :refer (GET POST defroutes)]
             [org.httpkit.server :refer :all]
             (compojure [route :as route])
@@ -270,10 +271,26 @@
   (route/resources "/")
   (route/not-found (four-oh-four)))
 
-(def app (wrap-reload
-          (middleware/app-handler
-           [(wrap-friend (wrap-rpc app-routes))])))
+;; Timeout sessions after 30 minutes
+(def session-defaults
+  {:timeout (* 60 30)
+   :timeout-response (resp/redirect "/")})
 
+(defn- mk-defaults
+       "set to true to enable XSS protection"
+       [xss-protection?]
+       (-> site-defaults
+           (update-in [:session] merge session-defaults)
+           (assoc-in [:security :anti-forgery] xss-protection?)))
+
+(def app
+  (wrap-reload
+   (middleware/app-handler
+    [(wrap-friend (wrap-rpc app-routes))]
+    :ring-defaults (mk-defaults false)
+    ;; add access rules here
+    :access-rules [])))
+   
 (defn -main [& args]
   (run-server #'app {:port 8080}))
 

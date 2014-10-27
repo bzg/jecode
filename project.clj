@@ -6,11 +6,11 @@
             :repo "https://github.com/bzg/jecode"}
   :dependencies
   [[org.clojure/clojure "1.6.0"]
-   [lib-noir "0.9.3"]
+   [lib-noir "0.9.4"]
    [domina "1.0.2"]
    [hiccup "1.0.5"]
    [simple-time "0.1.1"]
-   [compojure "1.2.0"]
+   [compojure "1.2.1"]
    [prismatic/schema "0.3.1"]
    [clojurewerkz/scrypt "1.2.0"]
    [http-kit "2.1.19"]
@@ -28,7 +28,7 @@
    [clj-rss "0.1.9"]
    [clj-http "1.0.0"]
    [cheshire "5.3.1"]
-   [markdown-clj "0.9.54"]
+   [markdown-clj "0.9.55" :exclusions [org.clojure/clojure]]
    [clojurewerkz/elastisch "2.0.0-beta4"]]
   :main jecode.handler
   :description "jecode.org"
