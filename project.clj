@@ -12,7 +12,7 @@
    [compojure "1.3.4"]
    [prismatic/schema "0.4.3"]
    [clojurewerkz/scrypt "1.2.0"]
-   [org.immutant/immutant "2.0.1"]
+   [http-kit "2.1.19"]
    [org.clojure/clojurescript "0.0-2371"]
    [net.drib/blade "0.1.0"]
    [friend-oauth2 "0.1.3"]
