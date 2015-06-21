@@ -92,37 +92,20 @@
                  (html/content (if (:isadmin arg) " (éditer)"))
                  (html/set-attr :href (str "/initiatives/" (:pid arg) "/edit"))))
 
-(html/deftemplate ^{:doc "Standalone map template"}
-  map-tpl "jecode/views/html/map.html"
-  [{:keys [showmap title]}]
-  [:head :title] (html/content title)
-  [:#map] (cond (or (= showmap "showinits") (= showmap "showevents"))
-                (html/set-attr :style "width:100%")
-                :else (html/set-attr :style "display:none"))
-  [:#mapjs]
-  (html/html-content
-   (cond (= showmap "showinits")
-         "<script src=\"/js/showinits.js\" type=\"text/javascript\"></script>"
-         (= showmap "showevents")
-         "<script src=\"/js/showevents.js\" type=\"text/javascript\"></script>"
-         :else "")))
-
 (html/deftemplate ^{:doc "Main index template"}
   main-tpl "jecode/views/html/base.html"
-  [{:keys [container md jumbo a showmap title formjs
-           list-events list-initiatives list-results]}]
+  [{:keys [container md jumbo a title formjs
+           list-events list-initiatives list-results maplinks]}]
   [:head :title] (html/content title)
   [:#container2] (if md (html/html-content
                          (md->html jumbo) (md->html md))
                      (maybe-content container))
   [:#accueil] (html/set-attr :class (if (= a "accueil") "active"))
+  [:#carte] (html/set-attr :class (if (= a "carte") "active"))
   [:#codeurs] (html/set-attr :class (if (= a "codeurs") "active"))
   [:#initiatives] (html/set-attr :class (if (= a "initiatives") "active"))
   [:#evenements] (html/set-attr :class (if (= a "evenements") "active"))
   [:#apropos] (html/set-attr :class (if (= a "apropos") "active"))
-  [:#map] (cond (or (= showmap "showinits") (= showmap "showevents"))
-                (html/set-attr :style "width:70%")
-                :else (html/set-attr :style "display:none"))
   [:#log :a#github] (if (empty? (session/get :username))
                       (html/do-> (html/set-attr :href "/github")
                                  (maybe-content "Connexion Github"))
@@ -135,6 +118,12 @@
   [:#log :a#signin] (if (session/get :username)
                       (html/set-attr :style "display:none;")
                       (maybe-content "Inscription"))
+  [:#showlinks] (if (= maplinks "yes")
+                  (html/set-attr :style "")
+                  (html/set-attr :style "display:none;"))
+  [:#map] (if (= maplinks "yes")
+            (html/set-attr :style "width:100%")
+            (html/set-attr :style "display:none;"))
   [:#list] (cond
             (:initiatives-query list-results)
             (html/content
@@ -153,11 +142,8 @@
             (html/content (map my-initiative (get-initiatives))))
   [:#mapjs]
   (html/html-content
-   (cond (= showmap "showinits")
-         "<script src=\"/js/showinits.js\" type=\"text/javascript\"></script>"
-         (= showmap "showevents")
-         "<script src=\"/js/showevents.js\" type=\"text/javascript\"></script>"
-         :else ""))
+   (if (= "yes" maplinks)
+     "<script src=\"/js/showinits.js\" type=\"text/javascript\"></script>" ""))
   [:#formjs]
   (html/html-content
    (cond

@@ -157,6 +157,14 @@
                               (s/join " " (map s/capitalize (s/split person #"\.")))
                               " nous dit pourquoi il faut apprendre à coder !")}))
 
+  ;; Carte
+  (GET "/carte" []
+       (main-tpl {:a "carte"
+                  :title "jecode.org - La carte des initiatives et des événements"
+                  :maplinks "yes"
+                  :md (str "/md/carte")
+                  }))
+       
   ;; Initiatives
   (GET "/initiatives" []
        (main-tpl {:a "initiatives"
@@ -168,11 +176,7 @@
        (main-tpl {:a "initiatives"
                   :title "jecode.org - Recherche d'initiatives"
                   :list-results {:initiatives-query q}}))
-  (GET "/initiatives/map" []
-       (main-tpl {:a "initiatives"
-                  :showmap "showinits"
-                  :title "jecode.org - La carte des initiatives"
-                  :md "/md/initiatives_map"}))
+  
   (GET "/initiatives/nouvelle" []
        (friend/authorize
         #{::users}
@@ -205,16 +209,6 @@
                   :list-results {:events-query q}}))
   (GET "/evenements/rss" [] (events-rss))
   (GET "/evenements/json" {params :params} (items-json "evenements" (:tag params)))
-  (GET "/evenements/map" []
-       (main-tpl {:a "evenements" :showmap "showevents"
-                  :md "/md/evenements_map"
-                  :title "jecode.org - La carte des événements"}))
-  (GET "/events" []
-       (map-tpl {:showmap "showevents"
-                 :title "jecode.org - La carte des événements"}))
-  (GET "/inits" []
-       (map-tpl {:showmap "showinits"
-                 :title "jecode.org - La carte des initiatives"}))
   (POST "/evenements/:eid/update" {params :params}
         (do (update-event params)
             (main-tpl {:a "evenements"

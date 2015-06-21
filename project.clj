@@ -40,11 +40,6 @@
                 {:output-to "resources/public/js/showinits.js"
                  :optimizations :whitespace
                  :pretty-print false}}
-               {:source-paths ["src/cljs/showevent"]
-                :compiler
-                {:output-to "resources/public/js/showevents.js"
-                 :optimizations :whitespace
-                 :pretty-print false}}
                {:source-paths ["src/cljs/validate_email"]
                 :compiler
                 {:output-to "resources/public/js/validate_email.js"
