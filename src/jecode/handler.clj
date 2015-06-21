@@ -33,7 +33,8 @@
         uid (or (get-username-uid username) "")
         password (or (get-uid-field uid "p") "")]
     (if (= username admin) (session/put! :admin "yes"))
-    (if (not (= "" uid)) (session/put! :username username))
+    (if (and uid (not (= "" uid)))
+      (session/put! :username username))
     {:identity username :password password
      :roles (if (= username admin) #{::admins} #{::users})}))
 
@@ -243,7 +244,7 @@
                   :formjs "validate_email"
                   :title "jecode.org - connexion"}))
 
-  ;; Login
+  ;; Rappel de mot de passe
   (GET "/rappel" []
        (main-tpl {:a "accueil" :container (rappel-snp)
                   :title "jecode.org - rappel de mot de passe"}))
