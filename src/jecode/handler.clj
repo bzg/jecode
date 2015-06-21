@@ -1,7 +1,6 @@
 (ns jecode.handler
   (:require [noir.util.middleware :as middleware]
-            [hiccup.page :as h]
-            [hiccup.element :as e]
+            [net.cgrand.enlive-html :as html]
             [jecode.util :refer :all]
             [jecode.github :refer :all]
             [noir.session :as session]
@@ -16,7 +15,7 @@
             [ring.middleware.reload :refer :all]
             [ring.middleware.defaults :refer [site-defaults]]
             [compojure.core :as compojure :refer (GET POST defroutes)]
-            [org.httpkit.server :refer :all]
+            [immutant.web :as web]
             (compojure [route :as route])
             [friend-oauth2.workflow :as oauth2]
             [friend-oauth2.util :as oauth2-util]
@@ -31,11 +30,10 @@
   "Load a user from her username."
   [username]
   (let [admin (System/getenv "jecode_admin")
-        uid (get-username-uid username)
-        password (get-uid-field uid "p")]
-    ;; FIXME This is adhoc and temporary
+        uid (or (get-username-uid username) "")
+        password (or (get-uid-field uid "p") "")]
     (if (= username admin) (session/put! :admin "yes"))
-    (session/put! :username username)
+    (if (not (= "" uid)) (session/put! :username username))
     {:identity username :password password
      :roles (if (= username admin) #{::admins} #{::users})}))
 
@@ -44,7 +42,9 @@
   [load-credentials-fn {:keys [username password]}]
   (when-let [creds (load-credentials-fn username)]
     (let [password-key (or (-> creds meta ::password-key) :password)]
-      (when (sc/verify password (get creds password-key))
+      (when (try
+              (sc/verify password (get creds password-key))
+              (catch Exception e (prn "Error" e)))
         (dissoc creds password-key)))))
 
 (defn credential-fn-gh
@@ -122,17 +122,7 @@
                 ]}))
 
 (defn- four-oh-four []
-  ;; FIXME: this is the only place where we use hiccup.
-  ;; Let's get rid of it.
-  (h/html5
-   [:head
-    [:title "jecode.org -- page non trouvée"]
-    (h/include-css "/css/generic.css")]
-   [:body
-    (e/image {:class "logo"} "/pic/jecode_petit.png")
-    [:p "Page non trouvée :-/"]
-    [:p "Retour à la "
-     (e/link-to "http://jecode.org" "page d'accueil")]]))
+  (apply str (html/emit* (four-oh-four-snp))))
 
 (defroutes app-routes
 
@@ -291,8 +281,7 @@
     ;; add access rules here
     :access-rules [])))
    
-(defn -main [& args]
-  (run-server #'app {:port 8080}))
+(defn -main [& args] (web/run #'app {:port 8080}))
 
 ;; Local Variables:
 ;; eval: (orgstruct-mode 1)

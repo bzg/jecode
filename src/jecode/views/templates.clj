@@ -14,6 +14,9 @@
 
 ;;; * Generic snippets
 
+(html/defsnippet ^{:doc "Snippet for the 404 page."}
+  four-oh-four-snp "jecode/views/html/404.html" [:html] [])
+
 (html/defsnippet ^{:doc "Snippet for the login form."}
   login-snp "jecode/views/html/forms.html" [:#login_form] [])
 
