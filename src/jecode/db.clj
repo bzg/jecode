@@ -51,14 +51,14 @@
             (map #(Integer. %)
                  (rest (re-find user-date-re user-date)))))))
 
-(defn send-admin-warning [email]
+(defn send-admin-warning [email reason]
   (postal/send-message
    ^{:host "localhost"
      :port 25}
    {:from "jecode.org <contact@jecode.org>"
     :to "Bastien <bastien.guerry@free.fr>"
-    :subject (format "Nouvel utilisateur: %s" email)
-    :body (format "Nouvel utilisateur: %s" email)}))
+    :subject (format "Nouvel utilisateur: %s (%s)" email reason)
+    :body (format "Nouvel utilisateur: %s (%s)" email reason)}))
 
 (defn send-activation-email [email activation-link]
   (postal/send-message
@@ -68,6 +68,18 @@
     :to email
     :subject "Merci d'avoir rejoint jecode.org !"
     :body (str "Cliquez sur le lien ci-dessous pour activer votre compte :\n"
+               activation-link)}))
+
+(defn send-activation-email-new-password [email activation-link password]
+  (postal/send-message
+   ^{:host "localhost"
+     :port 25}
+   {:from "jecode.org <contact@jecode.org>"
+    :to email
+    :subject "Votre nouveau mot de passe pour jecode.org"
+    :body (str "Voici votre nouveau mot de passe : "
+               password "\n\n"
+               "Cliquez sur le lien ci-dessous pour activer votre compte :\n"
                activation-link)}))
 
 (defn activate-user [authid]
@@ -90,7 +102,7 @@
            (car/set (str "auth:" authid) guid)
            (car/set (str "user:" email ":uid") guid)
            (car/rpush "users" guid))
-    (send-admin-warning email)
+    (send-admin-warning email "création")
     (send-activation-email email (str "http://jecode.org/activer/" authid))))
 
 (defn create-new-initiative
@@ -228,6 +240,37 @@
      (when (seq etags)
        (doseq [t (map s/trim (s/split etags #","))]
          (wcar* (car/sadd (str "eid:" eid ":tags") t)))))))
+
+(defn get-random-string []
+  (apply
+   str
+   (repeatedly
+    8
+    #(rand-nth "ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890abcdefghijklmnopqrstuvwxyz"))))
+
+(defn create-and-send-new-password
+  "Create a new password."
+  [email]
+  (let [password (get-random-string)
+        authid (digest/md5 (str (System/currentTimeMillis) email))
+        guid (wcar* (car/get (str "user:" email ":uid")))]
+    (wcar* (car/hmset
+            (str "uid:" guid)
+            "p" (sc/encrypt password 16384 8 1)
+            "d" (time/format (time/now))
+            "active" 0)
+           (car/set (str "uid:" guid ":auth") authid)
+           (car/set (str "auth:" authid) guid))
+    (send-admin-warning
+     email (format "réinitialisation de mot de passe (%s)" password))
+    (send-activation-email-new-password
+     email (str "http://jecode.org/activer/" authid) password)))
+
+(defn send-new-password [email]
+ (if (wcar* (car/get (str "user:" email ":uid")))
+   (do (create-and-send-new-password email)
+       "Mot de passe envoyé")
+   "Adresse mail inconnue"))
 
 ;; Local Variables:
 ;; eval: (orgstruct-mode 1)

@@ -1,12 +1,19 @@
+<form id="rappel_form" action="/rappel" method="post" novalidate>
+  <div class="input-group">
+    <input class="form-control" type="text" id="email" id="email" name="email" value="" placeholder="Email" />
+    <button type="submit" class="btn btn-info">Envoyer un nouveau mot de passe</button>
+  </div>
+  <h3>Si vous n'avez pas de compte, <a href="/inscription">inscrivez-vous</a> d'abord.</h3>
+</form>
+
 <form id="login_form" action="/login" method="post" novalidate>
   <div class="input-group">
     <input class="form-control" type="text" id="username" id="username" name="username" value="" placeholder="Email" />
     <input type="password" id="password" name="password" class="form-control" placeholder="Mot de passe" />
     <button type="submit" class="btn btn-info">Connexion</button>
   </div>
-
   <h3>Si vous n'avez pas de compte, <a href="/inscription">inscrivez-vous</a> d'abord.</h3>
-  
+  <h3>Pour demander un nouveau mot de passe, <a href="/rappel">c'est ici</a>.</h3>
 </form>
 
 <form id="register_form" action="/inscription" method="post" novalidate>
@@ -15,14 +22,12 @@
     <input class="form-control" type="password" id="password" id="password" name="password" placeholder="Mot de passe" />
     <button type="submit" class="btn btn-danger">Inscription</button>
   </div>
-
   <h3>Si vous avez déjà un compte, <a href="/login">connectez-vous</a> directement.</h3>
-
+  <h3>Pour demander un nouveau mot de passe, <a href="/rappel">c'est ici</a>.</h3>
 </form>
 
 <form id="submit-initiative" class="form-horizontal" role="form"
       action="/initiatives/nouvelle" method="post">
-
   <div class="form-group">
     <label class="col-sm-2 control-label">Nom</label>
     <div class="col-sm-7">
@@ -32,16 +37,10 @@
   <div class="form-group">
     <label class="col-sm-2 control-label">URL</label>
     <div class="col-sm-7">
-
       <input class="form-control" type="text" id="purl" name="purl" placeholder="URL du site web" />
     </div>
   </div>
-  <!-- <div class="form-group"> -->
-  <!--   <label class="col-sm-2 control-label">URL logo</label> -->
-  <!--   <div class="col-sm-7"> -->
   <input class="form-control" type="hidden" id="logourl" name="logourl" placeholder="URL du logo" />
-  <!--   </div> -->
-  <!-- </div> -->
   <div class="form-group">
     <label class="col-sm-2 control-label">Contact</label>
     <div class="col-sm-7">
@@ -85,15 +84,12 @@
   <button id="submit-init-btn" type="submit" class="btn btn-info btn-lg">
     Ajouter cette initiative
   </button>
-
 </form>
 
 <form class="form-horizontal" role="form"
       action="/evenements/nouveau" method="post"
       id="submit-event">
-  
   <h2 id="event_title">Décrivez votre événement</h2>
-
   <div class="form-group">
     <label class="col-sm-2 control-label">Nom</label>
     <div class="col-sm-7">
@@ -182,46 +178,4 @@
   <button id="submit-event-btn" type="submit" class="btn btn-info btn-lg">
     Ajouter cet événement
   </button>
-
 </form>
-
-<!-- <div id="show-init"> -->
-<!--     <p id="init-nom"><a id="init-url" href=""></a></p> -->
-<!--     <p id="init-contact"></p> -->
-<!--     <p><a id="init-twitter" href=""></a></p> -->
-<!--     <p id="init-adresse"></p> -->
-<!--     <p id="init-tags"></p> -->
-<!--     <p id="init-description"></p> -->
-<!-- </div> -->
-
-<!-- <div id="show-event"> -->
-<!--     <p id="event-nom"><a id="event-url" href=""></a></p> -->
-<!--     <p id="event-orga"></p> -->
-<!--     <p id="event-ages"></p> -->
-<!--     <p id="event-contact"></p> -->
-<!--     <p id="event-adresse"></p> -->
-<!--     <p id="event-debut"></p> -->
-<!--     <p id="event-fin"></p> -->
-<!--     <p id="event-tags"></p> -->
-<!--     <p id="event-description"></p> -->
-<!-- </div> -->
-
-<!-- <div style="" class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"> -->
-<!--   <div class="modal-dialog"> -->
-<!--     <div class="modal-content"> -->
-<!--       <div class="modal-header"> -->
-<!--         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button> -->
-<!--         <h4 class="modal-title" id="myModalLabel">Où a lieu votre événement ?</h4> -->
-<!--       </div> -->
-<!--       <div class="modal-body"> -->
-<!-- 	<div id="map"></div> -->
-<!--       </div> -->
-<!--     </div> -->
-<!--   </div> -->
-<!-- </div> -->
-
-<!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal"> -->
-<!--   Situer sur une carte -->
-<!-- </button> -->
-
-

@@ -242,6 +242,17 @@
        (main-tpl {:a "accueil" :container (login-snp)
                   :formjs "validate_email"
                   :title "jecode.org - connexion"}))
+
+  ;; Login
+  (GET "/rappel" []
+       (main-tpl {:a "accueil" :container (rappel-snp)
+                  :title "jecode.org - rappel de mot de passe"}))
+
+  (POST "/rappel" {params :params}
+        (main-tpl {:a "accueil"
+                   :container (send-new-password (:email params))
+                   :title "jecode.org - rappel de mot de passe"}))
+
   (GET "/logout" req (friend/logout* (resp/redirect (str (:context req) "/"))))
   (GET "/inscription" []
        (main-tpl {:a "accueil" :container (register-snp)

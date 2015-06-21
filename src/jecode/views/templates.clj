@@ -20,6 +20,9 @@
 (html/defsnippet ^{:doc "Snippet for the login form."}
   login-snp "jecode/views/html/forms.html" [:#login_form] [])
 
+(html/defsnippet ^{:doc "Snippet for the rappel form."}
+  rappel-snp "jecode/views/html/forms.html" [:#rappel_form] [])
+
 (html/defsnippet ^{:doc "Snippet for the register form."}
   register-snp "jecode/views/html/forms.html" [:#register_form] [])
 
