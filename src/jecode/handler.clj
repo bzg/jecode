@@ -32,9 +32,6 @@
   (let [admin (System/getenv "jecode_admin")
         uid (or (get-username-uid username) "")
         password (or (get-uid-field uid "p") "")]
-    (if (= username admin) (session/put! :admin "yes"))
-    (if (and uid (not (= "" uid)))
-      (session/put! :username username))
     {:identity username :password password
      :roles (if (= username admin) #{::admins} #{::users})}))
 
@@ -46,6 +43,9 @@
       (when (try
               (sc/verify password (get creds password-key))
               (catch Exception e (prn "Error" e)))
+        (session/put! :username username)
+        (if (= username (System/getenv "jecode_admin"))
+          (session/put! :admin "yes"))
         (dissoc creds password-key)))))
 
 (defn credential-fn-gh
@@ -72,7 +72,7 @@
 (def ^{:doc "Default roles for Friend authenticated users."
        :private true}
   friend-config-auth
-  {:roles #{:kickhub.core/users}})
+  {:roles #{:jecode.core/users}})
 
 (def ^{:doc "Set up the GitHub authentication URI for Friend."
        :private true}
