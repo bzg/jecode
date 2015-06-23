@@ -15,7 +15,7 @@
             [ring.middleware.reload :refer :all]
             [ring.middleware.defaults :refer [site-defaults]]
             [compojure.core :as compojure :refer (GET POST defroutes)]
-            [org.httpkit.server :refer :all]
+            [immutant.web :as web]
             (compojure [route :as route])
             [friend-oauth2.workflow :as oauth2]
             [friend-oauth2.util :as oauth2-util]
@@ -287,7 +287,7 @@
     ;; add access rules here
     :access-rules [])))
    
-(defn -main [& args] (run-server #'app {:port 8080}))
+(defn -main [& args] (web/run #'app {:port 8080}))
 
 ;; Local Variables:
 ;; eval: (orgstruct-mode 1)
