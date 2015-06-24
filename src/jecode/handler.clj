@@ -22,7 +22,8 @@
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
-            [shoreleave.middleware.rpc :refer [wrap-rpc]]))
+            [shoreleave.middleware.rpc :refer [wrap-rpc]])
+  (:gen-class))
 
 (derive ::admins ::users)
 
