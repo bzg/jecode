@@ -38,14 +38,6 @@
              {:basic-auth mg-prv-auth}))
      true))))
 
-(defremote mg-subscribe-valid-email
-  "Subscribe a new valid email address."
-  [email]
-  (cond (not (mg-valid-email? email)) "Adresse mail invalide"
-        (mg-email-on-list? email jecode-list) "Adresse déjà inscrite"
-        :else (do (add-email-list jecode-list email)
-                  "Inscription réussie !")))
-
 ;;; * Add and delete email
 
 (defn- add-email-list
@@ -62,6 +54,14 @@
   (client/delete
    (format "https://api.mailgun.net/v2/lists/%s/members/%s" list email)
    {:basic-auth mg-prv-auth}))
+
+(defremote mg-subscribe-valid-email
+  "Subscribe a new valid email address."
+  [email]
+  (cond (not (mg-valid-email? email)) "Adresse mail invalide"
+        (mg-email-on-list? email jecode-list) "Adresse déjà inscrite"
+        :else (do (add-email-list jecode-list email)
+                  "Inscription réussie !")))
 
 ;; Local Variables:
 ;; eval: (orgstruct-mode 1)
