@@ -12,16 +12,18 @@ Préinscription individuelle gratuite et obligatoire :
 
 </br>
 
-<form action="http://flipmail.co/api/S3gNd7Lc1fMxtQEC1Gib" method="post">
+<form action="https://flipmail.co/api/S3gNd7Lc1fMxtQEC1Gib" method="post">
 <input placeholder="Votre nom" type="text" name="name">
 <input placeholder="Votre email" type="email" name="email">
 <input placeholder="Votre affiliation" type="text" name="affiliation">
 <input type="text" name="_honey" value="" style="display:none">
 <input type="hidden" name="_replyto" value="%email">
-<input type="hidden" name="_after" value="https://jecode.org/codeweek_merci" />
 <input type="hidden" name="_valid[name]" value="required">
 <input type="hidden" name="_valid[email]" value="required|valid_email">
 <button type="submit">Je viens !</button>
+
+<input type="hidden" name="_after" value="https://jecode.org/codeweek_merci" />
+
 </form>
 
 Pour cette année encore, nous avons le plaisir d'être accueillis dans [les locaux de Mozilla](https://www.mozilla.org/en-US/contact/spaces/paris/) à Paris, au 16 Bis Boulevard Montmartre.
