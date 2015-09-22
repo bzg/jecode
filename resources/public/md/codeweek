@@ -15,7 +15,7 @@ Préinscription individuelle gratuite et obligatoire :
 <form action="http://flipmail.co/api/S3gNd7Lc1fMxtQEC1Gib" method="post">
    <input type="text" placeholder="Nom" name="name">
    <input type="email" placeholder="Email" name="email">
-   <input type="hidden" name="_after" value="https://jecode.org/codeweek_merci" />
+   <!-- <input type="hidden" name="_after" value="https://jecode.org/codeweek_merci" /> -->
    <button type="submit">Je viens</button>
 </form>
 
