@@ -144,13 +144,13 @@
        (main-tpl {:a "apropos" :md "/md/apropos"
                   :title "jecode.org - Qui sommes-nous et où allons-nous ?"}))
 
-  (GET "/codeweek" []
-       (main-tpl {:a "CodeWeek" :md "/md/codeweek"
-                  :title "jecode.org - inscription à la soirée de la CodeWeek (23/10/2015)"}))
+  ;; (GET "/codeweek" []
+  ;;      (main-tpl {:a "CodeWeek" :md "/md/codeweek"
+  ;;                 :title "jecode.org - inscription à la soirée de la CodeWeek (23/10/2015)"}))
 
-  (GET "/codeweek_merci" []
-       (main-tpl {:a "CodeWeek" :md "/md/codeweek_merci"
-                  :title "jecode.org - Merci pour votre inscription !"}))
+  ;; (GET "/codeweek_merci" []
+  ;;      (main-tpl {:a "CodeWeek" :md "/md/codeweek_merci"
+  ;;                 :title "jecode.org - Merci pour votre inscription !"}))
   
   (GET "/codeurs" []
        (main-tpl {:a "codeurs" :md "/md/liste_codeurs"
