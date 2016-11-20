@@ -28,7 +28,7 @@
   (if (and js/document (.-getElementById js/document))
     (let [loc (.-location js/window)
           eventp (= "evenements"
-                    (second (re-find #"http://[^/]+/([^/]+)" loc)))]
+                    (second (re-find #"https://[^/]+/([^/]+)" loc)))]
     (let [form (by-id (if eventp "submit-event" "submit-initiative"))]
       (set! (.-onsubmit form)
             (if eventp validate-form-event validate-form-init))))))
