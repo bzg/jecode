@@ -1,6 +1,4 @@
-# #+HTML: <a href="http://travis-ci.org/bzg/jecode"><img src="https://api.travis-ci.org/bzg/jecode.png"/></a>
-
-[[https://www.gittip.com/bzg/][http://img.shields.io/gittip/bzg.svg]]
+#+html: <img src="https://circleci.com/gh/bzg/jecode/tree/master.svg?style=svg" />
 
 ** jecode.org
 
