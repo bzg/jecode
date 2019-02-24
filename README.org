@@ -1,3 +1,5 @@
+Ce dépôt est archivé et continue de vivre [[https://github.com/je-code/jecode.org][ici]].
+
 #+html: <img src="https://circleci.com/gh/bzg/jecode/tree/master.svg?style=svg" />
 
 ** jecode.org
